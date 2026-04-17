@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.2](https://github.com/protoc-contrib/protoc-gen-go-defaults/compare/v1.3.1...v1.3.2) (2026-04-17)
+
+
+### Bug Fixes
+
+* update vendorHash in flake.nix ([8c99802](https://github.com/protoc-contrib/protoc-gen-go-defaults/commit/8c99802ad107345c9ae570f4eb1f44968143ebb2))
+
 ## [1.3.1](https://github.com/protoc-contrib/protoc-gen-go-defaults/compare/v1.3.0...v1.3.1) (2026-04-17)
 
 
