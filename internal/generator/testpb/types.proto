@@ -16,7 +16,7 @@ syntax = "proto3";
 
 package tests;
 
-option go_package = "github.com/protoc-contrib/protoc-gen-go-defaults/internal/generator/testpb;testpb";
+option go_package = "github.com/protoc-contrib/protoc-gen-go-defaults/internal/generator/testpb";
 
 import "defaults/defaults.proto";
 

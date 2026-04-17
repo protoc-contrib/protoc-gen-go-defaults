@@ -665,7 +665,7 @@ const file_internal_generator_testpb_types_proto_rawDesc = "" +
 	"\fstring_field\x18\x01 \x01(\tB\x12\xca\xed\x1a\x0er\fstring_fieldR\vstringField\"C\n" +
 	"\n" +
 	"OneOfThree\x125\n" +
-	"\fstring_field\x18\x01 \x01(\tB\x12\xca\xed\x1a\x0er\fstring_fieldR\vstringFieldBSZQgithub.com/protoc-contrib/protoc-gen-go-defaults/internal/generator/testpb;testpbb\x06proto3"
+	"\fstring_field\x18\x01 \x01(\tB\x12\xca\xed\x1a\x0er\fstring_fieldR\vstringFieldBLZJgithub.com/protoc-contrib/protoc-gen-go-defaults/internal/generator/testpbb\x06proto3"
 
 var (
 	file_internal_generator_testpb_types_proto_rawDescOnce sync.Once

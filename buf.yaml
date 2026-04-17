@@ -1,11 +1,15 @@
-version: v1
+version: v2
 
-name: buf.build/protoc-contrib/protoc-gen-go-defaults
-
-breaking:
-  use:
-    - FILE
-
-lint:
-  use:
-    - DEFAULT
+modules:
+  - path: .
+    name: buf.build/protoc-contrib/protoc-gen-go-defaults
+    lint:
+      use:
+        - BASIC
+      ignore:
+        - internal/generator/testpb
+    breaking:
+      use:
+        - FILE
+      ignore:
+        - internal/generator/testpb
