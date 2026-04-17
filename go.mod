@@ -1,4 +1,4 @@
-module github.com/protoc-extensions/protoc-gen-go-defaults
+module github.com/protoc-contrib/protoc-gen-go-defaults
 
 go 1.25.8
 

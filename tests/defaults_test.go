@@ -9,8 +9,8 @@ import (
 	"google.golang.org/protobuf/types/known/timestamppb"
 	"google.golang.org/protobuf/types/known/wrapperspb"
 
-	"github.com/protoc-extensions/protoc-gen-go-defaults/defaults"
-	"github.com/protoc-extensions/protoc-gen-go-defaults/tests/pb"
+	"github.com/protoc-contrib/protoc-gen-go-defaults/defaults"
+	"github.com/protoc-contrib/protoc-gen-go-defaults/tests/pb"
 )
 
 // expectedTest is the message the fixtures in tests/pb/test.proto should

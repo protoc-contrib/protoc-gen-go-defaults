@@ -30,7 +30,7 @@ import (
 	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
 	wrapperspb "google.golang.org/protobuf/types/known/wrapperspb"
 
-	_ "github.com/protoc-extensions/protoc-gen-go-defaults/defaults"
+	_ "github.com/protoc-contrib/protoc-gen-go-defaults/defaults"
 )
 
 const (

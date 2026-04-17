@@ -15,7 +15,7 @@
 syntax = "proto2";
 package defaults;
 
-option go_package = "github.com/protoc-extensions/protoc-gen-go-defaults/defaults;defaults";
+option go_package = "github.com/protoc-contrib/protoc-gen-go-defaults/defaults;defaults";
 
 import "google/protobuf/descriptor.proto";
 

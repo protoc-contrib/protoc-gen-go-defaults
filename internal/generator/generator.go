@@ -1,5 +1,5 @@
 // Package generator emits Default() methods for proto messages annotated
-// with the github.com/protoc-extensions/protoc-gen-go-defaults extensions.
+// with the github.com/protoc-contrib/protoc-gen-go-defaults extensions.
 package generator
 
 import (
@@ -9,7 +9,7 @@ import (
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/reflect/protoreflect"
 
-	"github.com/protoc-extensions/protoc-gen-go-defaults/defaults"
+	"github.com/protoc-contrib/protoc-gen-go-defaults/defaults"
 )
 
 const generatedFilenameSuffix = ".pb.defaults.go"

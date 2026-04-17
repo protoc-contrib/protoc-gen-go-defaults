@@ -7,7 +7,7 @@ import (
 	"google.golang.org/protobuf/compiler/protogen"
 	"google.golang.org/protobuf/reflect/protoreflect"
 
-	"github.com/protoc-extensions/protoc-gen-go-defaults/defaults"
+	"github.com/protoc-contrib/protoc-gen-go-defaults/defaults"
 )
 
 // check validates a single message's default-value annotations. It returns

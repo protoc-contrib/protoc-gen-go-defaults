@@ -10,7 +10,7 @@ import (
 	"google.golang.org/protobuf/compiler/protogen"
 	"google.golang.org/protobuf/types/pluginpb"
 
-	"github.com/protoc-extensions/protoc-gen-go-defaults/internal/generator"
+	"github.com/protoc-contrib/protoc-gen-go-defaults/internal/generator"
 )
 
 // version is set at build time via ldflags (e.g. -X main.version=0.1.0).

@@ -1,6 +1,6 @@
 version: v1
 
-name: buf.build/protoc-extensions/protoc-gen-go-defaults
+name: buf.build/protoc-contrib/protoc-gen-go-defaults
 
 breaking:
   use:

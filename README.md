@@ -12,9 +12,14 @@ Protocol Buffer messages from field and message options. It works on Go code
 produced by `protoc-gen-go`, adds compile-time defaults, and ships with a
 reflection-based `defaults.Apply` helper for dynamic callers.
 
-The project is a fork of
+This project started as a fork of
 [linka-cloud/protoc-gen-defaults](https://github.com/linka-cloud/protoc-gen-defaults)
-rebuilt on top of `google.golang.org/protobuf/compiler/protogen`.
+and has since been significantly refactored: the code generator was rewritten
+on top of `google.golang.org/protobuf/compiler/protogen` (replacing the
+archived `lyft/protoc-gen-star`), the build and release pipeline now uses Nix
++ `release-please`, tests were migrated to Ginkgo/Gomega, deprecated
+dependencies were removed, and several code-generation bugs (notably around
+`fixed64` defaults) were fixed.
 
 ## Features
 
@@ -179,7 +184,7 @@ generic middleware), use `defaults.Apply`:
 
 ```go
 import (
-    "github.com/protoc-extensions/protoc-gen-go-defaults/defaults"
+    "github.com/protoc-contrib/protoc-gen-go-defaults/defaults"
     "google.golang.org/protobuf/proto"
 )
 
