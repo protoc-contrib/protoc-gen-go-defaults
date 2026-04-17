@@ -94,7 +94,7 @@ func (m *Module) genFieldDefaults(f pgs.Field, genOneOfField ...bool) (string, b
 	case *defaults.FieldDefaults_Fixed32:
 		return m.simpleDefaults(f, 0, fieldDefaults.GetFixed32(), wk), true
 	case *defaults.FieldDefaults_Fixed64:
-		return m.simpleDefaults(f, 0, fieldDefaults.GetFixed32(), wk), true
+		return m.simpleDefaults(f, 0, fieldDefaults.GetFixed64(), wk), true
 	case *defaults.FieldDefaults_Sfixed32:
 		return m.simpleDefaults(f, 0, fieldDefaults.GetSfixed32(), wk), true
 	case *defaults.FieldDefaults_Sfixed64:

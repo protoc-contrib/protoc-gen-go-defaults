@@ -57,7 +57,6 @@ func Apply(m proto.Message) {
 		}
 		fd, ok := v.(*FieldDefaults)
 		if !ok {
-			// wtf ???
 			continue
 		}
 		name := f.Name()
@@ -65,7 +64,6 @@ func Apply(m proto.Message) {
 			v := proto.GetExtension(oo.Options(), E_Oneof)
 			oon, ok := v.(string)
 			if !ok {
-				// wtf ??
 				continue
 			}
 			if oon != string(name) {
