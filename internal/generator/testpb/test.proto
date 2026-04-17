@@ -16,7 +16,7 @@ syntax = "proto3";
 
 package tests;
 
-option go_package = "github.com/protoc-contrib/protoc-gen-go-defaults/internal/generator/pb";
+option go_package = "github.com/protoc-contrib/protoc-gen-go-defaults/internal/generator/testpb";
 
 import "defaults/defaults.proto";
 
@@ -24,7 +24,7 @@ import "google/protobuf/wrappers.proto";
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/duration.proto";
 import "google/protobuf/descriptor.proto";
-import "internal/generator/pb/types.proto";
+import "internal/generator/testpb/types.proto";
 
 message Test {
 	string string_field = 1 [(defaults.value).string = "string_field"];

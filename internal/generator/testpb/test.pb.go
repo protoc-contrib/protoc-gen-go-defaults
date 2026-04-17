@@ -16,9 +16,9 @@
 // versions:
 // 	protoc-gen-go v1.27.1
 // 	protoc        v3.17.3
-// source: internal/generator/pb/test.proto
+// source: internal/generator/testpb/test.proto
 
-package pb
+package testpb
 
 import (
 	reflect "reflect"

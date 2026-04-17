@@ -10,13 +10,13 @@ import (
 	"google.golang.org/protobuf/types/known/wrapperspb"
 
 	"github.com/protoc-contrib/protoc-gen-go-defaults/defaults"
-	"github.com/protoc-contrib/protoc-gen-go-defaults/internal/generator/pb"
+	"github.com/protoc-contrib/protoc-gen-go-defaults/internal/generator/testpb"
 )
 
 // expectedTest is the message the fixtures in pb/test.proto should produce
 // when Default()/Apply() is invoked on a zero value.
-func expectedTest() *pb.Test {
-	return &pb.Test{
+func expectedTest() *testpb.Test {
+	return &testpb.Test{
 		StringField:               "string_field",
 		NumberField:               42,
 		BoolField:                 true,
@@ -25,7 +25,7 @@ func expectedTest() *pb.Test {
 		StringValueField:          wrapperspb.String("string_value"),
 		BoolValueField:            wrapperspb.Bool(false),
 		DurationValueField:        durationpb.New(25401600000000000),
-		Oneof:                     &pb.Test_Two{Two: &pb.OneOfTwo{StringField: "string_field"}},
+		Oneof:                     &testpb.Test_Two{Two: &testpb.OneOfTwo{StringField: "string_field"}},
 		Descriptor_:               &descriptorpb.DescriptorProto{},
 		TimeValueFieldWithDefault: &timestamppb.Timestamp{Seconds: -562032000},
 		Bytes:                     []byte("??"),
@@ -34,7 +34,7 @@ func expectedTest() *pb.Test {
 
 var _ = Describe("Default()", func() {
 	It("populates scalars, wrappers, and the default oneof arm", func() {
-		msg := &pb.Test{}
+		msg := &testpb.Test{}
 		msg.Default()
 
 		Expect(msg.TimeValueField).NotTo(BeNil())
@@ -45,18 +45,18 @@ var _ = Describe("Default()", func() {
 	})
 
 	It("skips generation for messages annotated with (defaults.ignored)", func() {
-		_, generated := interface{}(&pb.OneOfOne{}).(interface{ Default() })
+		_, generated := interface{}(&testpb.OneOfOne{}).(interface{ Default() })
 		Expect(generated).To(BeFalse())
 	})
 
 	It("emits an empty method for messages annotated with (defaults.disabled)", func() {
-		msg := &pb.OneOfThree{}
+		msg := &testpb.OneOfThree{}
 		msg.Default()
 		Expect(msg.StringField).To(BeEmpty())
 	})
 
 	It("routes unexported messages through _Default() exposed via a wrapper", func() {
-		msg := &pb.TestUnexported{}
+		msg := &testpb.TestUnexported{}
 		msg.Default()
 		Expect(msg.StringField).To(HaveValue(Equal("string_field")))
 		Expect(msg.NumberField).To(HaveValue(Equal(int64(42))))
@@ -64,7 +64,7 @@ var _ = Describe("Default()", func() {
 
 	Describe("Types message", func() {
 		It("applies every scalar default including fixed64 (regression for GetFixed32/GetFixed64 bug)", func() {
-			t := &pb.Types{}
+			t := &testpb.Types{}
 			t.Default()
 
 			Expect(t.Float).To(BeNumerically("~", float32(0.42), 1e-6))
@@ -82,11 +82,11 @@ var _ = Describe("Default()", func() {
 			Expect(t.Bool).To(BeTrue())
 			Expect(t.String_).To(Equal("42"))
 			Expect(t.Bytes).To(Equal([]byte("42")))
-			Expect(t.Enum).To(Equal(pb.Types_ONE))
+			Expect(t.Enum).To(Equal(testpb.Types_ONE))
 		})
 
 		It("does not overwrite fields that are already set", func() {
-			t := &pb.Types{Int32: 7, Bool: false, String_: "already"}
+			t := &testpb.Types{Int32: 7, Bool: false, String_: "already"}
 			t.Default()
 			Expect(t.Int32).To(Equal(int32(7)))
 			Expect(t.String_).To(Equal("already"))
@@ -98,7 +98,7 @@ var _ = Describe("Default()", func() {
 
 var _ = Describe("defaults.Apply()", func() {
 	It("matches the code-generated Default() output for Test", func() {
-		msg := &pb.Test{}
+		msg := &testpb.Test{}
 		defaults.Apply(msg)
 
 		Expect(msg.TimeValueField).NotTo(BeNil())
@@ -111,7 +111,7 @@ var _ = Describe("defaults.Apply()", func() {
 	It("preserves fields that are already set", func() {
 		want := expectedTest()
 		want.StringField = "other"
-		msg := &pb.Test{StringField: "other"}
+		msg := &testpb.Test{StringField: "other"}
 		defaults.Apply(msg)
 
 		Expect(msg.TimeValueField).NotTo(BeNil())
@@ -120,7 +120,7 @@ var _ = Describe("defaults.Apply()", func() {
 	})
 
 	It("applies every scalar kind on Types via reflection", func() {
-		t := &pb.Types{}
+		t := &testpb.Types{}
 		defaults.Apply(t)
 
 		Expect(t.Float).To(BeNumerically("~", float32(0.42), 1e-6))
@@ -138,7 +138,7 @@ var _ = Describe("defaults.Apply()", func() {
 		Expect(t.Bool).To(BeTrue())
 		Expect(t.String_).To(Equal("42"))
 		Expect(t.Bytes).To(Equal([]byte("42")))
-		Expect(t.Enum).To(Equal(pb.Types_ONE))
+		Expect(t.Enum).To(Equal(testpb.Types_ONE))
 
 		Expect(t.DoubleValue.GetValue()).To(BeNumerically("~", 0.42, 1e-9))
 		Expect(t.FloatValue.GetValue()).To(BeNumerically("~", float32(0.42), 1e-6))
@@ -154,16 +154,16 @@ var _ = Describe("defaults.Apply()", func() {
 		Expect(t.Duration).NotTo(BeNil())
 		Expect(t.Duration.AsDuration().Hours()).To(BeNumerically("~", 48.0, 1e-6))
 		Expect(t.Timestamp).NotTo(BeNil())
-		Expect(t.Oneof).To(BeAssignableToTypeOf(&pb.Types_Two{}))
+		Expect(t.Oneof).To(BeAssignableToTypeOf(&testpb.Types_Two{}))
 		Expect(t.Message).NotTo(BeNil())
 	})
 
 	It("skips messages annotated with (defaults.ignored) or (defaults.disabled)", func() {
-		ignored := &pb.OneOfOne{}
+		ignored := &testpb.OneOfOne{}
 		defaults.Apply(ignored)
 		Expect(ignored.StringField).To(BeEmpty())
 
-		disabled := &pb.OneOfThree{}
+		disabled := &testpb.OneOfThree{}
 		defaults.Apply(disabled)
 		Expect(disabled.StringField).To(BeEmpty())
 	})
@@ -173,20 +173,20 @@ var _ = Describe("defaults.Apply()", func() {
 	})
 
 	It("respects proto3 optional presence", func() {
-		enum := pb.TestOptional_TWO
-		want := &pb.TestOptional{
+		enum := testpb.TestOptional_TWO
+		want := &testpb.TestOptional{
 			StringField: proto.String("string_field"),
 			NumberField: proto.Int64(42),
 			BoolField:   proto.Bool(true),
 			EnumField:   &enum,
 		}
-		msg := &pb.TestOptional{}
+		msg := &testpb.TestOptional{}
 		defaults.Apply(msg)
 		Expect(proto.Equal(msg, want)).To(BeTrue())
 
 		// A caller-provided value must not be overwritten.
 		want.StringField = proto.String("other")
-		msg = &pb.TestOptional{StringField: proto.String("other")}
+		msg = &testpb.TestOptional{StringField: proto.String("other")}
 		defaults.Apply(msg)
 		Expect(proto.Equal(msg, want)).To(BeTrue())
 	})
