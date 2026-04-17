@@ -9,7 +9,7 @@ import (
 	"google.golang.org/protobuf/types/known/timestamppb"
 	"google.golang.org/protobuf/types/known/wrapperspb"
 
-	"github.com/protoc-contrib/protoc-gen-go-defaults/defaults"
+	"github.com/protoc-contrib/protoc-gen-go-defaults/protoc_contrib/defaults"
 	"github.com/protoc-contrib/protoc-gen-go-defaults/internal/generator/testpb"
 )
 

@@ -3,8 +3,9 @@ package generator_test
 import (
 	"strings"
 
-	. "github.com/onsi/ginkgo/v2"
-	. "github.com/onsi/gomega"
+	"github.com/protoc-contrib/protoc-gen-go-defaults/protoc_contrib/defaults"
+	"github.com/protoc-contrib/protoc-gen-go-defaults/internal/generator"
+	"github.com/protoc-contrib/protoc-gen-go-defaults/internal/generator/testpb"
 	"google.golang.org/protobuf/compiler/protogen"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/reflect/protodesc"
@@ -12,9 +13,8 @@ import (
 	"google.golang.org/protobuf/types/descriptorpb"
 	"google.golang.org/protobuf/types/pluginpb"
 
-	"github.com/protoc-contrib/protoc-gen-go-defaults/defaults"
-	"github.com/protoc-contrib/protoc-gen-go-defaults/internal/generator"
-	"github.com/protoc-contrib/protoc-gen-go-defaults/internal/generator/testpb"
+	. "github.com/onsi/ginkgo/v2"
+	. "github.com/onsi/gomega"
 )
 
 // runGenerator builds a CodeGeneratorRequest that asks the plugin to generate

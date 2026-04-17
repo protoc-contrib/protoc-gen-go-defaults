@@ -7,10 +7,9 @@ import (
 	"time"
 
 	"github.com/prometheus/common/model"
+	"github.com/protoc-contrib/protoc-gen-go-defaults/protoc_contrib/defaults"
 	"google.golang.org/protobuf/compiler/protogen"
 	"google.golang.org/protobuf/reflect/protoreflect"
-
-	"github.com/protoc-contrib/protoc-gen-go-defaults/defaults"
 )
 
 // parseDuration accepts the same format as prometheus/common/model.ParseDuration:

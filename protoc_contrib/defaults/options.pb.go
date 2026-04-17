@@ -540,7 +540,7 @@ var File_protoc_contrib_defaults_options_proto protoreflect.FileDescriptor
 
 const file_protoc_contrib_defaults_options_proto_rawDesc = "" +
 	"\n" +
-	"%protoc_contrib/defaults/options.proto\x12\x17protoc_contrib.defaults\x1a google/protobuf/descriptor.proto\"\xdc\x04\n" +
+	"%protoc_contrib/defaults/options.proto\x12\x17protoc_contrib.defaults\x1a google/protobuf/descriptor.proto\"\xe2\x04\n" +
 	"\rFieldDefaults\x12\x16\n" +
 	"\x05float\x18\x01 \x01(\x02H\x00R\x05float\x12\x18\n" +
 	"\x06double\x18\x02 \x01(\x01H\x00R\x06double\x12\x16\n" +
@@ -562,19 +562,19 @@ const file_protoc_contrib_defaults_options_proto_rawDesc = "" +
 	"\amessage\x18\x11 \x01(\v2(.protoc_contrib.defaults.MessageDefaultsH\x00R\amessage\x12\x1c\n" +
 	"\bduration\x18\x15 \x01(\tH\x00R\bduration\x12\x1e\n" +
 	"\ttimestamp\x18\x16 \x01(\tH\x00R\ttimestamp\x12\x1d\n" +
-	"\tenum_name\x18\x17 \x01(\tH\x00R\benumNameB\x06\n" +
-	"\x04typeJ\x04\b\x12\x10\x15\"K\n" +
+	"\tenum_name\x18\x17 \x01(\tH\x00R\benumName:\x04\xd8\xed\x1a\x01B\x06\n" +
+	"\x04typeJ\x04\b\x12\x10\x15\"Q\n" +
 	"\x0fMessageDefaults\x12\x1e\n" +
 	"\n" +
 	"initialize\x18\x01 \x01(\bR\n" +
 	"initialize\x12\x18\n" +
-	"\arecurse\x18\x02 \x01(\bR\arecurse:5\n" +
+	"\arecurse\x18\x02 \x01(\bR\arecurse:\x04\xd8\xed\x1a\x01:5\n" +
 	"\x04skip\x12\x1f.google.protobuf.MessageOptions\x18ۭ\x03 \x01(\bR\x04skip:A\n" +
 	"\n" +
 	"unexported\x12\x1f.google.protobuf.MessageOptions\x18ܭ\x03 \x01(\bR\n" +
 	"unexported:5\n" +
 	"\x05oneof\x12\x1d.google.protobuf.OneofOptions\x18ڭ\x03 \x01(\tR\x05oneof:]\n" +
-	"\x05value\x12\x1d.google.protobuf.FieldOptions\x18٭\x03 \x01(\v2&.protoc_contrib.defaults.FieldDefaultsR\x05valueBDZBgithub.com/protoc-contrib/protoc-gen-go-defaults/defaults;defaults"
+	"\x05value\x12\x1d.google.protobuf.FieldOptions\x18٭\x03 \x01(\v2&.protoc_contrib.defaults.FieldDefaultsR\x05valueBSZQgithub.com/protoc-contrib/protoc-gen-go-defaults/protoc_contrib/defaults;defaults"
 
 var (
 	file_protoc_contrib_defaults_options_proto_rawDescOnce sync.Once

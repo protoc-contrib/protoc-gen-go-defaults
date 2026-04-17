@@ -36,10 +36,10 @@ func TestParseDuration(t *testing.T) {
 
 func TestParseTime(t *testing.T) {
 	good := []string{
-		"1952-03-11T00:00:00Z",           // RFC3339
-		"Mon, 02 Jan 2006 15:04:05 MST",  // RFC1123
+		"1952-03-11T00:00:00Z",            // RFC3339
+		"Mon, 02 Jan 2006 15:04:05 MST",   // RFC1123
 		"Mon, 02 Jan 2006 15:04:05 -0700", // RFC1123Z
-		"Monday, 02-Jan-06 15:04:05 MST", // RFC850
+		"Monday, 02-Jan-06 15:04:05 MST",  // RFC850
 	}
 	for _, s := range good {
 		if _, err := parseTime(s); err != nil {
