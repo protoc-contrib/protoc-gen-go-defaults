@@ -3,8 +3,8 @@ plugins:
   - local: [go, tool, protoc-gen-go]
     out: .
     opt:
-      - paths=source_relative
+      - module=github.com/protoc-contrib/protoc-gen-go-defaults
   - local: [go, run, ./cmd/protoc-gen-go-defaults]
     out: .
     opt:
-      - paths=source_relative
+      - module=github.com/protoc-contrib/protoc-gen-go-defaults

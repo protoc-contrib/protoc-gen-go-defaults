@@ -241,8 +241,8 @@ func emitMessageField(g *protogen.GeneratedFile, field *protogen.Field, md *defa
 	if !md.GetRecurse() {
 		return
 	}
-	g.P("if v, ok := interface{}(x.", name, ").(interface{ Default() }); ok && x.", name, " != nil {")
-	g.P("v.Default()")
+	g.P("if v, ok := interface{}(x.", name, ").(interface{ SetDefaults() }); ok && x.", name, " != nil {")
+	g.P("v.SetDefaults()")
 	g.P("}")
 }
 

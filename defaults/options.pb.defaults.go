@@ -2,8 +2,8 @@
 
 package defaults
 
-func (x *FieldDefaults) Default() {
+func (x *FieldDefaults) SetDefaults() {
 }
 
-func (x *MessageDefaults) Default() {
+func (x *MessageDefaults) SetDefaults() {
 }

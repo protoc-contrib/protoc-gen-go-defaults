@@ -7,9 +7,9 @@
 [![Go](https://img.shields.io/badge/Go-1.25-00ADD8?logo=go&logoColor=white)](https://go.dev)
 [![protoc](https://img.shields.io/badge/protoc-compatible-blue)](https://protobuf.dev)
 
-A [protoc](https://protobuf.dev) plugin that generates `Default()` methods for
-Protocol Buffer messages from field and message options. It works on Go code
-produced by `protoc-gen-go`, adds compile-time defaults, and ships with a
+A [protoc](https://protobuf.dev) plugin that generates `SetDefaults()` methods
+for Protocol Buffer messages from field and message options. It works on Go
+code produced by `protoc-gen-go`, adds compile-time defaults, and ships with a
 reflection-based `defaults.Apply` helper for dynamic callers.
 
 This project started as a fork of
@@ -24,12 +24,12 @@ archived `lyft/protoc-gen-star`), the build and release pipeline now uses Nix
 
 ## Features
 
-- Annotate `.proto` fields with `(defaults.value)` to populate scalars,
+- Annotate `.proto` fields with `(protoc_contrib.defaults.value)` to populate scalars,
   enums, bytes, wrappers, and `google.protobuf.{Duration,Timestamp}` on zero
   values.
-- Pick the active arm of a `oneof` declaratively with `(defaults.oneof)`.
-- Skip generation entirely (`(defaults.skip)`) or expose an unexported
-  `_Default()` method (`(defaults.unexported)`) when you want to compose
+- Pick the active arm of a `oneof` declaratively with `(protoc_contrib.defaults.oneof)`.
+- Skip generation entirely (`(protoc_contrib.defaults.skip)`) or expose an unexported
+  `_Default()` method (`(protoc_contrib.defaults.unexported)`) when you want to compose
   with custom logic.
 - Runtime `defaults.Apply(proto.Message)` mirrors the generated code via
   proto reflection for callers that do not have the concrete Go type.
@@ -79,35 +79,37 @@ protoc \
 
 ## Extensions
 
-Import `defaults/defaults.proto` in your `.proto` files to use the options.
+Import `protoc_contrib/defaults/options.proto` in your `.proto` files to use
+the options. The module is published to the Buf Schema Registry as
+`buf.build/protoc-contrib/protoc-gen-go-defaults`.
 
-| Extension               | Scope          | Purpose                                                        |
-| ----------------------- | -------------- | -------------------------------------------------------------- |
-| `(defaults.value)`      | FieldOptions   | Default value applied when the field is zero.                  |
-| `(defaults.oneof)`      | OneofOptions   | Name of the arm to populate when the oneof is unset.           |
-| `(defaults.skip)`       | MessageOptions | Skip `Default()` generation for this message entirely.         |
-| `(defaults.unexported)` | MessageOptions | Emit an unexported `_Default()` method instead of `Default()`. |
+| Extension                              | Scope          | Purpose                                                              |
+| -------------------------------------- | -------------- | -------------------------------------------------------------------- |
+| `(protoc_contrib.defaults.value)`      | FieldOptions   | Default value applied when the field is zero.                        |
+| `(protoc_contrib.defaults.oneof)`      | OneofOptions   | Name of the arm to populate when the oneof is unset.                 |
+| `(protoc_contrib.defaults.skip)`       | MessageOptions | Skip `SetDefaults()` generation for this message entirely.           |
+| `(protoc_contrib.defaults.unexported)` | MessageOptions | Emit an unexported `_SetDefaults()` method instead of `SetDefaults()`. |
 
 ### Scalars and enums
 
 ```proto
-import "defaults/defaults.proto";
+import "protoc_contrib/defaults/options.proto";
 
 message Account {
-  string tier = 1 [(defaults.value).string = "free"];
-  int64 max_requests = 2 [(defaults.value).int64 = 100];
-  bool active = 3 [(defaults.value).bool = true];
-  bytes salt = 4 [(defaults.value).bytes = "??"];
+  string tier = 1 [(protoc_contrib.defaults.value).string = "free"];
+  int64 max_requests = 2 [(protoc_contrib.defaults.value).int64 = 100];
+  bool active = 3 [(protoc_contrib.defaults.value).bool = true];
+  bytes salt = 4 [(protoc_contrib.defaults.value).bytes = "??"];
 
   enum Role { UNKNOWN = 0; USER = 1; ADMIN = 2; }
-  Role role = 5 [(defaults.value).enum = 1];
+  Role role = 5 [(protoc_contrib.defaults.value).enum = 1];
 }
 ```
 
 Generated:
 
 ```go
-func (x *Account) Default() {
+func (x *Account) SetDefaults() {
     if x.Tier == "" { x.Tier = "free" }
     if x.MaxRequests == 0 { x.MaxRequests = 100 }
     if !x.Active { x.Active = true }
@@ -124,10 +126,10 @@ import "google/protobuf/timestamp.proto";
 import "google/protobuf/wrappers.proto";
 
 message Job {
-  google.protobuf.StringValue name = 1 [(defaults.value).string = "anon"];
-  google.protobuf.Duration retry_after = 2 [(defaults.value).duration = "30s"];
-  google.protobuf.Timestamp deadline = 3 [(defaults.value).timestamp = "now"];
-  google.protobuf.Timestamp epoch = 4 [(defaults.value).timestamp = "1970-01-01T00:00:00Z"];
+  google.protobuf.StringValue name = 1 [(protoc_contrib.defaults.value).string = "anon"];
+  google.protobuf.Duration retry_after = 2 [(protoc_contrib.defaults.value).duration = "30s"];
+  google.protobuf.Timestamp deadline = 3 [(protoc_contrib.defaults.value).timestamp = "now"];
+  google.protobuf.Timestamp epoch = 4 [(protoc_contrib.defaults.value).timestamp = "1970-01-01T00:00:00Z"];
 }
 ```
 
@@ -140,35 +142,35 @@ string.
 ```proto
 message Notification {
   oneof channel {
-    option (defaults.oneof) = "email";
-    Email email = 1 [(defaults.value).message = {initialize: true, recurse: true}];
+    option (protoc_contrib.defaults.oneof) = "email";
+    Email email = 1 [(protoc_contrib.defaults.value).message = {initialize: true, recurse: true}];
     Sms   sms   = 2;
   }
 }
 ```
 
-`(defaults.oneof)` selects the arm to populate when no member is set, and
-`(defaults.value).message` controls whether the arm is initialized and
-whether its own `Default()` is invoked.
+`(protoc_contrib.defaults.oneof)` selects the arm to populate when no member is set, and
+`(protoc_contrib.defaults.value).message` controls whether the arm is initialized and
+whether its own `SetDefaults()` is invoked.
 
 ### Message-level controls
 
 ```proto
 message Legacy {
-  option (defaults.skip) = true;       // no Default() generated at all
+  option (protoc_contrib.defaults.skip) = true;       // no SetDefaults() generated at all
 }
 
 message Composable {
-  option (defaults.unexported) = true; // _Default() generated
-  string tier = 1 [(defaults.value).string = "free"];
+  option (protoc_contrib.defaults.unexported) = true; // _SetDefaults() generated
+  string tier = 1 [(protoc_contrib.defaults.value).string = "free"];
 }
 ```
 
-With `unexported`, you can write a custom `Default()` that delegates:
+With `unexported`, you can write a custom `SetDefaults()` that delegates:
 
 ```go
-func (x *Composable) Default() {
-    x._Default()
+func (x *Composable) SetDefaults() {
+    x._SetDefaults()
     // custom logic here
 }
 ```

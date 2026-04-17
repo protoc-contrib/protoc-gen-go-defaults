@@ -561,7 +561,7 @@ var File_internal_generator_testpb_test_proto protoreflect.FileDescriptor
 
 const file_internal_generator_testpb_test_proto_rawDesc = "" +
 	"\n" +
-	"$internal/generator/testpb/test.proto\x12\x05tests\x1a\x17defaults/defaults.proto\x1a\x1egoogle/protobuf/wrappers.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1egoogle/protobuf/duration.proto\x1a google/protobuf/descriptor.proto\x1a%internal/generator/testpb/types.proto\"\x9b\n" +
+	"$internal/generator/testpb/test.proto\x12\x05tests\x1a%protoc_contrib/defaults/options.proto\x1a\x1egoogle/protobuf/wrappers.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1egoogle/protobuf/duration.proto\x1a google/protobuf/descriptor.proto\x1a%internal/generator/testpb/types.proto\"\x9b\n" +
 	"\n" +
 	"\x04Test\x125\n" +
 	"\fstring_field\x18\x01 \x01(\tB\x12\xca\xed\x1a\x0er\fstring_fieldR\vstringField\x12)\n" +

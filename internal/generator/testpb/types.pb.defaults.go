@@ -8,7 +8,7 @@ import (
 	wrapperspb "google.golang.org/protobuf/types/known/wrapperspb"
 )
 
-func (x *Types) Default() {
+func (x *Types) SetDefaults() {
 	if x.Float == 0 {
 		x.Float = 0.42
 	}
@@ -68,22 +68,22 @@ func (x *Types) Default() {
 		if x.One == nil {
 			x.One = &OneOfOne{}
 		}
-		if v, ok := interface{}(x.One).(interface{ Default() }); ok && x.One != nil {
-			v.Default()
+		if v, ok := interface{}(x.One).(interface{ SetDefaults() }); ok && x.One != nil {
+			v.SetDefaults()
 		}
 	case *Types_Two:
 		if x.Two == nil {
 			x.Two = &OneOfTwo{}
 		}
-		if v, ok := interface{}(x.Two).(interface{ Default() }); ok && x.Two != nil {
-			v.Default()
+		if v, ok := interface{}(x.Two).(interface{ SetDefaults() }); ok && x.Two != nil {
+			v.SetDefaults()
 		}
 	case *Types_Three:
 		if x.Three == nil {
 			x.Three = &OneOfThree{}
 		}
-		if v, ok := interface{}(x.Three).(interface{ Default() }); ok && x.Three != nil {
-			v.Default()
+		if v, ok := interface{}(x.Three).(interface{ SetDefaults() }); ok && x.Three != nil {
+			v.SetDefaults()
 		}
 	case *Types_Four:
 		if x.Four == 0 {
@@ -125,19 +125,19 @@ func (x *Types) Default() {
 	}
 }
 
-func (x *Message) Default() {
+func (x *Message) SetDefaults() {
 	if x.Field == "" {
 		x.Field = "lonely field"
 	}
 }
 
-func (x *OneOfTwo) Default() {
+func (x *OneOfTwo) SetDefaults() {
 	if x.StringField == "" {
 		x.StringField = "string_field"
 	}
 }
 
-func (x *OneOfThree) Default() {
+func (x *OneOfThree) SetDefaults() {
 	if x.StringField == "" {
 		x.StringField = "string_field"
 	}

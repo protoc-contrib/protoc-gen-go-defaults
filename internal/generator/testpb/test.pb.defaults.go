@@ -9,7 +9,7 @@ import (
 	wrapperspb "google.golang.org/protobuf/types/known/wrapperspb"
 )
 
-func (x *Test) Default() {
+func (x *Test) SetDefaults() {
 	if x.StringField == "" {
 		x.StringField = "string_field"
 	}
@@ -22,8 +22,8 @@ func (x *Test) Default() {
 	if x.EnumField == 0 {
 		x.EnumField = 2
 	}
-	if v, ok := interface{}(x.MessageField).(interface{ Default() }); ok && x.MessageField != nil {
-		v.Default()
+	if v, ok := interface{}(x.MessageField).(interface{ SetDefaults() }); ok && x.MessageField != nil {
+		v.SetDefaults()
 	}
 	if x.NumberValueField == nil {
 		x.NumberValueField = &wrapperspb.Int64Value{Value: 43}
@@ -48,22 +48,22 @@ func (x *Test) Default() {
 		if x.One == nil {
 			x.One = &OneOfOne{}
 		}
-		if v, ok := interface{}(x.One).(interface{ Default() }); ok && x.One != nil {
-			v.Default()
+		if v, ok := interface{}(x.One).(interface{ SetDefaults() }); ok && x.One != nil {
+			v.SetDefaults()
 		}
 	case *Test_Two:
 		if x.Two == nil {
 			x.Two = &OneOfTwo{}
 		}
-		if v, ok := interface{}(x.Two).(interface{ Default() }); ok && x.Two != nil {
-			v.Default()
+		if v, ok := interface{}(x.Two).(interface{ SetDefaults() }); ok && x.Two != nil {
+			v.SetDefaults()
 		}
 	case *Test_Three:
 		if x.Three == nil {
 			x.Three = &OneOfThree{}
 		}
-		if v, ok := interface{}(x.Three).(interface{ Default() }); ok && x.Three != nil {
-			v.Default()
+		if v, ok := interface{}(x.Three).(interface{ SetDefaults() }); ok && x.Three != nil {
+			v.SetDefaults()
 		}
 	case *Test_Four:
 		if x.Four == 0 {
@@ -73,8 +73,8 @@ func (x *Test) Default() {
 	if x.Descriptor_ == nil {
 		x.Descriptor_ = &descriptorpb.DescriptorProto{}
 	}
-	if v, ok := interface{}(x.Descriptor_).(interface{ Default() }); ok && x.Descriptor_ != nil {
-		v.Default()
+	if v, ok := interface{}(x.Descriptor_).(interface{ SetDefaults() }); ok && x.Descriptor_ != nil {
+		v.SetDefaults()
 	}
 	if x.TimeValueFieldWithDefault == nil {
 		x.TimeValueFieldWithDefault = &timestamppb.Timestamp{Seconds: -562032000, Nanos: 0}
@@ -84,7 +84,7 @@ func (x *Test) Default() {
 	}
 }
 
-func (x *TestOptional) Default() {
+func (x *TestOptional) SetDefaults() {
 	if x.StringField == nil {
 		v := string("string_field")
 		x.StringField = &v
@@ -103,7 +103,7 @@ func (x *TestOptional) Default() {
 	}
 }
 
-func (x *TestUnexported) _Default() {
+func (x *TestUnexported) _SetDefaults() {
 	if x.StringField == nil {
 		v := string("string_field")
 		x.StringField = &v

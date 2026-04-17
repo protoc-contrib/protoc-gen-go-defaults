@@ -14,7 +14,7 @@ import (
 )
 
 // expectedTest is the message the fixtures in pb/test.proto should produce
-// when Default()/Apply() is invoked on a zero value.
+// when SetDefaults()/Apply() is invoked on a zero value.
 func expectedTest() *testpb.Test {
 	return &testpb.Test{
 		StringField:               "string_field",
@@ -32,10 +32,10 @@ func expectedTest() *testpb.Test {
 	}
 }
 
-var _ = Describe("Default()", func() {
+var _ = Describe("SetDefaults()", func() {
 	It("populates scalars, wrappers, and the default oneof arm", func() {
 		msg := &testpb.Test{}
-		msg.Default()
+		msg.SetDefaults()
 
 		Expect(msg.TimeValueField).NotTo(BeNil())
 		now := timestamppb.Now()
@@ -45,13 +45,13 @@ var _ = Describe("Default()", func() {
 	})
 
 	It("skips generation for messages annotated with (defaults.skip)", func() {
-		_, generated := interface{}(&testpb.OneOfOne{}).(interface{ Default() })
+		_, generated := interface{}(&testpb.OneOfOne{}).(interface{ SetDefaults() })
 		Expect(generated).To(BeFalse())
 	})
 
-	It("routes unexported messages through _Default() exposed via a wrapper", func() {
+	It("routes unexported messages through _SetDefaults() exposed via a wrapper", func() {
 		msg := &testpb.TestUnexported{}
-		msg.Default()
+		msg.SetDefaults()
 		Expect(msg.StringField).To(HaveValue(Equal("string_field")))
 		Expect(msg.NumberField).To(HaveValue(Equal(int64(42))))
 	})
@@ -59,7 +59,7 @@ var _ = Describe("Default()", func() {
 	Describe("Types message", func() {
 		It("applies every scalar default including fixed64 (regression for GetFixed32/GetFixed64 bug)", func() {
 			t := &testpb.Types{}
-			t.Default()
+			t.SetDefaults()
 
 			Expect(t.Float).To(BeNumerically("~", float32(0.42), 1e-6))
 			Expect(t.Double).To(BeNumerically("~", 0.42, 1e-9))
@@ -81,7 +81,7 @@ var _ = Describe("Default()", func() {
 
 		It("does not overwrite fields that are already set", func() {
 			t := &testpb.Types{Int32: 7, Bool: false, String_: "already"}
-			t.Default()
+			t.SetDefaults()
 			Expect(t.Int32).To(Equal(int32(7)))
 			Expect(t.String_).To(Equal("already"))
 			// Bool is false (zero), so the default (true) still applies.

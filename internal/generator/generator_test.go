@@ -59,20 +59,20 @@ func emittedContent(resp *pluginpb.CodeGeneratorResponse) string {
 }
 
 var _ = Describe("generator.Generate", func() {
-	It("emits Default methods for every non-ignored message in the fixtures", func() {
+	It("emits SetDefaults methods for every non-ignored message in the fixtures", func() {
 		resp, err := runGenerator(testpb.File_internal_generator_testpb_test_proto, testpb.File_internal_generator_testpb_types_proto)
 		Expect(err).NotTo(HaveOccurred())
 		Expect(resp.Error).To(BeNil())
 		Expect(resp.File).NotTo(BeEmpty())
 
 		out := emittedContent(resp)
-		Expect(out).To(ContainSubstring("func (x *Test) Default()"))
-		Expect(out).To(ContainSubstring("func (x *TestOptional) Default()"))
-		Expect(out).To(ContainSubstring("func (x *TestUnexported) _Default()"))
-		Expect(out).To(ContainSubstring("func (x *Types) Default()"))
-		Expect(out).To(ContainSubstring("func (x *OneOfThree) Default()"))
+		Expect(out).To(ContainSubstring("func (x *Test) SetDefaults()"))
+		Expect(out).To(ContainSubstring("func (x *TestOptional) SetDefaults()"))
+		Expect(out).To(ContainSubstring("func (x *TestUnexported) _SetDefaults()"))
+		Expect(out).To(ContainSubstring("func (x *Types) SetDefaults()"))
+		Expect(out).To(ContainSubstring("func (x *OneOfThree) SetDefaults()"))
 		// OneOfOne is annotated (defaults.skip) and must not appear.
-		Expect(out).NotTo(ContainSubstring("func (x *OneOfOne) Default()"))
+		Expect(out).NotTo(ContainSubstring("func (x *OneOfOne) SetDefaults()"))
 	})
 
 	It("handles wrappers, durations, and timestamps", func() {

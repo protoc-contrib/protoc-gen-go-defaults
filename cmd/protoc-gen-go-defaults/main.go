@@ -1,5 +1,5 @@
-// Command protoc-gen-go-defaults is a protoc plugin that emits Default()
-// methods for proto messages annotated with the defaults.* extensions.
+// Command protoc-gen-go-defaults is a protoc plugin that emits SetDefaults()
+// methods for proto messages annotated with the protoc_contrib.defaults.* extensions.
 package main
 
 import (

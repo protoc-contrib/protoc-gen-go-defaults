@@ -1,5 +1,5 @@
 {
-  description = "protoc-gen-go-defaults - A protoc plugin that generates Default() methods from proto extensions";
+  description = "protoc-gen-go-defaults - A protoc plugin that generates SetDefaults() methods from proto extensions";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
@@ -23,7 +23,7 @@
           vendorHash = "sha256-kjtMp8stNxdF/CXmeCsqhX66rLvHx2FJrBNJXACCSQE=";
           ldflags = [ "-s" "-w" "-X main.version=${version}" ];
           meta = with pkgs.lib; {
-            description = "A protoc plugin that generates Default() methods from proto extensions";
+            description = "A protoc plugin that generates SetDefaults() methods from proto extensions";
             license = licenses.asl20;
             mainProgram = "protoc-gen-go-defaults";
           };

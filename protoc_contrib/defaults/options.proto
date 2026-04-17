@@ -13,7 +13,7 @@
 // limitations under the License.
 
 syntax = "proto2";
-package defaults;
+package protoc_contrib.defaults;
 
 option go_package = "github.com/protoc-contrib/protoc-gen-go-defaults/defaults;defaults";
 
@@ -21,12 +21,12 @@ import "google/protobuf/descriptor.proto";
 
 // Default values applied at the message level
 extend google.protobuf.MessageOptions {
-	// Skip suppresses Default() generation for this message entirely,
+	// Skip suppresses SetDefaults() generation for this message entirely,
 	// so a caller can provide a hand-written method instead.
 	optional bool skip = 55003;
-	// Unexported emits _Default() instead of Default(). Useful when a
-	// caller wants to compose custom logic around the generated body
-	// by writing a Default() that delegates to the generated method.
+	// Unexported emits _SetDefaults() instead of SetDefaults(). Useful when
+	// a caller wants to compose custom logic around the generated body by
+	// writing a SetDefaults() that delegates to the generated method.
 	optional bool unexported = 55004;
 }
 
@@ -81,7 +81,7 @@ message FieldDefaults {
 message MessageDefaults {
 	// Initialize specify that the message should be initialized
 	optional bool initialize = 1;
-	// Recurse specifies that the nested message's own Default() method
+	// Recurse specifies that the nested message's own SetDefaults() method
 	// should be invoked after initialization.
 	optional bool recurse = 2;
 }

@@ -14,6 +14,6 @@
 
 package testpb
 
-func (x *TestUnexported) Default() {
-	x._Default()
+func (x *TestUnexported) SetDefaults() {
+	x._SetDefaults()
 }

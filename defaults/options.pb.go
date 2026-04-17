@@ -16,7 +16,7 @@
 // versions:
 // 	protoc-gen-go v1.36.11
 // 	protoc        (unknown)
-// source: defaults/defaults.proto
+// source: protoc_contrib/defaults/options.proto
 
 package defaults
 
@@ -68,7 +68,7 @@ type FieldDefaults struct {
 
 func (x *FieldDefaults) Reset() {
 	*x = FieldDefaults{}
-	mi := &file_defaults_defaults_proto_msgTypes[0]
+	mi := &file_protoc_contrib_defaults_options_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -80,7 +80,7 @@ func (x *FieldDefaults) String() string {
 func (*FieldDefaults) ProtoMessage() {}
 
 func (x *FieldDefaults) ProtoReflect() protoreflect.Message {
-	mi := &file_defaults_defaults_proto_msgTypes[0]
+	mi := &file_protoc_contrib_defaults_options_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -93,7 +93,7 @@ func (x *FieldDefaults) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FieldDefaults.ProtoReflect.Descriptor instead.
 func (*FieldDefaults) Descriptor() ([]byte, []int) {
-	return file_defaults_defaults_proto_rawDescGZIP(), []int{0}
+	return file_protoc_contrib_defaults_options_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *FieldDefaults) GetType() isFieldDefaults_Type {
@@ -401,7 +401,7 @@ type MessageDefaults struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// Initialize specify that the message should be initialized
 	Initialize *bool `protobuf:"varint,1,opt,name=initialize" json:"initialize,omitempty"`
-	// Recurse specifies that the nested message's own Default() method
+	// Recurse specifies that the nested message's own SetDefaults() method
 	// should be invoked after initialization.
 	Recurse       *bool `protobuf:"varint,2,opt,name=recurse" json:"recurse,omitempty"`
 	unknownFields protoimpl.UnknownFields
@@ -410,7 +410,7 @@ type MessageDefaults struct {
 
 func (x *MessageDefaults) Reset() {
 	*x = MessageDefaults{}
-	mi := &file_defaults_defaults_proto_msgTypes[1]
+	mi := &file_protoc_contrib_defaults_options_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -422,7 +422,7 @@ func (x *MessageDefaults) String() string {
 func (*MessageDefaults) ProtoMessage() {}
 
 func (x *MessageDefaults) ProtoReflect() protoreflect.Message {
-	mi := &file_defaults_defaults_proto_msgTypes[1]
+	mi := &file_protoc_contrib_defaults_options_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -435,7 +435,7 @@ func (x *MessageDefaults) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MessageDefaults.ProtoReflect.Descriptor instead.
 func (*MessageDefaults) Descriptor() ([]byte, []int) {
-	return file_defaults_defaults_proto_rawDescGZIP(), []int{1}
+	return file_protoc_contrib_defaults_options_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *MessageDefaults) GetInitialize() bool {
@@ -452,60 +452,60 @@ func (x *MessageDefaults) GetRecurse() bool {
 	return false
 }
 
-var file_defaults_defaults_proto_extTypes = []protoimpl.ExtensionInfo{
+var file_protoc_contrib_defaults_options_proto_extTypes = []protoimpl.ExtensionInfo{
 	{
 		ExtendedType:  (*descriptorpb.MessageOptions)(nil),
 		ExtensionType: (*bool)(nil),
 		Field:         55003,
-		Name:          "defaults.skip",
+		Name:          "protoc_contrib.defaults.skip",
 		Tag:           "varint,55003,opt,name=skip",
-		Filename:      "defaults/defaults.proto",
+		Filename:      "protoc_contrib/defaults/options.proto",
 	},
 	{
 		ExtendedType:  (*descriptorpb.MessageOptions)(nil),
 		ExtensionType: (*bool)(nil),
 		Field:         55004,
-		Name:          "defaults.unexported",
+		Name:          "protoc_contrib.defaults.unexported",
 		Tag:           "varint,55004,opt,name=unexported",
-		Filename:      "defaults/defaults.proto",
+		Filename:      "protoc_contrib/defaults/options.proto",
 	},
 	{
 		ExtendedType:  (*descriptorpb.OneofOptions)(nil),
 		ExtensionType: (*string)(nil),
 		Field:         55002,
-		Name:          "defaults.oneof",
+		Name:          "protoc_contrib.defaults.oneof",
 		Tag:           "bytes,55002,opt,name=oneof",
-		Filename:      "defaults/defaults.proto",
+		Filename:      "protoc_contrib/defaults/options.proto",
 	},
 	{
 		ExtendedType:  (*descriptorpb.FieldOptions)(nil),
 		ExtensionType: (*FieldDefaults)(nil),
 		Field:         55001,
-		Name:          "defaults.value",
+		Name:          "protoc_contrib.defaults.value",
 		Tag:           "bytes,55001,opt,name=value",
-		Filename:      "defaults/defaults.proto",
+		Filename:      "protoc_contrib/defaults/options.proto",
 	},
 }
 
 // Extension fields to descriptorpb.MessageOptions.
 var (
-	// Skip suppresses Default() generation for this message entirely,
+	// Skip suppresses SetDefaults() generation for this message entirely,
 	// so a caller can provide a hand-written method instead.
 	//
 	// optional bool skip = 55003;
-	E_Skip = &file_defaults_defaults_proto_extTypes[0]
-	// Unexported emits _Default() instead of Default(). Useful when a
-	// caller wants to compose custom logic around the generated body
-	// by writing a Default() that delegates to the generated method.
+	E_Skip = &file_protoc_contrib_defaults_options_proto_extTypes[0]
+	// Unexported emits _SetDefaults() instead of SetDefaults(). Useful when
+	// a caller wants to compose custom logic around the generated body by
+	// writing a SetDefaults() that delegates to the generated method.
 	//
 	// optional bool unexported = 55004;
-	E_Unexported = &file_defaults_defaults_proto_extTypes[1]
+	E_Unexported = &file_protoc_contrib_defaults_options_proto_extTypes[1]
 )
 
 // Extension fields to descriptorpb.OneofOptions.
 var (
 	// optional string oneof = 55002;
-	E_Oneof = &file_defaults_defaults_proto_extTypes[2]
+	E_Oneof = &file_protoc_contrib_defaults_options_proto_extTypes[2]
 )
 
 // Extension fields to descriptorpb.FieldOptions.
@@ -513,15 +513,15 @@ var (
 	// Value specify the default value to set on this field. By default,
 	// none is set on a field.
 	//
-	// optional defaults.FieldDefaults value = 55001;
-	E_Value = &file_defaults_defaults_proto_extTypes[3]
+	// optional protoc_contrib.defaults.FieldDefaults value = 55001;
+	E_Value = &file_protoc_contrib_defaults_options_proto_extTypes[3]
 )
 
-var File_defaults_defaults_proto protoreflect.FileDescriptor
+var File_protoc_contrib_defaults_options_proto protoreflect.FileDescriptor
 
-const file_defaults_defaults_proto_rawDesc = "" +
+const file_protoc_contrib_defaults_options_proto_rawDesc = "" +
 	"\n" +
-	"\x17defaults/defaults.proto\x12\bdefaults\x1a google/protobuf/descriptor.proto\"\xae\x04\n" +
+	"%protoc_contrib/defaults/options.proto\x12\x17protoc_contrib.defaults\x1a google/protobuf/descriptor.proto\"\xbd\x04\n" +
 	"\rFieldDefaults\x12\x16\n" +
 	"\x05float\x18\x01 \x01(\x02H\x00R\x05float\x12\x18\n" +
 	"\x06double\x18\x02 \x01(\x01H\x00R\x06double\x12\x16\n" +
@@ -539,8 +539,8 @@ const file_defaults_defaults_proto_rawDesc = "" +
 	"\x04bool\x18\r \x01(\bH\x00R\x04bool\x12\x18\n" +
 	"\x06string\x18\x0e \x01(\tH\x00R\x06string\x12\x16\n" +
 	"\x05bytes\x18\x0f \x01(\fH\x00R\x05bytes\x12\x14\n" +
-	"\x04enum\x18\x10 \x01(\rH\x00R\x04enum\x125\n" +
-	"\amessage\x18\x11 \x01(\v2\x19.defaults.MessageDefaultsH\x00R\amessage\x12\x1c\n" +
+	"\x04enum\x18\x10 \x01(\rH\x00R\x04enum\x12D\n" +
+	"\amessage\x18\x11 \x01(\v2(.protoc_contrib.defaults.MessageDefaultsH\x00R\amessage\x12\x1c\n" +
 	"\bduration\x18\x15 \x01(\tH\x00R\bduration\x12\x1e\n" +
 	"\ttimestamp\x18\x16 \x01(\tH\x00R\ttimestampB\x06\n" +
 	"\x04typeJ\x04\b\x12\x10\x15\"K\n" +
@@ -553,36 +553,36 @@ const file_defaults_defaults_proto_rawDesc = "" +
 	"\n" +
 	"unexported\x12\x1f.google.protobuf.MessageOptions\x18ܭ\x03 \x01(\bR\n" +
 	"unexported:5\n" +
-	"\x05oneof\x12\x1d.google.protobuf.OneofOptions\x18ڭ\x03 \x01(\tR\x05oneof:N\n" +
-	"\x05value\x12\x1d.google.protobuf.FieldOptions\x18٭\x03 \x01(\v2\x17.defaults.FieldDefaultsR\x05valueBDZBgithub.com/protoc-contrib/protoc-gen-go-defaults/defaults;defaults"
+	"\x05oneof\x12\x1d.google.protobuf.OneofOptions\x18ڭ\x03 \x01(\tR\x05oneof:]\n" +
+	"\x05value\x12\x1d.google.protobuf.FieldOptions\x18٭\x03 \x01(\v2&.protoc_contrib.defaults.FieldDefaultsR\x05valueBDZBgithub.com/protoc-contrib/protoc-gen-go-defaults/defaults;defaults"
 
 var (
-	file_defaults_defaults_proto_rawDescOnce sync.Once
-	file_defaults_defaults_proto_rawDescData []byte
+	file_protoc_contrib_defaults_options_proto_rawDescOnce sync.Once
+	file_protoc_contrib_defaults_options_proto_rawDescData []byte
 )
 
-func file_defaults_defaults_proto_rawDescGZIP() []byte {
-	file_defaults_defaults_proto_rawDescOnce.Do(func() {
-		file_defaults_defaults_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_defaults_defaults_proto_rawDesc), len(file_defaults_defaults_proto_rawDesc)))
+func file_protoc_contrib_defaults_options_proto_rawDescGZIP() []byte {
+	file_protoc_contrib_defaults_options_proto_rawDescOnce.Do(func() {
+		file_protoc_contrib_defaults_options_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_protoc_contrib_defaults_options_proto_rawDesc), len(file_protoc_contrib_defaults_options_proto_rawDesc)))
 	})
-	return file_defaults_defaults_proto_rawDescData
+	return file_protoc_contrib_defaults_options_proto_rawDescData
 }
 
-var file_defaults_defaults_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
-var file_defaults_defaults_proto_goTypes = []any{
-	(*FieldDefaults)(nil),               // 0: defaults.FieldDefaults
-	(*MessageDefaults)(nil),             // 1: defaults.MessageDefaults
+var file_protoc_contrib_defaults_options_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_protoc_contrib_defaults_options_proto_goTypes = []any{
+	(*FieldDefaults)(nil),               // 0: protoc_contrib.defaults.FieldDefaults
+	(*MessageDefaults)(nil),             // 1: protoc_contrib.defaults.MessageDefaults
 	(*descriptorpb.MessageOptions)(nil), // 2: google.protobuf.MessageOptions
 	(*descriptorpb.OneofOptions)(nil),   // 3: google.protobuf.OneofOptions
 	(*descriptorpb.FieldOptions)(nil),   // 4: google.protobuf.FieldOptions
 }
-var file_defaults_defaults_proto_depIdxs = []int32{
-	1, // 0: defaults.FieldDefaults.message:type_name -> defaults.MessageDefaults
-	2, // 1: defaults.skip:extendee -> google.protobuf.MessageOptions
-	2, // 2: defaults.unexported:extendee -> google.protobuf.MessageOptions
-	3, // 3: defaults.oneof:extendee -> google.protobuf.OneofOptions
-	4, // 4: defaults.value:extendee -> google.protobuf.FieldOptions
-	0, // 5: defaults.value:type_name -> defaults.FieldDefaults
+var file_protoc_contrib_defaults_options_proto_depIdxs = []int32{
+	1, // 0: protoc_contrib.defaults.FieldDefaults.message:type_name -> protoc_contrib.defaults.MessageDefaults
+	2, // 1: protoc_contrib.defaults.skip:extendee -> google.protobuf.MessageOptions
+	2, // 2: protoc_contrib.defaults.unexported:extendee -> google.protobuf.MessageOptions
+	3, // 3: protoc_contrib.defaults.oneof:extendee -> google.protobuf.OneofOptions
+	4, // 4: protoc_contrib.defaults.value:extendee -> google.protobuf.FieldOptions
+	0, // 5: protoc_contrib.defaults.value:type_name -> protoc_contrib.defaults.FieldDefaults
 	6, // [6:6] is the sub-list for method output_type
 	6, // [6:6] is the sub-list for method input_type
 	5, // [5:6] is the sub-list for extension type_name
@@ -590,12 +590,12 @@ var file_defaults_defaults_proto_depIdxs = []int32{
 	0, // [0:1] is the sub-list for field type_name
 }
 
-func init() { file_defaults_defaults_proto_init() }
-func file_defaults_defaults_proto_init() {
-	if File_defaults_defaults_proto != nil {
+func init() { file_protoc_contrib_defaults_options_proto_init() }
+func file_protoc_contrib_defaults_options_proto_init() {
+	if File_protoc_contrib_defaults_options_proto != nil {
 		return
 	}
-	file_defaults_defaults_proto_msgTypes[0].OneofWrappers = []any{
+	file_protoc_contrib_defaults_options_proto_msgTypes[0].OneofWrappers = []any{
 		(*FieldDefaults_Float)(nil),
 		(*FieldDefaults_Double)(nil),
 		(*FieldDefaults_Int32)(nil),
@@ -620,18 +620,18 @@ func file_defaults_defaults_proto_init() {
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_defaults_defaults_proto_rawDesc), len(file_defaults_defaults_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_protoc_contrib_defaults_options_proto_rawDesc), len(file_protoc_contrib_defaults_options_proto_rawDesc)),
 			NumEnums:      0,
 			NumMessages:   2,
 			NumExtensions: 4,
 			NumServices:   0,
 		},
-		GoTypes:           file_defaults_defaults_proto_goTypes,
-		DependencyIndexes: file_defaults_defaults_proto_depIdxs,
-		MessageInfos:      file_defaults_defaults_proto_msgTypes,
-		ExtensionInfos:    file_defaults_defaults_proto_extTypes,
+		GoTypes:           file_protoc_contrib_defaults_options_proto_goTypes,
+		DependencyIndexes: file_protoc_contrib_defaults_options_proto_depIdxs,
+		MessageInfos:      file_protoc_contrib_defaults_options_proto_msgTypes,
+		ExtensionInfos:    file_protoc_contrib_defaults_options_proto_extTypes,
 	}.Build()
-	File_defaults_defaults_proto = out.File
-	file_defaults_defaults_proto_goTypes = nil
-	file_defaults_defaults_proto_depIdxs = nil
+	File_protoc_contrib_defaults_options_proto = out.File
+	file_protoc_contrib_defaults_options_proto_goTypes = nil
+	file_protoc_contrib_defaults_options_proto_depIdxs = nil
 }

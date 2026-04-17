@@ -609,7 +609,7 @@ var File_internal_generator_testpb_types_proto protoreflect.FileDescriptor
 
 const file_internal_generator_testpb_types_proto_rawDesc = "" +
 	"\n" +
-	"%internal/generator/testpb/types.proto\x12\x05tests\x1a\x17defaults/defaults.proto\x1a\x1egoogle/protobuf/wrappers.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1egoogle/protobuf/duration.proto\"\x87\r\n" +
+	"%internal/generator/testpb/types.proto\x12\x05tests\x1a%protoc_contrib/defaults/options.proto\x1a\x1egoogle/protobuf/wrappers.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1egoogle/protobuf/duration.proto\"\x87\r\n" +
 	"\x05Types\x12\x1f\n" +
 	"\x05float\x18\x01 \x01(\x02B\t\xca\xed\x1a\x05\r=\n" +
 	"\xd7>R\x05float\x12%\n" +

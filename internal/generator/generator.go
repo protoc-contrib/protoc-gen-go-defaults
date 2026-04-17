@@ -1,4 +1,4 @@
-// Package generator emits Default() methods for proto messages annotated
+// Package generator emits SetDefaults() methods for proto messages annotated
 // with the github.com/protoc-contrib/protoc-gen-go-defaults extensions.
 package generator
 
@@ -15,7 +15,7 @@ import (
 const generatedFilenameSuffix = ".pb.defaults.go"
 
 // Generate walks every proto file scheduled for generation and emits a
-// *.pb.defaults.go companion containing the Default() methods.
+// *.pb.defaults.go companion containing the SetDefaults() methods.
 func Generate(plugin *protogen.Plugin) error {
 	for _, file := range plugin.Files {
 		if !file.Generate {
@@ -79,9 +79,9 @@ func collectMessages(msgs []*protogen.Message) []*protogen.Message {
 }
 
 func emitMessage(g *protogen.GeneratedFile, msg *protogen.Message) {
-	method := "Default"
+	method := "SetDefaults"
 	if messageUnexported(msg) {
-		method = "_Default"
+		method = "_SetDefaults"
 	}
 
 	g.P("func (x *", msg.GoIdent, ") ", method, "() {")
