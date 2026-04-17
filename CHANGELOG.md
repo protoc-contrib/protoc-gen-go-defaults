@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.1](https://github.com/protoc-contrib/protoc-gen-go-defaults/compare/v1.3.0...v1.3.1) (2026-04-17)
+
+
+### Bug Fixes
+
+* reorganize defaults package to protoc_contrib namespace ([397f6dc](https://github.com/protoc-contrib/protoc-gen-go-defaults/commit/397f6dc4f90c12091203c2705508feef2f8153ea))
+
 ## [1.3.0](https://github.com/protoc-contrib/protoc-gen-go-defaults/compare/v1.2.0...v1.3.0) (2026-04-17)
 
 
