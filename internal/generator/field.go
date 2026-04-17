@@ -61,6 +61,16 @@ func emitOneof(g *protogen.GeneratedFile, msg *protogen.Message, oo *protogen.On
 	oneofGoName := oo.GoName
 	defaultName, hasDefault := oneofDefaultField(oo)
 
+	var withDefaults []*protogen.Field
+	for _, field := range oo.Fields {
+		if _, ok := fieldDefaults(field); ok {
+			withDefaults = append(withDefaults, field)
+		}
+	}
+	if !hasDefault && len(withDefaults) == 0 {
+		return
+	}
+
 	if hasDefault {
 		for _, field := range oo.Fields {
 			if string(field.Desc.Name()) != defaultName {
@@ -74,12 +84,13 @@ func emitOneof(g *protogen.GeneratedFile, msg *protogen.Message, oo *protogen.On
 		}
 	}
 
+	if len(withDefaults) == 0 {
+		return
+	}
+
 	g.P("switch x := x.", oneofGoName, ".(type) {")
-	for _, field := range oo.Fields {
-		fd, ok := fieldDefaults(field)
-		if !ok {
-			continue
-		}
+	for _, field := range withDefaults {
+		fd, _ := fieldDefaults(field)
 		wrapper := oneofWrapperIdent(msg, field)
 		g.P("case *", wrapper, ":")
 		emitScalarOrMessage(g, field, fd)

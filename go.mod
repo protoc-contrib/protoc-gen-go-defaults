@@ -184,4 +184,5 @@ require (
 tool (
 	github.com/k1LoW/octocov
 	github.com/onsi/ginkgo/v2/ginkgo
+	google.golang.org/protobuf/cmd/protoc-gen-go
 )

@@ -44,15 +44,9 @@ var _ = Describe("Default()", func() {
 		Expect(msg).To(Equal(expectedTest()))
 	})
 
-	It("skips generation for messages annotated with (defaults.ignored)", func() {
+	It("skips generation for messages annotated with (defaults.skip)", func() {
 		_, generated := interface{}(&testpb.OneOfOne{}).(interface{ Default() })
 		Expect(generated).To(BeFalse())
-	})
-
-	It("emits an empty method for messages annotated with (defaults.disabled)", func() {
-		msg := &testpb.OneOfThree{}
-		msg.Default()
-		Expect(msg.StringField).To(BeEmpty())
 	})
 
 	It("routes unexported messages through _Default() exposed via a wrapper", func() {
@@ -158,14 +152,10 @@ var _ = Describe("defaults.Apply()", func() {
 		Expect(t.Message).NotTo(BeNil())
 	})
 
-	It("skips messages annotated with (defaults.ignored) or (defaults.disabled)", func() {
-		ignored := &testpb.OneOfOne{}
-		defaults.Apply(ignored)
-		Expect(ignored.StringField).To(BeEmpty())
-
-		disabled := &testpb.OneOfThree{}
-		defaults.Apply(disabled)
-		Expect(disabled.StringField).To(BeEmpty())
+	It("skips messages annotated with (defaults.skip)", func() {
+		skipped := &testpb.OneOfOne{}
+		defaults.Apply(skipped)
+		Expect(skipped.StringField).To(BeEmpty())
 	})
 
 	It("is a no-op on a nil message", func() {

@@ -1,0 +1,10 @@
+version: v2
+plugins:
+  - local: [go, tool, protoc-gen-go]
+    out: .
+    opt:
+      - paths=source_relative
+  - local: [go, run, ./cmd/protoc-gen-go-defaults]
+    out: .
+    opt:
+      - paths=source_relative

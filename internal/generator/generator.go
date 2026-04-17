@@ -42,7 +42,7 @@ func generateFile(plugin *protogen.Plugin, file *protogen.File) error {
 
 	emittable := make([]*protogen.Message, 0, len(messages))
 	for _, msg := range messages {
-		if messageIgnored(msg) {
+		if messageSkipped(msg) {
 			continue
 		}
 		emittable = append(emittable, msg)
@@ -85,23 +85,16 @@ func emitMessage(g *protogen.GeneratedFile, msg *protogen.Message) {
 	}
 
 	g.P("func (x *", msg.GoIdent, ") ", method, "() {")
-	if !messageDisabled(msg) {
-		seenOneofs := make(map[protoreflect.FullName]bool)
-		for _, field := range msg.Fields {
-			emitField(g, msg, field, seenOneofs)
-		}
+	seenOneofs := make(map[protoreflect.FullName]bool)
+	for _, field := range msg.Fields {
+		emitField(g, msg, field, seenOneofs)
 	}
 	g.P("}")
 	g.P()
 }
 
-func messageDisabled(msg *protogen.Message) bool {
-	v, ok := getMessageBoolOption(msg, defaults.E_Disabled)
-	return ok && v
-}
-
-func messageIgnored(msg *protogen.Message) bool {
-	v, ok := getMessageBoolOption(msg, defaults.E_Ignored)
+func messageSkipped(msg *protogen.Message) bool {
+	v, ok := getMessageBoolOption(msg, defaults.E_Skip)
 	return ok && v
 }
 

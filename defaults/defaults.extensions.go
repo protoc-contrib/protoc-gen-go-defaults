@@ -37,12 +37,7 @@ func Apply(m proto.Message) {
 	mref := m.ProtoReflect()
 	typd := mref.Type().Descriptor()
 	opts := typd.Options()
-	disabled := proto.GetExtension(opts, E_Disabled)
-	if disabled.(bool) {
-		return
-	}
-	ignored := proto.GetExtension(opts, E_Ignored)
-	if ignored.(bool) {
+	if skip, _ := proto.GetExtension(opts, E_Skip).(bool); skip {
 		return
 	}
 	fields := typd.Fields()

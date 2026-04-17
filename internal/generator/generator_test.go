@@ -60,7 +60,7 @@ func emittedContent(resp *pluginpb.CodeGeneratorResponse) string {
 
 var _ = Describe("generator.Generate", func() {
 	It("emits Default methods for every non-ignored message in the fixtures", func() {
-		resp, err := runGenerator(testpb.File_tests_pb_test_proto, testpb.File_tests_pb_types_proto)
+		resp, err := runGenerator(testpb.File_internal_generator_testpb_test_proto, testpb.File_internal_generator_testpb_types_proto)
 		Expect(err).NotTo(HaveOccurred())
 		Expect(resp.Error).To(BeNil())
 		Expect(resp.File).NotTo(BeEmpty())
@@ -71,12 +71,12 @@ var _ = Describe("generator.Generate", func() {
 		Expect(out).To(ContainSubstring("func (x *TestUnexported) _Default()"))
 		Expect(out).To(ContainSubstring("func (x *Types) Default()"))
 		Expect(out).To(ContainSubstring("func (x *OneOfThree) Default()"))
-		// OneOfOne is annotated (defaults.ignored) and must not appear.
+		// OneOfOne is annotated (defaults.skip) and must not appear.
 		Expect(out).NotTo(ContainSubstring("func (x *OneOfOne) Default()"))
 	})
 
 	It("handles wrappers, durations, and timestamps", func() {
-		resp, err := runGenerator(testpb.File_tests_pb_test_proto)
+		resp, err := runGenerator(testpb.File_internal_generator_testpb_test_proto)
 		Expect(err).NotTo(HaveOccurred())
 		out := emittedContent(resp)
 
@@ -89,7 +89,7 @@ var _ = Describe("generator.Generate", func() {
 	})
 
 	It("selects the declared oneof arm when (defaults.oneof) is set", func() {
-		resp, err := runGenerator(testpb.File_tests_pb_test_proto)
+		resp, err := runGenerator(testpb.File_internal_generator_testpb_test_proto)
 		Expect(err).NotTo(HaveOccurred())
 		out := emittedContent(resp)
 
@@ -99,27 +99,27 @@ var _ = Describe("generator.Generate", func() {
 
 	Describe("error paths", func() {
 		It("rejects duration defaults on non-Duration fields", func() {
-			file := cloneFixture(testpb.File_tests_pb_types_proto)
+			file := cloneFixture(testpb.File_internal_generator_testpb_types_proto)
 			setFieldDefault(file, "Types", "string", &defaults.FieldDefaults{
 				Type: &defaults.FieldDefaults_Duration{Duration: "1h"},
 			})
-			_, err := runGeneratorFromProto(file, deps(testpb.File_tests_pb_types_proto)...)
+			_, err := runGeneratorFromProto(file, deps(testpb.File_internal_generator_testpb_types_proto)...)
 			Expect(err).To(MatchError(ContainSubstring("duration default requires google.protobuf.Duration")))
 		})
 
 		It("rejects an (defaults.oneof) that does not match any field", func() {
-			file := cloneFixture(testpb.File_tests_pb_types_proto)
+			file := cloneFixture(testpb.File_internal_generator_testpb_types_proto)
 			setOneofDefault(file, "Types", "oneof", "missing")
-			_, err := runGeneratorFromProto(file, deps(testpb.File_tests_pb_types_proto)...)
+			_, err := runGeneratorFromProto(file, deps(testpb.File_internal_generator_testpb_types_proto)...)
 			Expect(err).To(MatchError(ContainSubstring("(defaults.oneof) references unknown field")))
 		})
 
 		It("rejects an enum default that is not a declared value", func() {
-			file := cloneFixture(testpb.File_tests_pb_types_proto)
+			file := cloneFixture(testpb.File_internal_generator_testpb_types_proto)
 			setFieldDefault(file, "Types", "enum", &defaults.FieldDefaults{
 				Type: &defaults.FieldDefaults_Enum{Enum: 99},
 			})
-			_, err := runGeneratorFromProto(file, deps(testpb.File_tests_pb_types_proto)...)
+			_, err := runGeneratorFromProto(file, deps(testpb.File_internal_generator_testpb_types_proto)...)
 			Expect(err).To(MatchError(ContainSubstring("enum value 99 is not defined")))
 		})
 	})

@@ -21,15 +21,14 @@ import "google/protobuf/descriptor.proto";
 
 // Defaults values applied at the message level
 extend google.protobuf.MessageOptions {
-	// Disabled nullifies any defaults for this message, including any
-	// message fields associated with it that do support defaults.
-	optional bool disabled = 1171;
-	// Ignore skips generation of default methods for this message.
-	optional bool ignored = 1172;
-	// Unexported generate an unexported defaults method, this can
-	// be useful when we want both the generated defaults and a custom
-	// defaults method that will call the unexported method.
+	// Skip suppresses Default() generation for this message entirely,
+	// so a caller can provide a hand-written method instead.
+	optional bool skip = 1172;
+	// Unexported emits _Default() instead of Default(). Useful when a
+	// caller wants to compose custom logic around the generated body
+	// by writing a Default() that delegates to the generated method.
 	optional bool unexported = 1173;
+	// 1171 was `disabled`, removed.
 }
 
 // Defaults values applied at the oneof level

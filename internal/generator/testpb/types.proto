@@ -77,7 +77,7 @@ message Message {
 }
 
 message OneOfOne {
-	option (defaults.ignored) = true;
+	option (defaults.skip) = true;
 	string string_field = 1 [(defaults.value).string = "string_field"];
 }
 
@@ -86,6 +86,5 @@ message OneOfTwo {
 }
 
 message OneOfThree {
-	option (defaults.disabled) = true;
 	string string_field = 1 [(defaults.value).string = "string_field"];
 }

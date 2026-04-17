@@ -27,9 +27,9 @@ dependencies were removed, and several code-generation bugs (notably around
   enums, bytes, wrappers, and `google.protobuf.{Duration,Timestamp}` on zero
   values.
 - Pick the active arm of a `oneof` declaratively with `(defaults.oneof)`.
-- Skip generation (`(defaults.ignored)`), emit a no-op method
-  (`(defaults.disabled)`), or expose an unexported `_Default()` method
-  (`(defaults.unexported)`) when you want to compose with custom logic.
+- Skip generation entirely (`(defaults.skip)`) or expose an unexported
+  `_Default()` method (`(defaults.unexported)`) when you want to compose
+  with custom logic.
 - Runtime `defaults.Apply(proto.Message)` mirrors the generated code via
   proto reflection for callers that do not have the concrete Go type.
 - Respects proto3 optional presence: explicitly set fields are never
@@ -84,8 +84,7 @@ Import `defaults/defaults.proto` in your `.proto` files to use the options.
 | -------------------------- | ---------------- | ------------------------------------------------------------ |
 | `(defaults.value)`         | FieldOptions     | Default value applied when the field is zero.                |
 | `(defaults.oneof)`         | OneofOptions     | Name of the arm to populate when the oneof is unset.         |
-| `(defaults.disabled)`      | MessageOptions   | Emit an empty `Default()` method for this message.           |
-| `(defaults.ignored)`       | MessageOptions   | Skip `Default()` generation for this message entirely.       |
+| `(defaults.skip)`          | MessageOptions   | Skip `Default()` generation for this message entirely.       |
 | `(defaults.unexported)`    | MessageOptions   | Emit an unexported `_Default()` method instead of `Default()`. |
 
 ### Scalars and enums
@@ -155,11 +154,7 @@ whether its own `Default()` is invoked.
 
 ```proto
 message Legacy {
-  option (defaults.ignored) = true;   // no Default() generated at all
-}
-
-message External {
-  option (defaults.disabled) = true;  // empty Default() generated
+  option (defaults.skip) = true;       // no Default() generated at all
 }
 
 message Composable {

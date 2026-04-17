@@ -136,4 +136,7 @@ func (x *OneOfTwo) Default() {
 }
 
 func (x *OneOfThree) Default() {
+	if x.StringField == "" {
+		x.StringField = "string_field"
+	}
 }
