@@ -27,10 +27,8 @@ jobs:
         uses: DeterminateSystems/magic-nix-cache-action@v13
 
       - name: Run Tests
-        run: nix develop --command go tool ginkgo run -r -coverpkg=./defaults,./internal/generator -coverprofile=coverage.out -covermode=atomic ./...
-
-      - name: Strip generated files from coverage
-        run: sed -i '/\.pb\.go:/d' coverage.out
+        run: nix develop --command go tool ginkgo run -r -coverprofile=coverage.out
+          -covermode=atomic ./...
 
       - name: Run octocov
         uses: k1LoW/octocov-action@v1
