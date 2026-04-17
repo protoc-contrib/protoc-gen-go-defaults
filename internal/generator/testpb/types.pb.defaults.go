@@ -57,6 +57,9 @@ func (x *Types) SetDefaults() {
 	if x.Enum == 0 {
 		x.Enum = 1
 	}
+	if x.EnumByName == 0 {
+		x.EnumByName = Types_TWO
+	}
 	if x.Message == nil {
 		x.Message = &Message{}
 	}

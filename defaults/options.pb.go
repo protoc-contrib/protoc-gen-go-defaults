@@ -61,6 +61,7 @@ type FieldDefaults struct {
 	//	*FieldDefaults_Message
 	//	*FieldDefaults_Duration
 	//	*FieldDefaults_Timestamp
+	//	*FieldDefaults_EnumName
 	Type          isFieldDefaults_Type `protobuf_oneof:"type"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -274,6 +275,15 @@ func (x *FieldDefaults) GetTimestamp() string {
 	return ""
 }
 
+func (x *FieldDefaults) GetEnumName() string {
+	if x != nil {
+		if x, ok := x.Type.(*FieldDefaults_EnumName); ok {
+			return x.EnumName
+		}
+	}
+	return ""
+}
+
 type isFieldDefaults_Type interface {
 	isFieldDefaults_Type()
 }
@@ -358,6 +368,13 @@ type FieldDefaults_Timestamp struct {
 	Timestamp string `protobuf:"bytes,22,opt,name=timestamp,oneof"`
 }
 
+type FieldDefaults_EnumName struct {
+	// EnumName sets the default enum value by symbolic name. Prefer this
+	// over `enum` when reordering would silently invalidate a numeric
+	// default; unknown names fail loudly at generate time.
+	EnumName string `protobuf:"bytes,23,opt,name=enum_name,json=enumName,oneof"`
+}
+
 func (*FieldDefaults_Float) isFieldDefaults_Type() {}
 
 func (*FieldDefaults_Double) isFieldDefaults_Type() {}
@@ -395,6 +412,8 @@ func (*FieldDefaults_Message) isFieldDefaults_Type() {}
 func (*FieldDefaults_Duration) isFieldDefaults_Type() {}
 
 func (*FieldDefaults_Timestamp) isFieldDefaults_Type() {}
+
+func (*FieldDefaults_EnumName) isFieldDefaults_Type() {}
 
 // MessageDefaults define the default behaviour for this field.
 type MessageDefaults struct {
@@ -521,7 +540,7 @@ var File_protoc_contrib_defaults_options_proto protoreflect.FileDescriptor
 
 const file_protoc_contrib_defaults_options_proto_rawDesc = "" +
 	"\n" +
-	"%protoc_contrib/defaults/options.proto\x12\x17protoc_contrib.defaults\x1a google/protobuf/descriptor.proto\"\xbd\x04\n" +
+	"%protoc_contrib/defaults/options.proto\x12\x17protoc_contrib.defaults\x1a google/protobuf/descriptor.proto\"\xdc\x04\n" +
 	"\rFieldDefaults\x12\x16\n" +
 	"\x05float\x18\x01 \x01(\x02H\x00R\x05float\x12\x18\n" +
 	"\x06double\x18\x02 \x01(\x01H\x00R\x06double\x12\x16\n" +
@@ -542,7 +561,8 @@ const file_protoc_contrib_defaults_options_proto_rawDesc = "" +
 	"\x04enum\x18\x10 \x01(\rH\x00R\x04enum\x12D\n" +
 	"\amessage\x18\x11 \x01(\v2(.protoc_contrib.defaults.MessageDefaultsH\x00R\amessage\x12\x1c\n" +
 	"\bduration\x18\x15 \x01(\tH\x00R\bduration\x12\x1e\n" +
-	"\ttimestamp\x18\x16 \x01(\tH\x00R\ttimestampB\x06\n" +
+	"\ttimestamp\x18\x16 \x01(\tH\x00R\ttimestamp\x12\x1d\n" +
+	"\tenum_name\x18\x17 \x01(\tH\x00R\benumNameB\x06\n" +
 	"\x04typeJ\x04\b\x12\x10\x15\"K\n" +
 	"\x0fMessageDefaults\x12\x1e\n" +
 	"\n" +
@@ -615,6 +635,7 @@ func file_protoc_contrib_defaults_options_proto_init() {
 		(*FieldDefaults_Message)(nil),
 		(*FieldDefaults_Duration)(nil),
 		(*FieldDefaults_Timestamp)(nil),
+		(*FieldDefaults_EnumName)(nil),
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{

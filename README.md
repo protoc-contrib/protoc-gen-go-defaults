@@ -103,8 +103,12 @@ message Account {
 
   enum Role { UNKNOWN = 0; USER = 1; ADMIN = 2; }
   Role role = 5 [(protoc_contrib.defaults.value).enum = 1];
+  Role fallback_role = 6 [(protoc_contrib.defaults.value).enum_name = "USER"];
 }
 ```
+
+Use `enum_name` when you want the default to survive enum reordering; unknown
+names fail loudly at generate time.
 
 Generated:
 
@@ -115,6 +119,7 @@ func (x *Account) SetDefaults() {
     if !x.Active { x.Active = true }
     if len(x.Salt) == 0 { x.Salt = []byte("??") }
     if x.Role == 0 { x.Role = Account_USER }
+    if x.FallbackRole == 0 { x.FallbackRole = Account_USER }
 }
 ```
 

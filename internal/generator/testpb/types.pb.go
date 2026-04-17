@@ -92,23 +92,24 @@ func (Types_Enum) EnumDescriptor() ([]byte, []int) {
 type Types struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// Scalar Field Types
-	Float    float32    `protobuf:"fixed32,1,opt,name=float,proto3" json:"float,omitempty"`
-	Double   float64    `protobuf:"fixed64,2,opt,name=double,proto3" json:"double,omitempty"`
-	Int32    int32      `protobuf:"varint,3,opt,name=int32,proto3" json:"int32,omitempty"`
-	Int64    int64      `protobuf:"varint,4,opt,name=int64,proto3" json:"int64,omitempty"`
-	Uint32   uint32     `protobuf:"varint,5,opt,name=uint32,proto3" json:"uint32,omitempty"`
-	Uint64   uint64     `protobuf:"varint,6,opt,name=uint64,proto3" json:"uint64,omitempty"`
-	Sint32   int32      `protobuf:"zigzag32,7,opt,name=sint32,proto3" json:"sint32,omitempty"`
-	Sint64   int64      `protobuf:"zigzag64,8,opt,name=sint64,proto3" json:"sint64,omitempty"`
-	Fixed32  uint32     `protobuf:"fixed32,9,opt,name=fixed32,proto3" json:"fixed32,omitempty"`
-	Fixed64  uint64     `protobuf:"fixed64,10,opt,name=fixed64,proto3" json:"fixed64,omitempty"`
-	Sfixed32 int32      `protobuf:"fixed32,11,opt,name=sfixed32,proto3" json:"sfixed32,omitempty"`
-	Sfixed64 int64      `protobuf:"fixed64,12,opt,name=sfixed64,proto3" json:"sfixed64,omitempty"`
-	Bool     bool       `protobuf:"varint,13,opt,name=bool,proto3" json:"bool,omitempty"`
-	String_  string     `protobuf:"bytes,14,opt,name=string,proto3" json:"string,omitempty"`
-	Bytes    []byte     `protobuf:"bytes,15,opt,name=bytes,proto3" json:"bytes,omitempty"`
-	Enum     Types_Enum `protobuf:"varint,16,opt,name=enum,proto3,enum=tests.Types_Enum" json:"enum,omitempty"`
-	Message  *Message   `protobuf:"bytes,17,opt,name=message,proto3" json:"message,omitempty"`
+	Float      float32    `protobuf:"fixed32,1,opt,name=float,proto3" json:"float,omitempty"`
+	Double     float64    `protobuf:"fixed64,2,opt,name=double,proto3" json:"double,omitempty"`
+	Int32      int32      `protobuf:"varint,3,opt,name=int32,proto3" json:"int32,omitempty"`
+	Int64      int64      `protobuf:"varint,4,opt,name=int64,proto3" json:"int64,omitempty"`
+	Uint32     uint32     `protobuf:"varint,5,opt,name=uint32,proto3" json:"uint32,omitempty"`
+	Uint64     uint64     `protobuf:"varint,6,opt,name=uint64,proto3" json:"uint64,omitempty"`
+	Sint32     int32      `protobuf:"zigzag32,7,opt,name=sint32,proto3" json:"sint32,omitempty"`
+	Sint64     int64      `protobuf:"zigzag64,8,opt,name=sint64,proto3" json:"sint64,omitempty"`
+	Fixed32    uint32     `protobuf:"fixed32,9,opt,name=fixed32,proto3" json:"fixed32,omitempty"`
+	Fixed64    uint64     `protobuf:"fixed64,10,opt,name=fixed64,proto3" json:"fixed64,omitempty"`
+	Sfixed32   int32      `protobuf:"fixed32,11,opt,name=sfixed32,proto3" json:"sfixed32,omitempty"`
+	Sfixed64   int64      `protobuf:"fixed64,12,opt,name=sfixed64,proto3" json:"sfixed64,omitempty"`
+	Bool       bool       `protobuf:"varint,13,opt,name=bool,proto3" json:"bool,omitempty"`
+	String_    string     `protobuf:"bytes,14,opt,name=string,proto3" json:"string,omitempty"`
+	Bytes      []byte     `protobuf:"bytes,15,opt,name=bytes,proto3" json:"bytes,omitempty"`
+	Enum       Types_Enum `protobuf:"varint,16,opt,name=enum,proto3,enum=tests.Types_Enum" json:"enum,omitempty"`
+	EnumByName Types_Enum `protobuf:"varint,33,opt,name=enum_by_name,json=enumByName,proto3,enum=tests.Types_Enum" json:"enum_by_name,omitempty"`
+	Message    *Message   `protobuf:"bytes,17,opt,name=message,proto3" json:"message,omitempty"`
 	// Types that are valid to be assigned to Oneof:
 	//
 	//	*Types_One
@@ -270,6 +271,13 @@ func (x *Types) GetBytes() []byte {
 func (x *Types) GetEnum() Types_Enum {
 	if x != nil {
 		return x.Enum
+	}
+	return Types_NONE
+}
+
+func (x *Types) GetEnumByName() Types_Enum {
+	if x != nil {
+		return x.EnumByName
 	}
 	return Types_NONE
 }
@@ -609,7 +617,7 @@ var File_internal_generator_testpb_types_proto protoreflect.FileDescriptor
 
 const file_internal_generator_testpb_types_proto_rawDesc = "" +
 	"\n" +
-	"%internal/generator/testpb/types.proto\x12\x05tests\x1a%protoc_contrib/defaults/options.proto\x1a\x1egoogle/protobuf/wrappers.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1egoogle/protobuf/duration.proto\"\x87\r\n" +
+	"%internal/generator/testpb/types.proto\x12\x05tests\x1a%protoc_contrib/defaults/options.proto\x1a\x1egoogle/protobuf/wrappers.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1egoogle/protobuf/duration.proto\"\xc8\r\n" +
 	"\x05Types\x12\x1f\n" +
 	"\x05float\x18\x01 \x01(\x02B\t\xca\xed\x1a\x05\r=\n" +
 	"\xd7>R\x05float\x12%\n" +
@@ -628,7 +636,10 @@ const file_internal_generator_testpb_types_proto_rawDesc = "" +
 	"\x04bool\x18\r \x01(\bB\x06\xca\xed\x1a\x02h\x01R\x04bool\x12 \n" +
 	"\x06string\x18\x0e \x01(\tB\b\xca\xed\x1a\x04r\x0242R\x06string\x12\x1e\n" +
 	"\x05bytes\x18\x0f \x01(\fB\b\xca\xed\x1a\x04z\x0242R\x05bytes\x12.\n" +
-	"\x04enum\x18\x10 \x01(\x0e2\x11.tests.Types.EnumB\a\xca\xed\x1a\x03\x80\x01\x01R\x04enum\x123\n" +
+	"\x04enum\x18\x10 \x01(\x0e2\x11.tests.Types.EnumB\a\xca\xed\x1a\x03\x80\x01\x01R\x04enum\x12?\n" +
+	"\fenum_by_name\x18! \x01(\x0e2\x11.tests.Types.EnumB\n" +
+	"\xca\xed\x1a\x06\xba\x01\x03TWOR\n" +
+	"enumByName\x123\n" +
 	"\amessage\x18\x11 \x01(\v2\x0e.tests.MessageB\t\xca\xed\x1a\x05\x8a\x01\x02\b\x01R\amessage\x120\n" +
 	"\x03one\x18\x1d \x01(\v2\x0f.tests.OneOfOneB\v\xca\xed\x1a\a\x8a\x01\x04\b\x01\x10\x01H\x00R\x03one\x120\n" +
 	"\x03two\x18\x1e \x01(\v2\x0f.tests.OneOfTwoB\v\xca\xed\x1a\a\x8a\x01\x04\b\x01\x10\x01H\x00R\x03two\x126\n" +
@@ -702,27 +713,28 @@ var file_internal_generator_testpb_types_proto_goTypes = []any{
 }
 var file_internal_generator_testpb_types_proto_depIdxs = []int32{
 	0,  // 0: tests.Types.enum:type_name -> tests.Types.Enum
-	2,  // 1: tests.Types.message:type_name -> tests.Message
-	3,  // 2: tests.Types.one:type_name -> tests.OneOfOne
-	4,  // 3: tests.Types.two:type_name -> tests.OneOfTwo
-	5,  // 4: tests.Types.three:type_name -> tests.OneOfThree
-	0,  // 5: tests.Types.four:type_name -> tests.Types.Enum
-	6,  // 6: tests.Types.duration:type_name -> google.protobuf.Duration
-	7,  // 7: tests.Types.timestamp:type_name -> google.protobuf.Timestamp
-	8,  // 8: tests.Types.double_value:type_name -> google.protobuf.DoubleValue
-	9,  // 9: tests.Types.float_value:type_name -> google.protobuf.FloatValue
-	10, // 10: tests.Types.int64_value:type_name -> google.protobuf.Int64Value
-	11, // 11: tests.Types.uint64_value:type_name -> google.protobuf.UInt64Value
-	12, // 12: tests.Types.int32_value:type_name -> google.protobuf.Int32Value
-	13, // 13: tests.Types.uint32_value:type_name -> google.protobuf.UInt32Value
-	14, // 14: tests.Types.bool_value:type_name -> google.protobuf.BoolValue
-	15, // 15: tests.Types.string_value:type_name -> google.protobuf.StringValue
-	16, // 16: tests.Types.bytes_value:type_name -> google.protobuf.BytesValue
-	17, // [17:17] is the sub-list for method output_type
-	17, // [17:17] is the sub-list for method input_type
-	17, // [17:17] is the sub-list for extension type_name
-	17, // [17:17] is the sub-list for extension extendee
-	0,  // [0:17] is the sub-list for field type_name
+	0,  // 1: tests.Types.enum_by_name:type_name -> tests.Types.Enum
+	2,  // 2: tests.Types.message:type_name -> tests.Message
+	3,  // 3: tests.Types.one:type_name -> tests.OneOfOne
+	4,  // 4: tests.Types.two:type_name -> tests.OneOfTwo
+	5,  // 5: tests.Types.three:type_name -> tests.OneOfThree
+	0,  // 6: tests.Types.four:type_name -> tests.Types.Enum
+	6,  // 7: tests.Types.duration:type_name -> google.protobuf.Duration
+	7,  // 8: tests.Types.timestamp:type_name -> google.protobuf.Timestamp
+	8,  // 9: tests.Types.double_value:type_name -> google.protobuf.DoubleValue
+	9,  // 10: tests.Types.float_value:type_name -> google.protobuf.FloatValue
+	10, // 11: tests.Types.int64_value:type_name -> google.protobuf.Int64Value
+	11, // 12: tests.Types.uint64_value:type_name -> google.protobuf.UInt64Value
+	12, // 13: tests.Types.int32_value:type_name -> google.protobuf.Int32Value
+	13, // 14: tests.Types.uint32_value:type_name -> google.protobuf.UInt32Value
+	14, // 15: tests.Types.bool_value:type_name -> google.protobuf.BoolValue
+	15, // 16: tests.Types.string_value:type_name -> google.protobuf.StringValue
+	16, // 17: tests.Types.bytes_value:type_name -> google.protobuf.BytesValue
+	18, // [18:18] is the sub-list for method output_type
+	18, // [18:18] is the sub-list for method input_type
+	18, // [18:18] is the sub-list for extension type_name
+	18, // [18:18] is the sub-list for extension extendee
+	0,  // [0:18] is the sub-list for field type_name
 }
 
 func init() { file_internal_generator_testpb_types_proto_init() }

@@ -77,6 +77,7 @@ var _ = Describe("SetDefaults()", func() {
 			Expect(t.String_).To(Equal("42"))
 			Expect(t.Bytes).To(Equal([]byte("42")))
 			Expect(t.Enum).To(Equal(testpb.Types_ONE))
+			Expect(t.EnumByName).To(Equal(testpb.Types_TWO))
 		})
 
 		It("does not overwrite fields that are already set", func() {
@@ -133,6 +134,7 @@ var _ = Describe("defaults.Apply()", func() {
 		Expect(t.String_).To(Equal("42"))
 		Expect(t.Bytes).To(Equal([]byte("42")))
 		Expect(t.Enum).To(Equal(testpb.Types_ONE))
+		Expect(t.EnumByName).To(Equal(testpb.Types_TWO))
 
 		Expect(t.DoubleValue.GetValue()).To(BeNumerically("~", 0.42, 1e-9))
 		Expect(t.FloatValue.GetValue()).To(BeNumerically("~", float32(0.42), 1e-6))

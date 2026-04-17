@@ -122,6 +122,15 @@ var _ = Describe("generator.Generate", func() {
 			_, err := runGeneratorFromProto(file, deps(testpb.File_internal_generator_testpb_types_proto)...)
 			Expect(err).To(MatchError(ContainSubstring("enum value 99 is not defined")))
 		})
+
+		It("rejects an enum_name that does not match any declared value", func() {
+			file := cloneFixture(testpb.File_internal_generator_testpb_types_proto)
+			setFieldDefault(file, "Types", "enum", &defaults.FieldDefaults{
+				Type: &defaults.FieldDefaults_EnumName{EnumName: "BOGUS"},
+			})
+			_, err := runGeneratorFromProto(file, deps(testpb.File_internal_generator_testpb_types_proto)...)
+			Expect(err).To(MatchError(ContainSubstring(`enum value "BOGUS" is not defined`)))
+		})
 	})
 })
 

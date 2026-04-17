@@ -148,6 +148,8 @@ func emitScalarOrMessage(g *protogen.GeneratedFile, field *protogen.Field, fd *d
 		emitBytes(g, field, v.Bytes, wktName)
 	case *defaults.FieldDefaults_Enum:
 		emitSimple(g, field, strconv.FormatUint(uint64(v.Enum), 10), wktName)
+	case *defaults.FieldDefaults_EnumName:
+		emitEnumName(g, field, findEnumValueByName(field.Enum, v.EnumName))
 	case *defaults.FieldDefaults_Duration:
 		emitDuration(g, field, v.Duration)
 	case *defaults.FieldDefaults_Timestamp:
@@ -184,6 +186,21 @@ func emitSimple(g *protogen.GeneratedFile, field *protogen.Field, value string, 
 	zero := scalarZero(field)
 	g.P("if x.", name, " == ", zero, " {")
 	g.P("x.", name, " = ", value)
+	g.P("}")
+}
+
+func emitEnumName(g *protogen.GeneratedFile, field *protogen.Field, enumValue *protogen.EnumValue) {
+	name := field.GoName
+	if field.Desc.HasOptionalKeyword() {
+		g.P("if x.", name, " == nil {")
+		g.P("v := ", enumValue.GoIdent)
+		g.P("x.", name, " = &v")
+		g.P("}")
+		return
+	}
+	zero := scalarZero(field)
+	g.P("if x.", name, " == ", zero, " {")
+	g.P("x.", name, " = ", enumValue.GoIdent)
 	g.P("}")
 }
 

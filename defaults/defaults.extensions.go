@@ -75,10 +75,18 @@ func Apply(m proto.Message) {
 			}
 			mref.Set(f, reflect.ValueOf(fd.GetBool()))
 		case reflect.EnumKind:
-			if _, ok := fd.GetType().(*FieldDefaults_Enum); !ok {
+			switch fd.GetType().(type) {
+			case *FieldDefaults_Enum:
+				mref.Set(f, reflect.ValueOf(reflect.EnumNumber(fd.GetEnum())))
+			case *FieldDefaults_EnumName:
+				ev := f.Enum().Values().ByName(reflect.Name(fd.GetEnumName()))
+				if ev == nil {
+					continue
+				}
+				mref.Set(f, reflect.ValueOf(ev.Number()))
+			default:
 				continue
 			}
-			mref.Set(f, reflect.ValueOf(reflect.EnumNumber(fd.GetEnum())))
 		case reflect.Int32Kind:
 			if _, ok := fd.GetType().(*FieldDefaults_Int32); !ok {
 				continue

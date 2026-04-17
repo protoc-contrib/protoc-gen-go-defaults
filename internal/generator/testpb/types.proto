@@ -49,6 +49,7 @@ message Types {
 		TWO = 2;
 	}
 	Enum enum = 16 [(protoc_contrib.defaults.value).enum = 1];
+	Enum enum_by_name = 33 [(protoc_contrib.defaults.value).enum_name = "TWO"];
 	Message message = 17 [(protoc_contrib.defaults.value).message = {initialize: true}];
 	oneof oneof {
 		option (protoc_contrib.defaults.oneof) = "two";

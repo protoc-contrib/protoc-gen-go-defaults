@@ -121,6 +121,13 @@ func checkField(field *protogen.Field) error {
 			return fmt.Errorf("expected enum kind, got %s", kind)
 		}
 		return checkEnumValue(field, fd.GetEnum())
+	case *defaults.FieldDefaults_EnumName:
+		if kind != protoreflect.EnumKind {
+			return fmt.Errorf("expected enum kind, got %s", kind)
+		}
+		if findEnumValueByName(field.Enum, fd.GetEnumName()) == nil {
+			return fmt.Errorf("enum value %q is not defined in %s", fd.GetEnumName(), field.Enum.Desc.FullName())
+		}
 	case *defaults.FieldDefaults_Duration:
 		if wkt != wktDuration {
 			return fmt.Errorf("duration default requires google.protobuf.Duration, got %s", describeType(field))
@@ -197,4 +204,16 @@ func checkEnumValue(field *protogen.Field, value uint32) error {
 		}
 	}
 	return fmt.Errorf("enum value %d is not defined in %s", value, field.Enum.Desc.FullName())
+}
+
+func findEnumValueByName(enum *protogen.Enum, name string) *protogen.EnumValue {
+	if enum == nil {
+		return nil
+	}
+	for _, v := range enum.Values {
+		if string(v.Desc.Name()) == name {
+			return v
+		}
+	}
+	return nil
 }

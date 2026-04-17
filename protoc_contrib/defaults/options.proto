@@ -73,6 +73,11 @@ message FieldDefaults {
 		// any       = 20;
 		string duration = 21;
 		string timestamp = 22;
+
+		// EnumName sets the default enum value by symbolic name. Prefer this
+		// over `enum` when reordering would silently invalidate a numeric
+		// default; unknown names fail loudly at generate time.
+		string enum_name = 23;
 	}
 	reserved 18 to 20;
 }
