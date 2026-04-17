@@ -1,4 +1,4 @@
-package tests_test
+package generator_test
 
 import (
 	"testing"
@@ -7,7 +7,7 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-func TestDefaults(t *testing.T) {
+func TestGenerator(t *testing.T) {
 	RegisterFailHandler(Fail)
-	RunSpecs(t, "Defaults Suite")
+	RunSpecs(t, "Generator Suite")
 }

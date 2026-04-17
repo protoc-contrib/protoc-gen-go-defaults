@@ -1,4 +1,4 @@
-package tests_test
+package generator_test
 
 import (
 	. "github.com/onsi/ginkgo/v2"
@@ -10,11 +10,11 @@ import (
 	"google.golang.org/protobuf/types/known/wrapperspb"
 
 	"github.com/protoc-contrib/protoc-gen-go-defaults/defaults"
-	"github.com/protoc-contrib/protoc-gen-go-defaults/tests/pb"
+	"github.com/protoc-contrib/protoc-gen-go-defaults/internal/generator/pb"
 )
 
-// expectedTest is the message the fixtures in tests/pb/test.proto should
-// produce when Default()/Apply() is invoked on a zero value.
+// expectedTest is the message the fixtures in pb/test.proto should produce
+// when Default()/Apply() is invoked on a zero value.
 func expectedTest() *pb.Test {
 	return &pb.Test{
 		StringField:               "string_field",
@@ -117,6 +117,59 @@ var _ = Describe("defaults.Apply()", func() {
 		Expect(msg.TimeValueField).NotTo(BeNil())
 		msg.TimeValueField = nil
 		Expect(proto.Equal(msg, want)).To(BeTrue())
+	})
+
+	It("applies every scalar kind on Types via reflection", func() {
+		t := &pb.Types{}
+		defaults.Apply(t)
+
+		Expect(t.Float).To(BeNumerically("~", float32(0.42), 1e-6))
+		Expect(t.Double).To(BeNumerically("~", 0.42, 1e-9))
+		Expect(t.Int32).To(Equal(int32(42)))
+		Expect(t.Int64).To(Equal(int64(42)))
+		Expect(t.Uint32).To(Equal(uint32(42)))
+		Expect(t.Uint64).To(Equal(uint64(42)))
+		Expect(t.Sint32).To(Equal(int32(42)))
+		Expect(t.Sint64).To(Equal(int64(42)))
+		Expect(t.Fixed32).To(Equal(uint32(42)))
+		Expect(t.Fixed64).To(Equal(uint64(42)))
+		Expect(t.Sfixed32).To(Equal(int32(42)))
+		Expect(t.Sfixed64).To(Equal(int64(42)))
+		Expect(t.Bool).To(BeTrue())
+		Expect(t.String_).To(Equal("42"))
+		Expect(t.Bytes).To(Equal([]byte("42")))
+		Expect(t.Enum).To(Equal(pb.Types_ONE))
+
+		Expect(t.DoubleValue.GetValue()).To(BeNumerically("~", 0.42, 1e-9))
+		Expect(t.FloatValue.GetValue()).To(BeNumerically("~", float32(0.42), 1e-6))
+		Expect(t.Int32Value.GetValue()).To(Equal(int32(42)))
+		Expect(t.Int64Value.GetValue()).To(Equal(int64(42)))
+		Expect(t.Uint32Value.GetValue()).To(Equal(uint32(42)))
+		Expect(t.Uint64Value.GetValue()).To(Equal(uint64(42)))
+		Expect(t.BoolValue).NotTo(BeNil())
+		Expect(t.BoolValue.GetValue()).To(BeFalse())
+		Expect(t.StringValue.GetValue()).To(Equal("42"))
+		Expect(t.BytesValue.GetValue()).To(Equal([]byte("42")))
+
+		Expect(t.Duration).NotTo(BeNil())
+		Expect(t.Duration.AsDuration().Hours()).To(BeNumerically("~", 48.0, 1e-6))
+		Expect(t.Timestamp).NotTo(BeNil())
+		Expect(t.Oneof).To(BeAssignableToTypeOf(&pb.Types_Two{}))
+		Expect(t.Message).NotTo(BeNil())
+	})
+
+	It("skips messages annotated with (defaults.ignored) or (defaults.disabled)", func() {
+		ignored := &pb.OneOfOne{}
+		defaults.Apply(ignored)
+		Expect(ignored.StringField).To(BeEmpty())
+
+		disabled := &pb.OneOfThree{}
+		defaults.Apply(disabled)
+		Expect(disabled.StringField).To(BeEmpty())
+	})
+
+	It("is a no-op on a nil message", func() {
+		Expect(func() { defaults.Apply(nil) }).NotTo(Panic())
 	})
 
 	It("respects proto3 optional presence", func() {

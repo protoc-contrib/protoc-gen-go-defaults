@@ -16,7 +16,7 @@
 // versions:
 // 	protoc-gen-go v1.27.1
 // 	protoc        v3.17.3
-// source: tests/pb/types.proto
+// source: internal/generator/pb/types.proto
 
 package pb
 
