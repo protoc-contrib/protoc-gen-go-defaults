@@ -107,10 +107,7 @@ jobs:
       - name: Setup Nix Cache
         uses: DeterminateSystems/magic-nix-cache-action@v13
 
-      - name: Build defaults module image
-        run: nix develop --command buf build --path defaults --output module.bin
-
       - name: Push to Buf Schema Registry
-        run: nix develop --command buf push module.bin --label ${{ needs.release.outputs.tag_name }}
+        run: nix develop --command buf push --label ${{ needs.release.outputs.tag_name }}
         env:
           BUF_TOKEN: ${{ secrets.BUF_TOKEN }}

@@ -3,13 +3,12 @@ version: v2
 modules:
   - path: .
     name: buf.build/protoc-contrib/protoc-gen-go-defaults
+    # Remove this `excludes` block when regenerating fixtures in internal/generator/testpb.
+    excludes:
+      - internal/generator/testpb
     lint:
       use:
         - BASIC
-      ignore:
-        - internal/generator/testpb
     breaking:
       use:
         - FILE
-      ignore:
-        - internal/generator/testpb
