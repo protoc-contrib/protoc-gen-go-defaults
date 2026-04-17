@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.2.0](https://github.com/protoc-contrib/protoc-gen-go-defaults/compare/v1.1.1...v1.2.0) (2026-04-17)
+
+
+### Features
+
+* rename generated method to SetDefaults() and namespace proto extensions ([102e607](https://github.com/protoc-contrib/protoc-gen-go-defaults/commit/102e6075fcf9b3a8ee4daf12cc447e1bdb5778c9))
+
+
+### Bug Fixes
+
+* push main label alongside version tag to BSR ([659739c](https://github.com/protoc-contrib/protoc-gen-go-defaults/commit/659739cf39c94992208da90149676e7470c23b44))
+
 ## [1.1.1](https://github.com/protoc-contrib/protoc-gen-go-defaults/compare/v1.1.0...v1.1.1) (2026-04-17)
 
 
