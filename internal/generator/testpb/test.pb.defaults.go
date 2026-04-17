@@ -9,6 +9,7 @@ import (
 	wrapperspb "google.golang.org/protobuf/types/known/wrapperspb"
 )
 
+// SetDefaults populates zero-valued fields on x with the defaults declared in the .proto source.
 func (x *Test) SetDefaults() {
 	if x.StringField == "" {
 		x.StringField = "string_field"
@@ -84,6 +85,7 @@ func (x *Test) SetDefaults() {
 	}
 }
 
+// SetDefaults populates zero-valued fields on x with the defaults declared in the .proto source.
 func (x *TestOptional) SetDefaults() {
 	if x.StringField == nil {
 		v := string("string_field")
@@ -103,6 +105,7 @@ func (x *TestOptional) SetDefaults() {
 	}
 }
 
+// _SetDefaults populates zero-valued fields on x with the defaults declared in the .proto source.
 func (x *TestUnexported) _SetDefaults() {
 	if x.StringField == nil {
 		v := string("string_field")

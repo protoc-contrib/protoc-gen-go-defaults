@@ -8,6 +8,7 @@ import (
 	wrapperspb "google.golang.org/protobuf/types/known/wrapperspb"
 )
 
+// SetDefaults populates zero-valued fields on x with the defaults declared in the .proto source.
 func (x *Types) SetDefaults() {
 	if x.Float == 0 {
 		x.Float = 0.42
@@ -128,18 +129,21 @@ func (x *Types) SetDefaults() {
 	}
 }
 
+// SetDefaults populates zero-valued fields on x with the defaults declared in the .proto source.
 func (x *Message) SetDefaults() {
 	if x.Field == "" {
 		x.Field = "lonely field"
 	}
 }
 
+// SetDefaults populates zero-valued fields on x with the defaults declared in the .proto source.
 func (x *OneOfTwo) SetDefaults() {
 	if x.StringField == "" {
 		x.StringField = "string_field"
 	}
 }
 
+// SetDefaults populates zero-valued fields on x with the defaults declared in the .proto source.
 func (x *OneOfThree) SetDefaults() {
 	if x.StringField == "" {
 		x.StringField = "string_field"

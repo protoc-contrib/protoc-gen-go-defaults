@@ -89,3 +89,7 @@ message OneOfTwo {
 message OneOfThree {
 	string string_field = 1 [(protoc_contrib.defaults.value).string = "string_field"];
 }
+
+message NoDefaults {
+	string string_field = 1;
+}

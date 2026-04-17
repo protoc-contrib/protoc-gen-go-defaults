@@ -49,6 +49,11 @@ var _ = Describe("SetDefaults()", func() {
 		Expect(generated).To(BeFalse())
 	})
 
+	It("skips generation for messages with no declared defaults", func() {
+		_, generated := interface{}(&testpb.NoDefaults{}).(interface{ SetDefaults() })
+		Expect(generated).To(BeFalse())
+	})
+
 	It("routes unexported messages through _SetDefaults() exposed via a wrapper", func() {
 		msg := &testpb.TestUnexported{}
 		msg.SetDefaults()

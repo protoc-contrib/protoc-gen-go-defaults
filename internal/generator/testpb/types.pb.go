@@ -613,6 +613,50 @@ func (x *OneOfThree) GetStringField() string {
 	return ""
 }
 
+type NoDefaults struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	StringField   string                 `protobuf:"bytes,1,opt,name=string_field,json=stringField,proto3" json:"string_field,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *NoDefaults) Reset() {
+	*x = NoDefaults{}
+	mi := &file_internal_generator_testpb_types_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *NoDefaults) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*NoDefaults) ProtoMessage() {}
+
+func (x *NoDefaults) ProtoReflect() protoreflect.Message {
+	mi := &file_internal_generator_testpb_types_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use NoDefaults.ProtoReflect.Descriptor instead.
+func (*NoDefaults) Descriptor() ([]byte, []int) {
+	return file_internal_generator_testpb_types_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *NoDefaults) GetStringField() string {
+	if x != nil {
+		return x.StringField
+	}
+	return ""
+}
+
 var File_internal_generator_testpb_types_proto protoreflect.FileDescriptor
 
 const file_internal_generator_testpb_types_proto_rawDesc = "" +
@@ -676,7 +720,10 @@ const file_internal_generator_testpb_types_proto_rawDesc = "" +
 	"\fstring_field\x18\x01 \x01(\tB\x12\xca\xed\x1a\x0er\fstring_fieldR\vstringField\"C\n" +
 	"\n" +
 	"OneOfThree\x125\n" +
-	"\fstring_field\x18\x01 \x01(\tB\x12\xca\xed\x1a\x0er\fstring_fieldR\vstringFieldBLZJgithub.com/protoc-contrib/protoc-gen-go-defaults/internal/generator/testpbb\x06proto3"
+	"\fstring_field\x18\x01 \x01(\tB\x12\xca\xed\x1a\x0er\fstring_fieldR\vstringField\"/\n" +
+	"\n" +
+	"NoDefaults\x12!\n" +
+	"\fstring_field\x18\x01 \x01(\tR\vstringFieldBLZJgithub.com/protoc-contrib/protoc-gen-go-defaults/internal/generator/testpbb\x06proto3"
 
 var (
 	file_internal_generator_testpb_types_proto_rawDescOnce sync.Once
@@ -691,7 +738,7 @@ func file_internal_generator_testpb_types_proto_rawDescGZIP() []byte {
 }
 
 var file_internal_generator_testpb_types_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_internal_generator_testpb_types_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
+var file_internal_generator_testpb_types_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
 var file_internal_generator_testpb_types_proto_goTypes = []any{
 	(Types_Enum)(0),                // 0: tests.Types.Enum
 	(*Types)(nil),                  // 1: tests.Types
@@ -699,17 +746,18 @@ var file_internal_generator_testpb_types_proto_goTypes = []any{
 	(*OneOfOne)(nil),               // 3: tests.OneOfOne
 	(*OneOfTwo)(nil),               // 4: tests.OneOfTwo
 	(*OneOfThree)(nil),             // 5: tests.OneOfThree
-	(*durationpb.Duration)(nil),    // 6: google.protobuf.Duration
-	(*timestamppb.Timestamp)(nil),  // 7: google.protobuf.Timestamp
-	(*wrapperspb.DoubleValue)(nil), // 8: google.protobuf.DoubleValue
-	(*wrapperspb.FloatValue)(nil),  // 9: google.protobuf.FloatValue
-	(*wrapperspb.Int64Value)(nil),  // 10: google.protobuf.Int64Value
-	(*wrapperspb.UInt64Value)(nil), // 11: google.protobuf.UInt64Value
-	(*wrapperspb.Int32Value)(nil),  // 12: google.protobuf.Int32Value
-	(*wrapperspb.UInt32Value)(nil), // 13: google.protobuf.UInt32Value
-	(*wrapperspb.BoolValue)(nil),   // 14: google.protobuf.BoolValue
-	(*wrapperspb.StringValue)(nil), // 15: google.protobuf.StringValue
-	(*wrapperspb.BytesValue)(nil),  // 16: google.protobuf.BytesValue
+	(*NoDefaults)(nil),             // 6: tests.NoDefaults
+	(*durationpb.Duration)(nil),    // 7: google.protobuf.Duration
+	(*timestamppb.Timestamp)(nil),  // 8: google.protobuf.Timestamp
+	(*wrapperspb.DoubleValue)(nil), // 9: google.protobuf.DoubleValue
+	(*wrapperspb.FloatValue)(nil),  // 10: google.protobuf.FloatValue
+	(*wrapperspb.Int64Value)(nil),  // 11: google.protobuf.Int64Value
+	(*wrapperspb.UInt64Value)(nil), // 12: google.protobuf.UInt64Value
+	(*wrapperspb.Int32Value)(nil),  // 13: google.protobuf.Int32Value
+	(*wrapperspb.UInt32Value)(nil), // 14: google.protobuf.UInt32Value
+	(*wrapperspb.BoolValue)(nil),   // 15: google.protobuf.BoolValue
+	(*wrapperspb.StringValue)(nil), // 16: google.protobuf.StringValue
+	(*wrapperspb.BytesValue)(nil),  // 17: google.protobuf.BytesValue
 }
 var file_internal_generator_testpb_types_proto_depIdxs = []int32{
 	0,  // 0: tests.Types.enum:type_name -> tests.Types.Enum
@@ -719,17 +767,17 @@ var file_internal_generator_testpb_types_proto_depIdxs = []int32{
 	4,  // 4: tests.Types.two:type_name -> tests.OneOfTwo
 	5,  // 5: tests.Types.three:type_name -> tests.OneOfThree
 	0,  // 6: tests.Types.four:type_name -> tests.Types.Enum
-	6,  // 7: tests.Types.duration:type_name -> google.protobuf.Duration
-	7,  // 8: tests.Types.timestamp:type_name -> google.protobuf.Timestamp
-	8,  // 9: tests.Types.double_value:type_name -> google.protobuf.DoubleValue
-	9,  // 10: tests.Types.float_value:type_name -> google.protobuf.FloatValue
-	10, // 11: tests.Types.int64_value:type_name -> google.protobuf.Int64Value
-	11, // 12: tests.Types.uint64_value:type_name -> google.protobuf.UInt64Value
-	12, // 13: tests.Types.int32_value:type_name -> google.protobuf.Int32Value
-	13, // 14: tests.Types.uint32_value:type_name -> google.protobuf.UInt32Value
-	14, // 15: tests.Types.bool_value:type_name -> google.protobuf.BoolValue
-	15, // 16: tests.Types.string_value:type_name -> google.protobuf.StringValue
-	16, // 17: tests.Types.bytes_value:type_name -> google.protobuf.BytesValue
+	7,  // 7: tests.Types.duration:type_name -> google.protobuf.Duration
+	8,  // 8: tests.Types.timestamp:type_name -> google.protobuf.Timestamp
+	9,  // 9: tests.Types.double_value:type_name -> google.protobuf.DoubleValue
+	10, // 10: tests.Types.float_value:type_name -> google.protobuf.FloatValue
+	11, // 11: tests.Types.int64_value:type_name -> google.protobuf.Int64Value
+	12, // 12: tests.Types.uint64_value:type_name -> google.protobuf.UInt64Value
+	13, // 13: tests.Types.int32_value:type_name -> google.protobuf.Int32Value
+	14, // 14: tests.Types.uint32_value:type_name -> google.protobuf.UInt32Value
+	15, // 15: tests.Types.bool_value:type_name -> google.protobuf.BoolValue
+	16, // 16: tests.Types.string_value:type_name -> google.protobuf.StringValue
+	17, // 17: tests.Types.bytes_value:type_name -> google.protobuf.BytesValue
 	18, // [18:18] is the sub-list for method output_type
 	18, // [18:18] is the sub-list for method input_type
 	18, // [18:18] is the sub-list for extension type_name
@@ -754,7 +802,7 @@ func file_internal_generator_testpb_types_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_internal_generator_testpb_types_proto_rawDesc), len(file_internal_generator_testpb_types_proto_rawDesc)),
 			NumEnums:      1,
-			NumMessages:   5,
+			NumMessages:   6,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

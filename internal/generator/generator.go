@@ -44,6 +44,9 @@ func generateFile(plugin *protogen.Plugin, file *protogen.File) error {
 		if messageSkipped(msg) {
 			continue
 		}
+		if !messageHasDefaults(msg) {
+			continue
+		}
 		emittable = append(emittable, msg)
 	}
 	if len(emittable) == 0 {
@@ -83,6 +86,7 @@ func emitMessage(g *protogen.GeneratedFile, msg *protogen.Message) {
 		method = "_SetDefaults"
 	}
 
+	g.P("// ", method, " populates zero-valued fields on x with the defaults declared in the .proto source.")
 	g.P("func (x *", msg.GoIdent, ") ", method, "() {")
 	seenOneofs := make(map[protoreflect.FullName]bool)
 	for _, field := range msg.Fields {
@@ -90,6 +94,22 @@ func emitMessage(g *protogen.GeneratedFile, msg *protogen.Message) {
 	}
 	g.P("}")
 	g.P()
+}
+
+// messageHasDefaults reports whether any field or oneof on msg carries a
+// defaults annotation — i.e. whether SetDefaults() would have any work to do.
+func messageHasDefaults(msg *protogen.Message) bool {
+	for _, f := range msg.Fields {
+		if _, ok := fieldDefaults(f); ok {
+			return true
+		}
+	}
+	for _, oo := range msg.Oneofs {
+		if _, ok := oneofDefaultField(oo); ok {
+			return true
+		}
+	}
+	return false
 }
 
 func messageSkipped(msg *protogen.Message) bool {
