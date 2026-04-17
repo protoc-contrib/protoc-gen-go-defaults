@@ -561,49 +561,47 @@ var File_internal_generator_testpb_test_proto protoreflect.FileDescriptor
 
 const file_internal_generator_testpb_test_proto_rawDesc = "" +
 	"\n" +
-	"$internal/generator/testpb/test.proto\x12\x05tests\x1a\x17defaults/defaults.proto\x1a\x1egoogle/protobuf/wrappers.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1egoogle/protobuf/duration.proto\x1a google/protobuf/descriptor.proto\x1a%internal/generator/testpb/types.proto\"\x89\n" +
+	"$internal/generator/testpb/test.proto\x12\x05tests\x1a\x17defaults/defaults.proto\x1a\x1egoogle/protobuf/wrappers.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1egoogle/protobuf/duration.proto\x1a google/protobuf/descriptor.proto\x1a%internal/generator/testpb/types.proto\"\x9b\n" +
 	"\n" +
-	"\x04Test\x124\n" +
-	"\fstring_field\x18\x01 \x01(\tB\x11\x9aI\x0er\fstring_fieldR\vstringField\x12(\n" +
-	"\fnumber_field\x18\x02 \x01(\x03B\x05\x9aI\x02 *R\vnumberField\x12$\n" +
+	"\x04Test\x125\n" +
+	"\fstring_field\x18\x01 \x01(\tB\x12\xca\xed\x1a\x0er\fstring_fieldR\vstringField\x12)\n" +
+	"\fnumber_field\x18\x02 \x01(\x03B\x06\xca\xed\x1a\x02 *R\vnumberField\x12%\n" +
 	"\n" +
-	"bool_field\x18\x03 \x01(\bB\x05\x9aI\x02h\x01R\tboolField\x127\n" +
+	"bool_field\x18\x03 \x01(\bB\x06\xca\xed\x1a\x02h\x01R\tboolField\x128\n" +
 	"\n" +
-	"enum_field\x18\x04 \x01(\x0e2\x10.tests.Test.TypeB\x06\x9aI\x03\x80\x01\x02R\tenumField\x12:\n" +
-	"\rmessage_field\x18\x05 \x01(\v2\v.tests.TestB\b\x9aI\x05\x8a\x01\x02\x10\x01R\fmessageField\x122\n" +
+	"enum_field\x18\x04 \x01(\x0e2\x10.tests.Test.TypeB\a\xca\xed\x1a\x03\x80\x01\x02R\tenumField\x12;\n" +
+	"\rmessage_field\x18\x05 \x01(\v2\v.tests.TestB\t\xca\xed\x1a\x05\x8a\x01\x02\x10\x01R\fmessageField\x122\n" +
 	"\x15repeated_string_field\x18\x06 \x03(\tR\x13repeatedStringField\x12F\n" +
-	"\x16repeated_message_field\x18\a \x03(\x0e2\x10.tests.Test.TypeR\x14repeatedMessageField\x12P\n" +
-	"\x12number_value_field\x18\b \x01(\v2\x1b.google.protobuf.Int64ValueB\x05\x9aI\x02 +R\x10numberValueField\x12]\n" +
-	"\x12string_value_field\x18\t \x01(\v2\x1c.google.protobuf.StringValueB\x11\x9aI\x0er\fstring_valueR\x10stringValueField\x12K\n" +
+	"\x16repeated_message_field\x18\a \x03(\x0e2\x10.tests.Test.TypeR\x14repeatedMessageField\x12Q\n" +
+	"\x12number_value_field\x18\b \x01(\v2\x1b.google.protobuf.Int64ValueB\x06\xca\xed\x1a\x02 +R\x10numberValueField\x12^\n" +
+	"\x12string_value_field\x18\t \x01(\v2\x1c.google.protobuf.StringValueB\x12\xca\xed\x1a\x0er\fstring_valueR\x10stringValueField\x12L\n" +
 	"\x10bool_value_field\x18\n" +
-	" \x01(\v2\x1a.google.protobuf.BoolValueB\x05\x9aI\x02h\x00R\x0eboolValueField\x12O\n" +
-	"\x10time_value_field\x18\v \x01(\v2\x1a.google.protobuf.TimestampB\t\x9aI\x06\xb2\x01\x03nowR\x0etimeValueField\x12V\n" +
-	"\x14duration_value_field\x18\f \x01(\v2\x19.google.protobuf.DurationB\t\x9aI\x06\xaa\x01\x0342wR\x12durationValueField\x12/\n" +
-	"\x03one\x18\r \x01(\v2\x0f.tests.OneOfOneB\n" +
-	"\x9aI\a\x8a\x01\x04\b\x01\x10\x01H\x00R\x03one\x12/\n" +
-	"\x03two\x18\x0e \x01(\v2\x0f.tests.OneOfTwoB\n" +
-	"\x9aI\a\x8a\x01\x04\b\x01\x10\x01H\x00R\x03two\x125\n" +
-	"\x05three\x18\x0f \x01(\v2\x11.tests.OneOfThreeB\n" +
-	"\x9aI\a\x8a\x01\x04\b\x01\x10\x01H\x00R\x05three\x12.\n" +
-	"\x04four\x18\x10 \x01(\x0e2\x10.tests.Test.TypeB\x06\x9aI\x03\x80\x01\x01H\x00R\x04four\x12L\n" +
+	" \x01(\v2\x1a.google.protobuf.BoolValueB\x06\xca\xed\x1a\x02h\x00R\x0eboolValueField\x12P\n" +
+	"\x10time_value_field\x18\v \x01(\v2\x1a.google.protobuf.TimestampB\n" +
+	"\xca\xed\x1a\x06\xb2\x01\x03nowR\x0etimeValueField\x12W\n" +
+	"\x14duration_value_field\x18\f \x01(\v2\x19.google.protobuf.DurationB\n" +
+	"\xca\xed\x1a\x06\xaa\x01\x0342wR\x12durationValueField\x120\n" +
+	"\x03one\x18\r \x01(\v2\x0f.tests.OneOfOneB\v\xca\xed\x1a\a\x8a\x01\x04\b\x01\x10\x01H\x00R\x03one\x120\n" +
+	"\x03two\x18\x0e \x01(\v2\x0f.tests.OneOfTwoB\v\xca\xed\x1a\a\x8a\x01\x04\b\x01\x10\x01H\x00R\x03two\x126\n" +
+	"\x05three\x18\x0f \x01(\v2\x11.tests.OneOfThreeB\v\xca\xed\x1a\a\x8a\x01\x04\b\x01\x10\x01H\x00R\x05three\x12/\n" +
+	"\x04four\x18\x10 \x01(\x0e2\x10.tests.Test.TypeB\a\xca\xed\x1a\x03\x80\x01\x01H\x00R\x04four\x12M\n" +
 	"\n" +
-	"descriptor\x18\x11 \x01(\v2 .google.protobuf.DescriptorProtoB\n" +
-	"\x9aI\a\x8a\x01\x04\b\x01\x10\x01R\n" +
-	"descriptor\x12x\n" +
-	"\x1dtime_value_field_with_default\x18\x12 \x01(\v2\x1a.google.protobuf.TimestampB\x1a\x9aI\x17\xb2\x01\x141952-03-11T00:00:00ZR\x19timeValueFieldWithDefault\x12\x1d\n" +
-	"\x05bytes\x18\x13 \x01(\fB\a\x9aI\x04z\x02??R\x05bytes\"\"\n" +
+	"descriptor\x18\x11 \x01(\v2 .google.protobuf.DescriptorProtoB\v\xca\xed\x1a\a\x8a\x01\x04\b\x01\x10\x01R\n" +
+	"descriptor\x12y\n" +
+	"\x1dtime_value_field_with_default\x18\x12 \x01(\v2\x1a.google.protobuf.TimestampB\x1b\xca\xed\x1a\x17\xb2\x01\x141952-03-11T00:00:00ZR\x19timeValueFieldWithDefault\x12\x1e\n" +
+	"\x05bytes\x18\x13 \x01(\fB\b\xca\xed\x1a\x04z\x02??R\x05bytes\"\"\n" +
 	"\x04Type\x12\b\n" +
 	"\x04NONE\x10\x00\x12\a\n" +
 	"\x03ONE\x10\x01\x12\a\n" +
-	"\x03TWO\x10\x02B\x0f\n" +
-	"\x05oneof\x12\x06\x9aI\x03two\"\xcd\x02\n" +
-	"\fTestOptional\x129\n" +
-	"\fstring_field\x18\x01 \x01(\tB\x11\x9aI\x0er\fstring_fieldH\x00R\vstringField\x88\x01\x01\x12-\n" +
-	"\fnumber_field\x18\x02 \x01(\x03B\x05\x9aI\x02 *H\x01R\vnumberField\x88\x01\x01\x12)\n" +
+	"\x03TWO\x10\x02B\x10\n" +
+	"\x05oneof\x12\a\xd2\xed\x1a\x03two\"\xd1\x02\n" +
+	"\fTestOptional\x12:\n" +
+	"\fstring_field\x18\x01 \x01(\tB\x12\xca\xed\x1a\x0er\fstring_fieldH\x00R\vstringField\x88\x01\x01\x12.\n" +
+	"\fnumber_field\x18\x02 \x01(\x03B\x06\xca\xed\x1a\x02 *H\x01R\vnumberField\x88\x01\x01\x12*\n" +
 	"\n" +
-	"bool_field\x18\x03 \x01(\bB\x05\x9aI\x02h\x01H\x02R\tboolField\x88\x01\x01\x12D\n" +
+	"bool_field\x18\x03 \x01(\bB\x06\xca\xed\x1a\x02h\x01H\x02R\tboolField\x88\x01\x01\x12E\n" +
 	"\n" +
-	"enum_field\x18\x04 \x01(\x0e2\x18.tests.TestOptional.TypeB\x06\x9aI\x03\x80\x01\x02H\x03R\tenumField\x88\x01\x01\"\"\n" +
+	"enum_field\x18\x04 \x01(\x0e2\x18.tests.TestOptional.TypeB\a\xca\xed\x1a\x03\x80\x01\x02H\x03R\tenumField\x88\x01\x01\"\"\n" +
 	"\x04Type\x12\b\n" +
 	"\x04NONE\x10\x00\x12\a\n" +
 	"\x03ONE\x10\x01\x12\a\n" +
@@ -611,18 +609,18 @@ const file_internal_generator_testpb_test_proto_rawDesc = "" +
 	"\r_string_fieldB\x0f\n" +
 	"\r_number_fieldB\r\n" +
 	"\v_bool_fieldB\r\n" +
-	"\v_enum_field\"\xd6\x02\n" +
-	"\x0eTestUnexported\x129\n" +
-	"\fstring_field\x18\x01 \x01(\tB\x11\x9aI\x0er\fstring_fieldH\x00R\vstringField\x88\x01\x01\x12-\n" +
-	"\fnumber_field\x18\x02 \x01(\x03B\x05\x9aI\x02 *H\x01R\vnumberField\x88\x01\x01\x12)\n" +
+	"\v_enum_field\"\xdb\x02\n" +
+	"\x0eTestUnexported\x12:\n" +
+	"\fstring_field\x18\x01 \x01(\tB\x12\xca\xed\x1a\x0er\fstring_fieldH\x00R\vstringField\x88\x01\x01\x12.\n" +
+	"\fnumber_field\x18\x02 \x01(\x03B\x06\xca\xed\x1a\x02 *H\x01R\vnumberField\x88\x01\x01\x12*\n" +
 	"\n" +
-	"bool_field\x18\x03 \x01(\bB\x05\x9aI\x02h\x01H\x02R\tboolField\x88\x01\x01\x12F\n" +
+	"bool_field\x18\x03 \x01(\bB\x06\xca\xed\x1a\x02h\x01H\x02R\tboolField\x88\x01\x01\x12G\n" +
 	"\n" +
-	"enum_field\x18\x04 \x01(\x0e2\x1a.tests.TestUnexported.TypeB\x06\x9aI\x03\x80\x01\x02H\x03R\tenumField\x88\x01\x01\"\"\n" +
+	"enum_field\x18\x04 \x01(\x0e2\x1a.tests.TestUnexported.TypeB\a\xca\xed\x1a\x03\x80\x01\x02H\x03R\tenumField\x88\x01\x01\"\"\n" +
 	"\x04Type\x12\b\n" +
 	"\x04NONE\x10\x00\x12\a\n" +
 	"\x03ONE\x10\x01\x12\a\n" +
-	"\x03TWO\x10\x02:\x03\xa8I\x01B\x0f\n" +
+	"\x03TWO\x10\x02:\x04\xe0\xed\x1a\x01B\x0f\n" +
 	"\r_string_fieldB\x0f\n" +
 	"\r_number_fieldB\r\n" +
 	"\v_bool_fieldB\r\n" +

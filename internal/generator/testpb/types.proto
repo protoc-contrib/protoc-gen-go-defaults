@@ -49,12 +49,12 @@ message Types {
 		TWO = 2;
 	}
 	Enum enum = 16 [(defaults.value).enum = 1];
-	Message message = 17 [(defaults.value).message = {initialize: true, defaults: false}];
+	Message message = 17 [(defaults.value).message = {initialize: true}];
 	oneof oneof {
 		option (defaults.oneof) = "two";
-		OneOfOne one = 29 [(defaults.value).message = {defaults: true, initialize: true}];
-		OneOfTwo two = 30 [(defaults.value).message = {defaults: true, initialize: true}];
-		OneOfThree three = 31 [(defaults.value).message = {defaults: true, initialize: true}];
+		OneOfOne one = 29 [(defaults.value).message = {initialize: true, recurse: true}];
+		OneOfTwo two = 30 [(defaults.value).message = {initialize: true, recurse: true}];
+		OneOfThree three = 31 [(defaults.value).message = {initialize: true, recurse: true}];
 		Enum four = 32 [(defaults.value).enum = 1];
 	}
 

@@ -57,7 +57,9 @@ func (x *Types) Default() {
 	if x.Enum == 0 {
 		x.Enum = 1
 	}
-	// Message: defaults disabled by [(defaults.value).message = {defaults: false}]
+	if x.Message == nil {
+		x.Message = &Message{}
+	}
 	if x.Oneof == nil {
 		x.Oneof = &Types_Two{}
 	}

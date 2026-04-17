@@ -19,28 +19,27 @@ option go_package = "github.com/protoc-contrib/protoc-gen-go-defaults/defaults;d
 
 import "google/protobuf/descriptor.proto";
 
-// Defaults values applied at the message level
+// Default values applied at the message level
 extend google.protobuf.MessageOptions {
 	// Skip suppresses Default() generation for this message entirely,
 	// so a caller can provide a hand-written method instead.
-	optional bool skip = 1172;
+	optional bool skip = 55003;
 	// Unexported emits _Default() instead of Default(). Useful when a
 	// caller wants to compose custom logic around the generated body
 	// by writing a Default() that delegates to the generated method.
-	optional bool unexported = 1173;
-	// 1171 was `disabled`, removed.
+	optional bool unexported = 55004;
 }
 
-// Defaults values applied at the oneof level
+// Default values applied at the oneof level
 extend google.protobuf.OneofOptions {
-	optional string oneof = 1171;
+	optional string oneof = 55002;
 }
 
-// Defaults values applied at the field level
+// Default values applied at the field level
 extend google.protobuf.FieldOptions {
 	// Value specify the default value to set on this field. By default,
 	// none is set on a field.
-	optional FieldDefaults value = 1171;
+	optional FieldDefaults value = 55001;
 }
 
 // FieldDefaults encapsulates the default values for each type of field. Depending on the
@@ -82,6 +81,7 @@ message FieldDefaults {
 message MessageDefaults {
 	// Initialize specify that the message should be initialized
 	optional bool initialize = 1;
-	// Defaults specifies that the messages' defaults should be applied
-	optional bool defaults = 2;
+	// Recurse specifies that the nested message's own Default() method
+	// should be invoked after initialization.
+	optional bool recurse = 2;
 }

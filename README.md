@@ -140,7 +140,7 @@ string.
 message Notification {
   oneof channel {
     option (defaults.oneof) = "email";
-    Email email = 1 [(defaults.value).message = {defaults: true, initialize: true}];
+    Email email = 1 [(defaults.value).message = {initialize: true, recurse: true}];
     Sms   sms   = 2;
   }
 }

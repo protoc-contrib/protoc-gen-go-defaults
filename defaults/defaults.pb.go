@@ -401,8 +401,9 @@ type MessageDefaults struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// Initialize specify that the message should be initialized
 	Initialize *bool `protobuf:"varint,1,opt,name=initialize" json:"initialize,omitempty"`
-	// Defaults specifies that the messages' defaults should be applied
-	Defaults      *bool `protobuf:"varint,2,opt,name=defaults" json:"defaults,omitempty"`
+	// Recurse specifies that the nested message's own Default() method
+	// should be invoked after initialization.
+	Recurse       *bool `protobuf:"varint,2,opt,name=recurse" json:"recurse,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -444,9 +445,9 @@ func (x *MessageDefaults) GetInitialize() bool {
 	return false
 }
 
-func (x *MessageDefaults) GetDefaults() bool {
-	if x != nil && x.Defaults != nil {
-		return *x.Defaults
+func (x *MessageDefaults) GetRecurse() bool {
+	if x != nil && x.Recurse != nil {
+		return *x.Recurse
 	}
 	return false
 }
@@ -455,33 +456,33 @@ var file_defaults_defaults_proto_extTypes = []protoimpl.ExtensionInfo{
 	{
 		ExtendedType:  (*descriptorpb.MessageOptions)(nil),
 		ExtensionType: (*bool)(nil),
-		Field:         1172,
+		Field:         55003,
 		Name:          "defaults.skip",
-		Tag:           "varint,1172,opt,name=skip",
+		Tag:           "varint,55003,opt,name=skip",
 		Filename:      "defaults/defaults.proto",
 	},
 	{
 		ExtendedType:  (*descriptorpb.MessageOptions)(nil),
 		ExtensionType: (*bool)(nil),
-		Field:         1173,
+		Field:         55004,
 		Name:          "defaults.unexported",
-		Tag:           "varint,1173,opt,name=unexported",
+		Tag:           "varint,55004,opt,name=unexported",
 		Filename:      "defaults/defaults.proto",
 	},
 	{
 		ExtendedType:  (*descriptorpb.OneofOptions)(nil),
 		ExtensionType: (*string)(nil),
-		Field:         1171,
+		Field:         55002,
 		Name:          "defaults.oneof",
-		Tag:           "bytes,1171,opt,name=oneof",
+		Tag:           "bytes,55002,opt,name=oneof",
 		Filename:      "defaults/defaults.proto",
 	},
 	{
 		ExtendedType:  (*descriptorpb.FieldOptions)(nil),
 		ExtensionType: (*FieldDefaults)(nil),
-		Field:         1171,
+		Field:         55001,
 		Name:          "defaults.value",
-		Tag:           "bytes,1171,opt,name=value",
+		Tag:           "bytes,55001,opt,name=value",
 		Filename:      "defaults/defaults.proto",
 	},
 }
@@ -491,19 +492,19 @@ var (
 	// Skip suppresses Default() generation for this message entirely,
 	// so a caller can provide a hand-written method instead.
 	//
-	// optional bool skip = 1172;
+	// optional bool skip = 55003;
 	E_Skip = &file_defaults_defaults_proto_extTypes[0]
 	// Unexported emits _Default() instead of Default(). Useful when a
 	// caller wants to compose custom logic around the generated body
 	// by writing a Default() that delegates to the generated method.
 	//
-	// optional bool unexported = 1173;
-	E_Unexported = &file_defaults_defaults_proto_extTypes[1] // 1171 was `disabled`, removed.
+	// optional bool unexported = 55004;
+	E_Unexported = &file_defaults_defaults_proto_extTypes[1]
 )
 
 // Extension fields to descriptorpb.OneofOptions.
 var (
-	// optional string oneof = 1171;
+	// optional string oneof = 55002;
 	E_Oneof = &file_defaults_defaults_proto_extTypes[2]
 )
 
@@ -512,7 +513,7 @@ var (
 	// Value specify the default value to set on this field. By default,
 	// none is set on a field.
 	//
-	// optional defaults.FieldDefaults value = 1171;
+	// optional defaults.FieldDefaults value = 55001;
 	E_Value = &file_defaults_defaults_proto_extTypes[3]
 )
 
@@ -542,18 +543,18 @@ const file_defaults_defaults_proto_rawDesc = "" +
 	"\amessage\x18\x11 \x01(\v2\x19.defaults.MessageDefaultsH\x00R\amessage\x12\x1c\n" +
 	"\bduration\x18\x15 \x01(\tH\x00R\bduration\x12\x1e\n" +
 	"\ttimestamp\x18\x16 \x01(\tH\x00R\ttimestampB\x06\n" +
-	"\x04typeJ\x04\b\x12\x10\x15\"M\n" +
+	"\x04typeJ\x04\b\x12\x10\x15\"K\n" +
 	"\x0fMessageDefaults\x12\x1e\n" +
 	"\n" +
 	"initialize\x18\x01 \x01(\bR\n" +
-	"initialize\x12\x1a\n" +
-	"\bdefaults\x18\x02 \x01(\bR\bdefaults:4\n" +
-	"\x04skip\x12\x1f.google.protobuf.MessageOptions\x18\x94\t \x01(\bR\x04skip:@\n" +
+	"initialize\x12\x18\n" +
+	"\arecurse\x18\x02 \x01(\bR\arecurse:5\n" +
+	"\x04skip\x12\x1f.google.protobuf.MessageOptions\x18ۭ\x03 \x01(\bR\x04skip:A\n" +
 	"\n" +
-	"unexported\x12\x1f.google.protobuf.MessageOptions\x18\x95\t \x01(\bR\n" +
-	"unexported:4\n" +
-	"\x05oneof\x12\x1d.google.protobuf.OneofOptions\x18\x93\t \x01(\tR\x05oneof:M\n" +
-	"\x05value\x12\x1d.google.protobuf.FieldOptions\x18\x93\t \x01(\v2\x17.defaults.FieldDefaultsR\x05valueBDZBgithub.com/protoc-contrib/protoc-gen-go-defaults/defaults;defaults"
+	"unexported\x12\x1f.google.protobuf.MessageOptions\x18ܭ\x03 \x01(\bR\n" +
+	"unexported:5\n" +
+	"\x05oneof\x12\x1d.google.protobuf.OneofOptions\x18ڭ\x03 \x01(\tR\x05oneof:N\n" +
+	"\x05value\x12\x1d.google.protobuf.FieldOptions\x18٭\x03 \x01(\v2\x17.defaults.FieldDefaultsR\x05valueBDZBgithub.com/protoc-contrib/protoc-gen-go-defaults/defaults;defaults"
 
 var (
 	file_defaults_defaults_proto_rawDescOnce sync.Once

@@ -233,17 +233,13 @@ func emitTimestamp(g *protogen.GeneratedFile, field *protogen.Field, raw string)
 }
 
 func emitMessageField(g *protogen.GeneratedFile, field *protogen.Field, md *defaults.MessageDefaults, name string) {
-	// If defaults is explicitly disabled, emit only a marker comment — no
-	// initialization, no Default() call. Matches the historical behavior.
-	if md != nil && md.Defaults != nil && !md.GetDefaults() {
-		g.P("// ", name, ": defaults disabled by [(defaults.value).message = {defaults: false}]")
-		return
-	}
-
 	if md.GetInitialize() {
 		g.P("if x.", name, " == nil {")
 		g.P("x.", name, " = &", field.Message.GoIdent, "{}")
 		g.P("}")
+	}
+	if !md.GetRecurse() {
+		return
 	}
 	g.P("if v, ok := interface{}(x.", name, ").(interface{ Default() }); ok && x.", name, " != nil {")
 	g.P("v.Default()")

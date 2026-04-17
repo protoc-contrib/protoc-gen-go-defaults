@@ -36,7 +36,7 @@ message Test {
 		TWO = 2;
 	}
 	Type enum_field = 4 [(defaults.value).enum = 2];
-	Test message_field = 5 [(defaults.value).message = {defaults: true}];
+	Test message_field = 5 [(defaults.value).message = {recurse: true}];
 	repeated string repeated_string_field = 6;
 	repeated Type repeated_message_field = 7;
 	google.protobuf.Int64Value number_value_field = 8 [(defaults.value).int64 = 43];
@@ -47,13 +47,13 @@ message Test {
 
 	oneof oneof {
 		option (defaults.oneof) = "two";
-		OneOfOne one = 13 [(defaults.value).message = {defaults: true, initialize: true}];
-		OneOfTwo two = 14 [(defaults.value).message = {defaults: true, initialize: true}];
-		OneOfThree three = 15 [(defaults.value).message = {defaults: true, initialize: true}];
+		OneOfOne one = 13 [(defaults.value).message = {initialize: true, recurse: true}];
+		OneOfTwo two = 14 [(defaults.value).message = {initialize: true, recurse: true}];
+		OneOfThree three = 15 [(defaults.value).message = {initialize: true, recurse: true}];
 		Type four = 16 [(defaults.value).enum = 1];
 	}
 
-	google.protobuf.DescriptorProto descriptor = 17 [(defaults.value).message = {defaults: true, initialize: true}];
+	google.protobuf.DescriptorProto descriptor = 17 [(defaults.value).message = {initialize: true, recurse: true}];
 	google.protobuf.Timestamp time_value_field_with_default = 18 [(defaults.value).timestamp = "1952-03-11T00:00:00Z"];
 	bytes bytes = 19 [(defaults.value).bytes = "??"];
 }

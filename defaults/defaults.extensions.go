@@ -226,7 +226,7 @@ func Apply(m proto.Message) {
 					}
 					mref.Set(f, reflect.ValueOf(mref.Get(f).Message().New()))
 				}
-				if !m.GetDefaults() {
+				if !m.GetRecurse() {
 					continue
 				}
 				Apply(mref.Get(f).Message().Interface())
