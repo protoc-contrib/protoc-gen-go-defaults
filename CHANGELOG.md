@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0](https://github.com/protoc-contrib/protoc-gen-go-defaults/compare/v1.3.2...v1.4.0) (2026-04-17)
+
+
+### Features
+
+* skip SetDefaults generation for messages with no defaults ([a4cebed](https://github.com/protoc-contrib/protoc-gen-go-defaults/commit/a4cebed0ba1dc68e1cdcac5490841e27eceffa37))
+
 ## [1.3.2](https://github.com/protoc-contrib/protoc-gen-go-defaults/compare/v1.3.1...v1.3.2) (2026-04-17)
 
 
