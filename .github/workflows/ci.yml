@@ -108,6 +108,6 @@ jobs:
         uses: DeterminateSystems/magic-nix-cache-action@v13
 
       - name: Push to Buf Schema Registry
-        run: nix develop --command buf push --label ${{ needs.release.outputs.tag_name }}
+        run: nix develop --command buf push --label main --label ${{ needs.release.outputs.tag_name }}
         env:
           BUF_TOKEN: ${{ secrets.BUF_TOKEN }}
