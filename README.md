@@ -1,11 +1,11 @@
 # protoc-gen-go-defaults
 
 [![CI](https://github.com/protoc-contrib/protoc-gen-go-defaults/actions/workflows/ci.yml/badge.svg)](https://github.com/protoc-contrib/protoc-gen-go-defaults/actions/workflows/ci.yml)
+[![Coverage](https://raw.githubusercontent.com/protoc-contrib/protoc-gen-go-defaults/main/.github/octocov/badge.svg)](https://github.com/protoc-contrib/protoc-gen-go-defaults/actions/workflows/ci.yml)
 [![Release](https://img.shields.io/github/v/release/protoc-contrib/protoc-gen-go-defaults?include_prereleases)](https://github.com/protoc-contrib/protoc-gen-go-defaults/releases)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENCE)
 [![Go](https://img.shields.io/badge/Go-1.25-00ADD8?logo=go&logoColor=white)](https://go.dev)
 [![protoc](https://img.shields.io/badge/protoc-compatible-blue)](https://protobuf.dev)
-[![Coverage](https://raw.githubusercontent.com/protoc-contrib/protoc-gen-go-defaults/main/.github/octocov/badge.svg)](https://github.com/protoc-contrib/protoc-gen-go-defaults/actions/workflows/ci.yml)
 
 A [protoc](https://protobuf.dev) plugin that generates `Default()` methods for
 Protocol Buffer messages from field and message options. It works on Go code
@@ -17,9 +17,10 @@ This project started as a fork of
 and has since been significantly refactored: the code generator was rewritten
 on top of `google.golang.org/protobuf/compiler/protogen` (replacing the
 archived `lyft/protoc-gen-star`), the build and release pipeline now uses Nix
-+ `release-please`, tests were migrated to Ginkgo/Gomega, deprecated
-dependencies were removed, and several code-generation bugs (notably around
-`fixed64` defaults) were fixed.
+
+- `release-please`, tests were migrated to Ginkgo/Gomega, deprecated
+  dependencies were removed, and several code-generation bugs (notably around
+  `fixed64` defaults) were fixed.
 
 ## Features
 
@@ -80,12 +81,12 @@ protoc \
 
 Import `defaults/defaults.proto` in your `.proto` files to use the options.
 
-| Extension                  | Scope            | Purpose                                                      |
-| -------------------------- | ---------------- | ------------------------------------------------------------ |
-| `(defaults.value)`         | FieldOptions     | Default value applied when the field is zero.                |
-| `(defaults.oneof)`         | OneofOptions     | Name of the arm to populate when the oneof is unset.         |
-| `(defaults.skip)`          | MessageOptions   | Skip `Default()` generation for this message entirely.       |
-| `(defaults.unexported)`    | MessageOptions   | Emit an unexported `_Default()` method instead of `Default()`. |
+| Extension               | Scope          | Purpose                                                        |
+| ----------------------- | -------------- | -------------------------------------------------------------- |
+| `(defaults.value)`      | FieldOptions   | Default value applied when the field is zero.                  |
+| `(defaults.oneof)`      | OneofOptions   | Name of the arm to populate when the oneof is unset.           |
+| `(defaults.skip)`       | MessageOptions | Skip `Default()` generation for this message entirely.         |
+| `(defaults.unexported)` | MessageOptions | Emit an unexported `_Default()` method instead of `Default()`. |
 
 ### Scalars and enums
 
