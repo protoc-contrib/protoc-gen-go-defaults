@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.3.0](https://github.com/protoc-contrib/protoc-gen-go-defaults/compare/v1.2.0...v1.3.0) (2026-04-17)
+
+
+### Features
+
+* add enum_name for symbolic enum defaults ([0a2d81b](https://github.com/protoc-contrib/protoc-gen-go-defaults/commit/0a2d81b227c1d8b3616abb55a5c8c182f43d8e97))
+* update the dependencies ([2a911a3](https://github.com/protoc-contrib/protoc-gen-go-defaults/commit/2a911a338d559ba0ea50f0e8d6c643d244e4271c))
+
 ## [1.2.0](https://github.com/protoc-contrib/protoc-gen-go-defaults/compare/v1.1.1...v1.2.0) (2026-04-17)
 
 
