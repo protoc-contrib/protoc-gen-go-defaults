@@ -1,12 +1,12 @@
 {
   "repository": "protoc-contrib/protoc-gen-go-defaults",
   "ref": "refs/heads/main",
-  "commit": "7da4523b1ab7466735d40fac5a57127219186f6d",
+  "commit": "a4cebed0ba1dc68e1cdcac5490841e27eceffa37",
   "coverage": {
     "type": "statement",
     "format": "Go coverage",
-    "total": 324,
-    "covered": 280,
+    "total": 334,
+    "covered": 288,
     "files": [
       {
         "type": "statement",
@@ -85,7 +85,7 @@
             "end_line": 49,
             "end_col": 35,
             "num_stmt": 1,
-            "count": 18
+            "count": 19
           },
           {
             "type": "statement",
@@ -94,7 +94,7 @@
             "end_line": 50,
             "end_col": 43,
             "num_stmt": 1,
-            "count": 197
+            "count": 198
           },
           {
             "type": "statement",
@@ -112,7 +112,7 @@
             "end_line": 54,
             "end_col": 32,
             "num_stmt": 1,
-            "count": 15
+            "count": 16
           },
           {
             "type": "statement",
@@ -139,7 +139,7 @@
             "end_line": 59,
             "end_col": 12,
             "num_stmt": 1,
-            "count": 14
+            "count": 15
           },
           {
             "type": "statement",
@@ -202,7 +202,7 @@
             "end_line": 77,
             "end_col": 9,
             "num_stmt": 2,
-            "count": 197
+            "count": 198
           },
           {
             "type": "statement",
@@ -211,7 +211,7 @@
             "end_line": 79,
             "end_col": 3,
             "num_stmt": 1,
-            "count": 6
+            "count": 7
           },
           {
             "type": "statement",
@@ -1668,8 +1668,8 @@
         "type": "statement",
         "file": "github.com/protoc-contrib/protoc-gen-go-defaults/internal/generator/generator.go",
         "normalized_path": "internal/generator/generator.go",
-        "total": 75,
-        "covered": 66,
+        "total": 85,
+        "covered": 74,
         "blocks": [
           {
             "type": "statement",
@@ -1759,7 +1759,7 @@
             "end_line": 37,
             "end_col": 36,
             "num_stmt": 1,
-            "count": 18
+            "count": 19
           },
           {
             "type": "statement",
@@ -1786,7 +1786,7 @@
             "end_line": 44,
             "end_col": 26,
             "num_stmt": 1,
-            "count": 14
+            "count": 15
           },
           {
             "type": "statement",
@@ -1802,348 +1802,429 @@
             "start_line": 47,
             "start_col": 3,
             "end_line": 47,
+            "end_col": 31,
+            "num_stmt": 1,
+            "count": 14
+          },
+          {
+            "type": "statement",
+            "start_line": 47,
+            "start_col": 31,
+            "end_line": 48,
+            "end_col": 12,
+            "num_stmt": 1,
+            "count": 1
+          },
+          {
+            "type": "statement",
+            "start_line": 50,
+            "start_col": 3,
+            "end_line": 50,
             "end_col": 37,
             "num_stmt": 1,
             "count": 13
           },
           {
             "type": "statement",
-            "start_line": 49,
+            "start_line": 52,
             "start_col": 2,
-            "end_line": 49,
+            "end_line": 52,
             "end_col": 25,
             "num_stmt": 1,
             "count": 4
           },
           {
             "type": "statement",
-            "start_line": 49,
+            "start_line": 52,
             "start_col": 25,
-            "end_line": 51,
+            "end_line": 54,
             "end_col": 3,
             "num_stmt": 1,
             "count": 0
           },
           {
             "type": "statement",
-            "start_line": 53,
+            "start_line": 56,
             "start_col": 2,
-            "end_line": 61,
+            "end_line": 64,
             "end_col": 32,
             "num_stmt": 7,
             "count": 4
           },
           {
             "type": "statement",
-            "start_line": 61,
+            "start_line": 64,
             "start_col": 32,
-            "end_line": 63,
+            "end_line": 66,
             "end_col": 3,
             "num_stmt": 1,
             "count": 13
           },
           {
             "type": "statement",
-            "start_line": 64,
+            "start_line": 67,
             "start_col": 2,
-            "end_line": 64,
+            "end_line": 67,
             "end_col": 12,
             "num_stmt": 1,
             "count": 4
           },
           {
             "type": "statement",
-            "start_line": 68,
+            "start_line": 71,
             "start_col": 68,
-            "end_line": 70,
+            "end_line": 73,
             "end_col": 25,
             "num_stmt": 2,
-            "count": 42
+            "count": 47
           },
           {
             "type": "statement",
-            "start_line": 70,
+            "start_line": 73,
             "start_col": 25,
-            "end_line": 71,
+            "end_line": 74,
             "end_col": 26,
             "num_stmt": 1,
-            "count": 34
+            "count": 39
           },
           {
             "type": "statement",
-            "start_line": 71,
+            "start_line": 74,
             "start_col": 26,
-            "end_line": 72,
+            "end_line": 75,
             "end_col": 12,
             "num_stmt": 1,
             "count": 0
           },
           {
             "type": "statement",
-            "start_line": 74,
+            "start_line": 77,
             "start_col": 3,
-            "end_line": 75,
+            "end_line": 78,
             "end_col": 52,
             "num_stmt": 2,
-            "count": 34
-          },
-          {
-            "type": "statement",
-            "start_line": 77,
-            "start_col": 2,
-            "end_line": 77,
-            "end_col": 12,
-            "num_stmt": 1,
-            "count": 42
+            "count": 39
           },
           {
             "type": "statement",
             "start_line": 80,
+            "start_col": 2,
+            "end_line": 80,
+            "end_col": 12,
+            "num_stmt": 1,
+            "count": 47
+          },
+          {
+            "type": "statement",
+            "start_line": 83,
             "start_col": 68,
-            "end_line": 82,
+            "end_line": 85,
             "end_col": 28,
             "num_stmt": 2,
             "count": 13
           },
           {
             "type": "statement",
-            "start_line": 82,
+            "start_line": 85,
             "start_col": 28,
-            "end_line": 84,
+            "end_line": 87,
             "end_col": 3,
             "num_stmt": 1,
             "count": 3
           },
           {
             "type": "statement",
-            "start_line": 86,
+            "start_line": 89,
             "start_col": 2,
-            "end_line": 88,
+            "end_line": 92,
             "end_col": 35,
-            "num_stmt": 3,
+            "num_stmt": 4,
             "count": 13
           },
           {
             "type": "statement",
-            "start_line": 88,
+            "start_line": 92,
             "start_col": 35,
-            "end_line": 90,
+            "end_line": 94,
             "end_col": 3,
             "num_stmt": 1,
             "count": 117
           },
           {
             "type": "statement",
-            "start_line": 91,
+            "start_line": 95,
             "start_col": 2,
-            "end_line": 92,
+            "end_line": 96,
             "end_col": 7,
             "num_stmt": 2,
             "count": 13
           },
           {
             "type": "statement",
-            "start_line": 95,
-            "start_col": 49,
-            "end_line": 98,
-            "end_col": 2,
-            "num_stmt": 2,
+            "start_line": 101,
+            "start_col": 53,
+            "end_line": 102,
+            "end_col": 31,
+            "num_stmt": 1,
             "count": 14
           },
           {
             "type": "statement",
-            "start_line": 100,
-            "start_col": 52,
+            "start_line": 102,
+            "start_col": 31,
             "end_line": 103,
+            "end_col": 36,
+            "num_stmt": 1,
+            "count": 14
+          },
+          {
+            "type": "statement",
+            "start_line": 103,
+            "start_col": 36,
+            "end_line": 105,
+            "end_col": 4,
+            "num_stmt": 1,
+            "count": 13
+          },
+          {
+            "type": "statement",
+            "start_line": 107,
+            "start_col": 2,
+            "end_line": 107,
+            "end_col": 32,
+            "num_stmt": 1,
+            "count": 1
+          },
+          {
+            "type": "statement",
+            "start_line": 107,
+            "start_col": 32,
+            "end_line": 108,
+            "end_col": 41,
+            "num_stmt": 1,
+            "count": 0
+          },
+          {
+            "type": "statement",
+            "start_line": 108,
+            "start_col": 41,
+            "end_line": 110,
+            "end_col": 4,
+            "num_stmt": 1,
+            "count": 0
+          },
+          {
+            "type": "statement",
+            "start_line": 112,
+            "start_col": 2,
+            "end_line": 112,
+            "end_col": 14,
+            "num_stmt": 1,
+            "count": 1
+          },
+          {
+            "type": "statement",
+            "start_line": 115,
+            "start_col": 49,
+            "end_line": 118,
+            "end_col": 2,
+            "num_stmt": 2,
+            "count": 15
+          },
+          {
+            "type": "statement",
+            "start_line": 120,
+            "start_col": 52,
+            "end_line": 123,
             "end_col": 2,
             "num_stmt": 2,
             "count": 13
           },
           {
             "type": "statement",
-            "start_line": 105,
+            "start_line": 125,
             "start_col": 95,
-            "end_line": 107,
+            "end_line": 127,
             "end_col": 17,
             "num_stmt": 2,
-            "count": 27
+            "count": 28
           },
           {
             "type": "statement",
-            "start_line": 107,
+            "start_line": 127,
             "start_col": 17,
-            "end_line": 109,
+            "end_line": 129,
             "end_col": 3,
             "num_stmt": 1,
             "count": 0
           },
           {
             "type": "statement",
-            "start_line": 110,
+            "start_line": 130,
             "start_col": 2,
-            "end_line": 110,
+            "end_line": 130,
             "end_col": 36,
             "num_stmt": 1,
-            "count": 27
+            "count": 28
           },
           {
             "type": "statement",
-            "start_line": 110,
+            "start_line": 130,
             "start_col": 36,
-            "end_line": 112,
-            "end_col": 3,
-            "num_stmt": 1,
-            "count": 23
-          },
-          {
-            "type": "statement",
-            "start_line": 113,
-            "start_col": 2,
-            "end_line": 114,
-            "end_col": 9,
-            "num_stmt": 2,
-            "count": 4
-          },
-          {
-            "type": "statement",
-            "start_line": 114,
-            "start_col": 9,
-            "end_line": 116,
-            "end_col": 3,
-            "num_stmt": 1,
-            "count": 0
-          },
-          {
-            "type": "statement",
-            "start_line": 117,
-            "start_col": 2,
-            "end_line": 117,
-            "end_col": 16,
-            "num_stmt": 1,
-            "count": 4
-          },
-          {
-            "type": "statement",
-            "start_line": 120,
-            "start_col": 75,
-            "end_line": 122,
-            "end_col": 17,
-            "num_stmt": 2,
-            "count": 330
-          },
-          {
-            "type": "statement",
-            "start_line": 122,
-            "start_col": 17,
-            "end_line": 124,
-            "end_col": 3,
-            "num_stmt": 1,
-            "count": 0
-          },
-          {
-            "type": "statement",
-            "start_line": 125,
-            "start_col": 2,
-            "end_line": 125,
-            "end_col": 49,
-            "num_stmt": 1,
-            "count": 330
-          },
-          {
-            "type": "statement",
-            "start_line": 125,
-            "start_col": 49,
-            "end_line": 127,
-            "end_col": 3,
-            "num_stmt": 1,
-            "count": 12
-          },
-          {
-            "type": "statement",
-            "start_line": 128,
-            "start_col": 2,
-            "end_line": 129,
-            "end_col": 38,
-            "num_stmt": 2,
-            "count": 318
-          },
-          {
-            "type": "statement",
-            "start_line": 129,
-            "start_col": 38,
-            "end_line": 131,
-            "end_col": 3,
-            "num_stmt": 1,
-            "count": 0
-          },
-          {
-            "type": "statement",
-            "start_line": 132,
-            "start_col": 2,
             "end_line": 132,
-            "end_col": 16,
-            "num_stmt": 1,
-            "count": 318
-          },
-          {
-            "type": "statement",
-            "start_line": 135,
-            "start_col": 59,
-            "end_line": 137,
-            "end_col": 17,
-            "num_stmt": 2,
-            "count": 33
-          },
-          {
-            "type": "statement",
-            "start_line": 137,
-            "start_col": 17,
-            "end_line": 139,
-            "end_col": 3,
-            "num_stmt": 1,
-            "count": 0
-          },
-          {
-            "type": "statement",
-            "start_line": 140,
-            "start_col": 2,
-            "end_line": 140,
-            "end_col": 49,
-            "num_stmt": 1,
-            "count": 33
-          },
-          {
-            "type": "statement",
-            "start_line": 140,
-            "start_col": 49,
-            "end_line": 142,
             "end_col": 3,
             "num_stmt": 1,
             "count": 24
           },
           {
             "type": "statement",
-            "start_line": 143,
+            "start_line": 133,
             "start_col": 2,
-            "end_line": 144,
-            "end_col": 20,
+            "end_line": 134,
+            "end_col": 9,
             "num_stmt": 2,
-            "count": 9
+            "count": 4
           },
           {
             "type": "statement",
-            "start_line": 144,
-            "start_col": 20,
-            "end_line": 146,
+            "start_line": 134,
+            "start_col": 9,
+            "end_line": 136,
             "end_col": 3,
             "num_stmt": 1,
             "count": 0
           },
           {
             "type": "statement",
-            "start_line": 147,
+            "start_line": 137,
             "start_col": 2,
+            "end_line": 137,
+            "end_col": 16,
+            "num_stmt": 1,
+            "count": 4
+          },
+          {
+            "type": "statement",
+            "start_line": 140,
+            "start_col": 75,
+            "end_line": 142,
+            "end_col": 17,
+            "num_stmt": 2,
+            "count": 345
+          },
+          {
+            "type": "statement",
+            "start_line": 142,
+            "start_col": 17,
+            "end_line": 144,
+            "end_col": 3,
+            "num_stmt": 1,
+            "count": 0
+          },
+          {
+            "type": "statement",
+            "start_line": 145,
+            "start_col": 2,
+            "end_line": 145,
+            "end_col": 49,
+            "num_stmt": 1,
+            "count": 345
+          },
+          {
+            "type": "statement",
+            "start_line": 145,
+            "start_col": 49,
             "end_line": 147,
+            "end_col": 3,
+            "num_stmt": 1,
+            "count": 14
+          },
+          {
+            "type": "statement",
+            "start_line": 148,
+            "start_col": 2,
+            "end_line": 149,
+            "end_col": 38,
+            "num_stmt": 2,
+            "count": 331
+          },
+          {
+            "type": "statement",
+            "start_line": 149,
+            "start_col": 38,
+            "end_line": 151,
+            "end_col": 3,
+            "num_stmt": 1,
+            "count": 0
+          },
+          {
+            "type": "statement",
+            "start_line": 152,
+            "start_col": 2,
+            "end_line": 152,
+            "end_col": 16,
+            "num_stmt": 1,
+            "count": 331
+          },
+          {
+            "type": "statement",
+            "start_line": 155,
+            "start_col": 59,
+            "end_line": 157,
+            "end_col": 17,
+            "num_stmt": 2,
+            "count": 33
+          },
+          {
+            "type": "statement",
+            "start_line": 157,
+            "start_col": 17,
+            "end_line": 159,
+            "end_col": 3,
+            "num_stmt": 1,
+            "count": 0
+          },
+          {
+            "type": "statement",
+            "start_line": 160,
+            "start_col": 2,
+            "end_line": 160,
+            "end_col": 49,
+            "num_stmt": 1,
+            "count": 33
+          },
+          {
+            "type": "statement",
+            "start_line": 160,
+            "start_col": 49,
+            "end_line": 162,
+            "end_col": 3,
+            "num_stmt": 1,
+            "count": 24
+          },
+          {
+            "type": "statement",
+            "start_line": 163,
+            "start_col": 2,
+            "end_line": 164,
+            "end_col": 20,
+            "num_stmt": 2,
+            "count": 9
+          },
+          {
+            "type": "statement",
+            "start_line": 164,
+            "start_col": 20,
+            "end_line": 166,
+            "end_col": 3,
+            "num_stmt": 1,
+            "count": 0
+          },
+          {
+            "type": "statement",
+            "start_line": 167,
+            "start_col": 2,
+            "end_line": 167,
             "end_col": 16,
             "num_stmt": 1,
             "count": 9
@@ -2152,6 +2233,6 @@
       }
     ]
   },
-  "test_execution_time": 30000000000,
-  "timestamp": "2026-04-17T11:59:24.914085751Z"
+  "test_execution_time": 31000000000,
+  "timestamp": "2026-04-17T12:09:30.534346371Z"
 }
