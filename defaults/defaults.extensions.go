@@ -12,6 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// Package defaults exports the proto extensions consumed by
+// protoc-gen-go-defaults and the reflection-based Apply helper used at
+// runtime to populate default values on any proto.Message.
 package defaults
 
 import (
