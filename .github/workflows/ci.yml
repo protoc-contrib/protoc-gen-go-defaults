@@ -26,6 +26,9 @@ jobs:
       - name: Setup Nix Cache
         uses: DeterminateSystems/magic-nix-cache-action@v13
 
+      - name: Lint protos
+        run: nix develop --command buf lint
+
       - name: Run Tests
         run: nix develop --command go tool ginkgo run -r -coverprofile=coverage.out
           -covermode=atomic ./...
@@ -87,3 +90,27 @@ jobs:
         with:
           tag_name: ${{ needs.release.outputs.tag_name }}
           files: release/protoc-gen-go-defaults-${{ matrix.nix_system }}
+
+  publish-bsr:
+    needs: release
+    if: ${{ needs.release.outputs.release_created }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v22
+
+      - name: Setup Nix Cache
+        uses: DeterminateSystems/magic-nix-cache-action@v13
+
+      - name: Build defaults module image
+        run: nix develop --command buf build --path defaults --output module.bin
+
+      - name: Push to Buf Schema Registry
+        run: nix develop --command buf push module.bin --label ${{ needs.release.outputs.tag_name }}
+        env:
+          BUF_TOKEN: ${{ secrets.BUF_TOKEN }}
