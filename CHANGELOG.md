@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.0](https://github.com/protoc-contrib/protoc-gen-go-defaults/compare/v1.4.0...v1.5.0) (2026-04-18)
+
+
+### Features
+
+* add ApplyAll function for recursive default application ([c823607](https://github.com/protoc-contrib/protoc-gen-go-defaults/commit/c8236079a9eb36771d7653c10a771dc1a9f6549d))
+
 ## [1.4.0](https://github.com/protoc-contrib/protoc-gen-go-defaults/compare/v1.3.2...v1.4.0) (2026-04-17)
 
 
