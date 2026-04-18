@@ -70,6 +70,16 @@ message TestOptional {
 	optional Type enum_field = 4 [(protoc_contrib.defaults.value).enum = 2];
 }
 
+// TestAutoRecurse deliberately carries no (defaults.value) annotations on
+// its fields so the generator emits no SetDefaults() for it. It exists to
+// exercise defaults.ApplyAll, which must still descend into the populated
+// Message/list/map values and apply their own defaults.
+message TestAutoRecurse {
+	Message embedded = 1;
+	repeated Message list = 2;
+	map<string, Message> entries = 3;
+}
+
 message TestUnexported {
 	option (protoc_contrib.defaults.unexported) = true;
 	optional string string_field = 1 [(protoc_contrib.defaults.value).string = "string_field"];

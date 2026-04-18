@@ -30,6 +30,56 @@ import (
 	"google.golang.org/protobuf/types/known/wrapperspb"
 )
 
+// ApplyAll applies defaults at the top level, then recurses into every
+// populated message-typed field — including repeated messages and map
+// values — regardless of whether the parent's field declared
+// {recurse: true}. Nil sub-messages are left untouched; use {initialize:
+// true} annotations or populate them yourself if you need them created.
+//
+// ApplyAll is intended for use in gRPC interceptors or similar middleware
+// where a single pass should fill in every default the caller omitted,
+// without requiring schema authors to remember {recurse: true} on every
+// parent field.
+func ApplyAll(m proto.Message) {
+	if m == nil {
+		return
+	}
+	Apply(m)
+	m.ProtoReflect().Range(func(fd reflect.FieldDescriptor, v reflect.Value) bool {
+		switch {
+		case fd.IsList() && fd.Kind() == reflect.MessageKind:
+			list := v.List()
+			for i := 0; i < list.Len(); i++ {
+				ApplyAll(list.Get(i).Message().Interface())
+			}
+		case fd.IsMap() && fd.MapValue().Kind() == reflect.MessageKind:
+			v.Map().Range(func(_ reflect.MapKey, mv reflect.Value) bool {
+				ApplyAll(mv.Message().Interface())
+				return true
+			})
+		case fd.Kind() == reflect.MessageKind:
+			ApplyAll(v.Message().Interface())
+		}
+		return true
+	})
+}
+
+// Apply populates unset fields on m with the defaults declared via the
+// (protoc_contrib.defaults.value) and (protoc_contrib.defaults.oneof)
+// annotations on its .proto source.
+//
+// When m has a generated or user-provided SetDefaults() method, Apply
+// delegates to it. Otherwise it walks the message via protoreflect and
+// fills in fields directly — useful for dynamicpb messages and other
+// callers that do not hold a concrete Go type.
+//
+// Apply is a no-op when m is nil or its message type carries
+// (protoc_contrib.defaults.skip). It does not recurse into nested
+// messages unless the containing field is annotated with {recurse: true};
+// for interceptors and other middleware that need defaults filled in all
+// the way down, use ApplyAll instead.
+//
+// Fields that are already set are preserved.
 func Apply(m proto.Message) {
 	if m == nil {
 		return
@@ -38,6 +88,15 @@ func Apply(m proto.Message) {
 	typd := mref.Type().Descriptor()
 	opts := typd.Options()
 	if skip, _ := proto.GetExtension(opts, E_Skip).(bool); skip {
+		return
+	}
+	// Fast path: when the concrete type has a generated (or user-written)
+	// SetDefaults() method, trust it. This keeps Apply() consistent with
+	// whatever the caller has in hand — including wrappers around
+	// _SetDefaults() — and avoids the reflection cost on hot paths. Dynamic
+	// messages and types without the method fall through to reflection.
+	if d, ok := m.(interface{ SetDefaults() }); ok {
+		d.SetDefaults()
 		return
 	}
 	fields := typd.Fields()

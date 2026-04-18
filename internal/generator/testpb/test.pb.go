@@ -184,7 +184,7 @@ func (x TestUnexported_Type) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use TestUnexported_Type.Descriptor instead.
 func (TestUnexported_Type) EnumDescriptor() ([]byte, []int) {
-	return file_internal_generator_testpb_test_proto_rawDescGZIP(), []int{2, 0}
+	return file_internal_generator_testpb_test_proto_rawDescGZIP(), []int{3, 0}
 }
 
 type Test struct {
@@ -489,6 +489,70 @@ func (x *TestOptional) GetEnumField() TestOptional_Type {
 	return TestOptional_NONE
 }
 
+// TestAutoRecurse deliberately carries no (defaults.value) annotations on
+// its fields so the generator emits no SetDefaults() for it. It exists to
+// exercise defaults.ApplyAll, which must still descend into the populated
+// Message/list/map values and apply their own defaults.
+type TestAutoRecurse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Embedded      *Message               `protobuf:"bytes,1,opt,name=embedded,proto3" json:"embedded,omitempty"`
+	List          []*Message             `protobuf:"bytes,2,rep,name=list,proto3" json:"list,omitempty"`
+	Entries       map[string]*Message    `protobuf:"bytes,3,rep,name=entries,proto3" json:"entries,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *TestAutoRecurse) Reset() {
+	*x = TestAutoRecurse{}
+	mi := &file_internal_generator_testpb_test_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *TestAutoRecurse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*TestAutoRecurse) ProtoMessage() {}
+
+func (x *TestAutoRecurse) ProtoReflect() protoreflect.Message {
+	mi := &file_internal_generator_testpb_test_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use TestAutoRecurse.ProtoReflect.Descriptor instead.
+func (*TestAutoRecurse) Descriptor() ([]byte, []int) {
+	return file_internal_generator_testpb_test_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *TestAutoRecurse) GetEmbedded() *Message {
+	if x != nil {
+		return x.Embedded
+	}
+	return nil
+}
+
+func (x *TestAutoRecurse) GetList() []*Message {
+	if x != nil {
+		return x.List
+	}
+	return nil
+}
+
+func (x *TestAutoRecurse) GetEntries() map[string]*Message {
+	if x != nil {
+		return x.Entries
+	}
+	return nil
+}
+
 type TestUnexported struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	StringField   *string                `protobuf:"bytes,1,opt,name=string_field,json=stringField,proto3,oneof" json:"string_field,omitempty"`
@@ -501,7 +565,7 @@ type TestUnexported struct {
 
 func (x *TestUnexported) Reset() {
 	*x = TestUnexported{}
-	mi := &file_internal_generator_testpb_test_proto_msgTypes[2]
+	mi := &file_internal_generator_testpb_test_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -513,7 +577,7 @@ func (x *TestUnexported) String() string {
 func (*TestUnexported) ProtoMessage() {}
 
 func (x *TestUnexported) ProtoReflect() protoreflect.Message {
-	mi := &file_internal_generator_testpb_test_proto_msgTypes[2]
+	mi := &file_internal_generator_testpb_test_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -526,7 +590,7 @@ func (x *TestUnexported) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TestUnexported.ProtoReflect.Descriptor instead.
 func (*TestUnexported) Descriptor() ([]byte, []int) {
-	return file_internal_generator_testpb_test_proto_rawDescGZIP(), []int{2}
+	return file_internal_generator_testpb_test_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *TestUnexported) GetStringField() string {
@@ -609,7 +673,14 @@ const file_internal_generator_testpb_test_proto_rawDesc = "" +
 	"\r_string_fieldB\x0f\n" +
 	"\r_number_fieldB\r\n" +
 	"\v_bool_fieldB\r\n" +
-	"\v_enum_field\"\xdb\x02\n" +
+	"\v_enum_field\"\xec\x01\n" +
+	"\x0fTestAutoRecurse\x12*\n" +
+	"\bembedded\x18\x01 \x01(\v2\x0e.tests.MessageR\bembedded\x12\"\n" +
+	"\x04list\x18\x02 \x03(\v2\x0e.tests.MessageR\x04list\x12=\n" +
+	"\aentries\x18\x03 \x03(\v2#.tests.TestAutoRecurse.EntriesEntryR\aentries\x1aJ\n" +
+	"\fEntriesEntry\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\x12$\n" +
+	"\x05value\x18\x02 \x01(\v2\x0e.tests.MessageR\x05value:\x028\x01\"\xdb\x02\n" +
 	"\x0eTestUnexported\x12:\n" +
 	"\fstring_field\x18\x01 \x01(\tB\x12\xca\xed\x1a\x0er\fstring_fieldH\x00R\vstringField\x88\x01\x01\x12.\n" +
 	"\fnumber_field\x18\x02 \x01(\x03B\x06\xca\xed\x1a\x02 *H\x01R\vnumberField\x88\x01\x01\x12*\n" +
@@ -639,46 +710,53 @@ func file_internal_generator_testpb_test_proto_rawDescGZIP() []byte {
 }
 
 var file_internal_generator_testpb_test_proto_enumTypes = make([]protoimpl.EnumInfo, 3)
-var file_internal_generator_testpb_test_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+var file_internal_generator_testpb_test_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
 var file_internal_generator_testpb_test_proto_goTypes = []any{
 	(Test_Type)(0),                       // 0: tests.Test.Type
 	(TestOptional_Type)(0),               // 1: tests.TestOptional.Type
 	(TestUnexported_Type)(0),             // 2: tests.TestUnexported.Type
 	(*Test)(nil),                         // 3: tests.Test
 	(*TestOptional)(nil),                 // 4: tests.TestOptional
-	(*TestUnexported)(nil),               // 5: tests.TestUnexported
-	(*wrapperspb.Int64Value)(nil),        // 6: google.protobuf.Int64Value
-	(*wrapperspb.StringValue)(nil),       // 7: google.protobuf.StringValue
-	(*wrapperspb.BoolValue)(nil),         // 8: google.protobuf.BoolValue
-	(*timestamppb.Timestamp)(nil),        // 9: google.protobuf.Timestamp
-	(*durationpb.Duration)(nil),          // 10: google.protobuf.Duration
-	(*OneOfOne)(nil),                     // 11: tests.OneOfOne
-	(*OneOfTwo)(nil),                     // 12: tests.OneOfTwo
-	(*OneOfThree)(nil),                   // 13: tests.OneOfThree
-	(*descriptorpb.DescriptorProto)(nil), // 14: google.protobuf.DescriptorProto
+	(*TestAutoRecurse)(nil),              // 5: tests.TestAutoRecurse
+	(*TestUnexported)(nil),               // 6: tests.TestUnexported
+	nil,                                  // 7: tests.TestAutoRecurse.EntriesEntry
+	(*wrapperspb.Int64Value)(nil),        // 8: google.protobuf.Int64Value
+	(*wrapperspb.StringValue)(nil),       // 9: google.protobuf.StringValue
+	(*wrapperspb.BoolValue)(nil),         // 10: google.protobuf.BoolValue
+	(*timestamppb.Timestamp)(nil),        // 11: google.protobuf.Timestamp
+	(*durationpb.Duration)(nil),          // 12: google.protobuf.Duration
+	(*OneOfOne)(nil),                     // 13: tests.OneOfOne
+	(*OneOfTwo)(nil),                     // 14: tests.OneOfTwo
+	(*OneOfThree)(nil),                   // 15: tests.OneOfThree
+	(*descriptorpb.DescriptorProto)(nil), // 16: google.protobuf.DescriptorProto
+	(*Message)(nil),                      // 17: tests.Message
 }
 var file_internal_generator_testpb_test_proto_depIdxs = []int32{
 	0,  // 0: tests.Test.enum_field:type_name -> tests.Test.Type
 	3,  // 1: tests.Test.message_field:type_name -> tests.Test
 	0,  // 2: tests.Test.repeated_message_field:type_name -> tests.Test.Type
-	6,  // 3: tests.Test.number_value_field:type_name -> google.protobuf.Int64Value
-	7,  // 4: tests.Test.string_value_field:type_name -> google.protobuf.StringValue
-	8,  // 5: tests.Test.bool_value_field:type_name -> google.protobuf.BoolValue
-	9,  // 6: tests.Test.time_value_field:type_name -> google.protobuf.Timestamp
-	10, // 7: tests.Test.duration_value_field:type_name -> google.protobuf.Duration
-	11, // 8: tests.Test.one:type_name -> tests.OneOfOne
-	12, // 9: tests.Test.two:type_name -> tests.OneOfTwo
-	13, // 10: tests.Test.three:type_name -> tests.OneOfThree
+	8,  // 3: tests.Test.number_value_field:type_name -> google.protobuf.Int64Value
+	9,  // 4: tests.Test.string_value_field:type_name -> google.protobuf.StringValue
+	10, // 5: tests.Test.bool_value_field:type_name -> google.protobuf.BoolValue
+	11, // 6: tests.Test.time_value_field:type_name -> google.protobuf.Timestamp
+	12, // 7: tests.Test.duration_value_field:type_name -> google.protobuf.Duration
+	13, // 8: tests.Test.one:type_name -> tests.OneOfOne
+	14, // 9: tests.Test.two:type_name -> tests.OneOfTwo
+	15, // 10: tests.Test.three:type_name -> tests.OneOfThree
 	0,  // 11: tests.Test.four:type_name -> tests.Test.Type
-	14, // 12: tests.Test.descriptor:type_name -> google.protobuf.DescriptorProto
-	9,  // 13: tests.Test.time_value_field_with_default:type_name -> google.protobuf.Timestamp
+	16, // 12: tests.Test.descriptor:type_name -> google.protobuf.DescriptorProto
+	11, // 13: tests.Test.time_value_field_with_default:type_name -> google.protobuf.Timestamp
 	1,  // 14: tests.TestOptional.enum_field:type_name -> tests.TestOptional.Type
-	2,  // 15: tests.TestUnexported.enum_field:type_name -> tests.TestUnexported.Type
-	16, // [16:16] is the sub-list for method output_type
-	16, // [16:16] is the sub-list for method input_type
-	16, // [16:16] is the sub-list for extension type_name
-	16, // [16:16] is the sub-list for extension extendee
-	0,  // [0:16] is the sub-list for field type_name
+	17, // 15: tests.TestAutoRecurse.embedded:type_name -> tests.Message
+	17, // 16: tests.TestAutoRecurse.list:type_name -> tests.Message
+	7,  // 17: tests.TestAutoRecurse.entries:type_name -> tests.TestAutoRecurse.EntriesEntry
+	2,  // 18: tests.TestUnexported.enum_field:type_name -> tests.TestUnexported.Type
+	17, // 19: tests.TestAutoRecurse.EntriesEntry.value:type_name -> tests.Message
+	20, // [20:20] is the sub-list for method output_type
+	20, // [20:20] is the sub-list for method input_type
+	20, // [20:20] is the sub-list for extension type_name
+	20, // [20:20] is the sub-list for extension extendee
+	0,  // [0:20] is the sub-list for field type_name
 }
 
 func init() { file_internal_generator_testpb_test_proto_init() }
@@ -694,14 +772,14 @@ func file_internal_generator_testpb_test_proto_init() {
 		(*Test_Four)(nil),
 	}
 	file_internal_generator_testpb_test_proto_msgTypes[1].OneofWrappers = []any{}
-	file_internal_generator_testpb_test_proto_msgTypes[2].OneofWrappers = []any{}
+	file_internal_generator_testpb_test_proto_msgTypes[3].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_internal_generator_testpb_test_proto_rawDesc), len(file_internal_generator_testpb_test_proto_rawDesc)),
 			NumEnums:      3,
-			NumMessages:   3,
+			NumMessages:   5,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

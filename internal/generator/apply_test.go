@@ -4,7 +4,9 @@ import (
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 	"google.golang.org/protobuf/proto"
+	"google.golang.org/protobuf/reflect/protoreflect"
 	"google.golang.org/protobuf/types/descriptorpb"
+	"google.golang.org/protobuf/types/dynamicpb"
 	"google.golang.org/protobuf/types/known/durationpb"
 	"google.golang.org/protobuf/types/known/timestamppb"
 	"google.golang.org/protobuf/types/known/wrapperspb"
@@ -167,6 +169,63 @@ var _ = Describe("defaults.Apply()", func() {
 
 	It("is a no-op on a nil message", func() {
 		Expect(func() { defaults.Apply(nil) }).NotTo(Panic())
+	})
+
+	It("recurses into unannotated nested messages, lists, and maps when called as ApplyAll", func() {
+		msg := &testpb.TestAutoRecurse{
+			Embedded: &testpb.Message{},
+			List:     []*testpb.Message{{}, {}},
+			Entries: map[string]*testpb.Message{
+				"a": {},
+				"b": {},
+			},
+		}
+		defaults.ApplyAll(msg)
+
+		Expect(msg.Embedded.Field).To(Equal("lonely field"))
+		for _, m := range msg.List {
+			Expect(m.Field).To(Equal("lonely field"))
+		}
+		for _, m := range msg.Entries {
+			Expect(m.Field).To(Equal("lonely field"))
+		}
+	})
+
+	It("leaves nil sub-messages untouched in ApplyAll", func() {
+		msg := &testpb.TestAutoRecurse{}
+		defaults.ApplyAll(msg)
+		Expect(msg.Embedded).To(BeNil())
+		Expect(msg.List).To(BeEmpty())
+		Expect(msg.Entries).To(BeEmpty())
+	})
+
+	It("still honors (defaults.skip) on nested types under ApplyAll", func() {
+		// OneOfOne carries (defaults.skip) and therefore has no SetDefaults().
+		// ApplyAll must not populate it even when reached through recursion.
+		inner := &testpb.OneOfOne{}
+		msg := &testpb.Test{Oneof: &testpb.Test_One{One: inner}}
+		defaults.ApplyAll(msg)
+		Expect(inner.StringField).To(BeEmpty())
+	})
+
+	It("falls back to the reflection path for messages without SetDefaults()", func() {
+		// dynamicpb.Message has no SetDefaults() method, so Apply must
+		// walk fields via protoreflect. This keeps the reflection code
+		// covered now that generated messages take the fast path.
+		md := (&testpb.Types{}).ProtoReflect().Descriptor()
+		dyn := dynamicpb.NewMessage(md)
+		_, ok := interface{}(dyn).(interface{ SetDefaults() })
+		Expect(ok).To(BeFalse())
+
+		defaults.Apply(dyn)
+
+		fields := md.Fields()
+		get := func(name string) protoreflect.Value {
+			return dyn.Get(fields.ByName(protoreflect.Name(name)))
+		}
+		Expect(get("int32").Int()).To(Equal(int64(42)))
+		Expect(get("string").String()).To(Equal("42"))
+		Expect(get("bool").Bool()).To(BeTrue())
 	})
 
 	It("respects proto3 optional presence", func() {
