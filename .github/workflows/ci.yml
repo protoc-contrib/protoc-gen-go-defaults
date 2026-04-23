@@ -130,3 +130,19 @@ jobs:
         with:
           tag_name: ${{ needs.release.outputs.tag_name }}
           files: release/*
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v22
+
+      - name: Setup Nix Cache
+        uses: DeterminateSystems/magic-nix-cache-action@v13
+        with:
+          use-flakehub: disabled
+          use-gha-cache: enabled
+
+      - name: Push to Buf Schema Registry
+        run: |
+          nix develop --command \
+            buf push --label main --label ${{ needs.release.outputs.tag_name }}
+        env:
+          BUF_TOKEN: ${{ secrets.BUF_TOKEN }}
