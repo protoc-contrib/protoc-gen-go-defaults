@@ -1,14 +1,11 @@
 coverage:
-  badge:
-    path: .github/octocov/badge.svg
   paths:
     - coverage.out
   exclude:
-    - '**/*.pb.go'
-    - '**/*.pb.defaults.go'
-    - 'internal/generator/testpb/**'
+    - "**/*.pb.go"
+    - "**/*.pb.defaults.go"
+    - "internal/generator/testpb/**"
   acceptable: 80%
 comment:
   if: is_pull_request
   deletePrevious: true
-summary:
