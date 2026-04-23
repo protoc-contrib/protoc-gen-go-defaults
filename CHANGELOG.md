@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.5.1](https://github.com/protoc-contrib/protoc-gen-go-defaults/compare/v1.5.0...v1.5.1) (2026-04-23)
+
+
+### Bug Fixes
+
+* bump CI runner from macos-14 to macos-15 ([99e648b](https://github.com/protoc-contrib/protoc-gen-go-defaults/commit/99e648b02ab05085d74774b4e213f220e341ac1a))
+* check out source in publish job so buf push finds flake.nix ([4811df5](https://github.com/protoc-contrib/protoc-gen-go-defaults/commit/4811df5553690bcf383f31cfc092b12ce71673ca))
+
 ## [1.5.0](https://github.com/protoc-contrib/protoc-gen-go-defaults/compare/v1.4.0...v1.5.0) (2026-04-18)
 
 
