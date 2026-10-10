@@ -1,0 +1,13 @@
+{
+  "assets": {
+    "aarch64-darwin": {
+      "hash": "sha256-jZ3Yuo1Dk2//+Nh7DHkYCpVnHUnhNOS+s1jJFHdPZKo=",
+      "url": "https://github.com/protoc-contrib/protoc-gen-go-defaults/releases/download/v1.5.2/protoc-gen-go-defaults-aarch64-darwin"
+    },
+    "x86_64-linux": {
+      "hash": "sha256-kyU+SgdxFgBo49WkOliNNSjIA687Eoujvsj0bdUsqlI=",
+      "url": "https://github.com/protoc-contrib/protoc-gen-go-defaults/releases/download/v1.5.2/protoc-gen-go-defaults-x86_64-linux"
+    }
+  },
+  "version": "1.5.2"
+}
