@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.0](https://github.com/protoc-contrib/protoc-gen-go-defaults/compare/v1.6.0...v1.7.0) (2026-10-11)
+
+
+### Features
+
+* recurse into repeated and map message fields ([#45](https://github.com/protoc-contrib/protoc-gen-go-defaults/issues/45)) ([121bce6](https://github.com/protoc-contrib/protoc-gen-go-defaults/commit/121bce667cd9fb880cde9a9acb1c97b45b555f23))
+
 ## [1.6.0](https://github.com/protoc-contrib/protoc-gen-go-defaults/compare/v1.5.2...v1.6.0) (2026-10-11)
 
 
