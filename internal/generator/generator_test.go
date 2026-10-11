@@ -110,6 +110,11 @@ var _ = Describe("generator.Generate", func() {
 		// Foreign target without defaults: initialized, never recursed into.
 		Expect(out).To(ContainSubstring("x.Descriptor_ = &descriptorpb.DescriptorProto{}"))
 		Expect(out).NotTo(ContainSubstring("x.Descriptor_.SetDefaults()"))
+		// Repeated and map fields: one call per non-nil element.
+		Expect(out).To(ContainSubstring("for _, v := range x.RepeatedTestField {\n\t\tif v != nil {\n\t\t\tv.SetDefaults()"))
+		Expect(out).To(ContainSubstring("for _, v := range x.MapOneField {\n\t\tif v != nil {\n\t\t\tv.SetDefaults()"))
+		// Elements without defaults: nothing to call.
+		Expect(out).NotTo(ContainSubstring("x.RepeatedNoDefaultsField"))
 	})
 
 	It("does not recurse into a message without defaults", func() {
@@ -160,6 +165,33 @@ var _ = Describe("generator.Generate", func() {
 			})
 			_, err := runGeneratorFromProto(file, deps(testpb.File_internal_generator_testpb_types_proto)...)
 			Expect(err).To(MatchError(ContainSubstring(`enum value "BOGUS" is not defined`)))
+		})
+
+		It("rejects a scalar default on a repeated field", func() {
+			file := cloneFixture(testpb.File_internal_generator_testpb_test_proto)
+			setFieldDefault(file, "Test", "repeated_string_field", &defaults.FieldDefaults{
+				Type: &defaults.FieldDefaults_String_{String_: "x"},
+			})
+			_, err := runGeneratorFromProto(file, deps(testpb.File_internal_generator_testpb_test_proto)...)
+			Expect(err).To(MatchError(ContainSubstring("repeated and map fields only accept (defaults.value).message = {recurse: true}")))
+		})
+
+		It("rejects a recurse into a repeated field of scalars", func() {
+			file := cloneFixture(testpb.File_internal_generator_testpb_test_proto)
+			setFieldDefault(file, "Test", "repeated_string_field", &defaults.FieldDefaults{
+				Type: &defaults.FieldDefaults_Message{Message: &defaults.MessageDefaults{Recurse: proto.Bool(true)}},
+			})
+			_, err := runGeneratorFromProto(file, deps(testpb.File_internal_generator_testpb_test_proto)...)
+			Expect(err).To(MatchError(ContainSubstring("recurse on a repeated or map field requires message elements")))
+		})
+
+		It("rejects initialize on a repeated field", func() {
+			file := cloneFixture(testpb.File_internal_generator_testpb_test_proto)
+			setFieldDefault(file, "Test", "repeated_test_field", &defaults.FieldDefaults{
+				Type: &defaults.FieldDefaults_Message{Message: &defaults.MessageDefaults{Initialize: proto.Bool(true), Recurse: proto.Bool(true)}},
+			})
+			_, err := runGeneratorFromProto(file, deps(testpb.File_internal_generator_testpb_test_proto)...)
+			Expect(err).To(MatchError(ContainSubstring("initialize is not supported on repeated or map fields")))
 		})
 	})
 })

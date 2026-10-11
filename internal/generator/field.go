@@ -253,6 +253,10 @@ func emitTimestamp(g *protogen.GeneratedFile, field *protogen.Field, raw string)
 // has one to call (see recursesInto); a missing method is a compile error
 // rather than a silently skipped recursion.
 func emitMessageField(g *protogen.GeneratedFile, field *protogen.Field, md *defaults.MessageDefaults, name string) {
+	if field.Desc.IsList() || field.Desc.IsMap() {
+		emitCollectionField(g, field, md, name)
+		return
+	}
 	initialize := md.GetInitialize()
 	if initialize {
 		g.P("if x.", name, " == nil {")
@@ -269,6 +273,33 @@ func emitMessageField(g *protogen.GeneratedFile, field *protogen.Field, md *defa
 	g.P("if x.", name, " != nil {")
 	g.P("x.", name, ".SetDefaults()")
 	g.P("}")
+}
+
+// emitCollectionField emits {recurse} for a repeated or map field: a direct
+// SetDefaults() call on every non-nil element (map value), under the same
+// recursesInto rule as a singular field. The checker has already rejected
+// initialize, which has no element to create.
+func emitCollectionField(g *protogen.GeneratedFile, field *protogen.Field, md *defaults.MessageDefaults, name string) {
+	if !md.GetRecurse() || !recursesInto(collectionMessage(field)) {
+		return
+	}
+	g.P("for _, v := range x.", name, " {")
+	g.P("if v != nil {")
+	g.P("v.SetDefaults()")
+	g.P("}")
+	g.P("}")
+}
+
+// collectionMessage returns the element type of a repeated message field, or
+// the value type of a map field with message values, and nil otherwise.
+func collectionMessage(field *protogen.Field) *protogen.Message {
+	if field.Desc.IsMap() {
+		return field.Message.Fields[1].Message
+	}
+	if field.Desc.IsList() {
+		return field.Message
+	}
+	return nil
 }
 
 // recursesInto reports whether a recurse into a field of type msg has a

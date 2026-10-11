@@ -30,8 +30,9 @@ archived `lyft/protoc-gen-star`), the build and release pipeline now uses Nix
 - Skip generation entirely (`(protoc.contrib.defaults.skip)`) or expose an unexported
   `_SetDefaults()` method (`(protoc.contrib.defaults.unexported)`) when you want to compose
   with custom logic.
-- Recurse into nested messages with direct `SetDefaults()` calls, resolved at
-  generation time: a missing method is a compile error, not a silent no-op.
+- Recurse into nested messages, including every element of a repeated or map
+  field, with direct `SetDefaults()` calls resolved at generation time: a
+  missing method is a compile error, not a silent no-op.
 - `defaults.Defaulter` lets callers without the concrete Go type (gRPC
   interceptors, middleware) apply defaults through a type assertion.
 - Respects proto3 optional presence: explicitly set fields are never
@@ -213,6 +214,29 @@ x.Email.SetDefaults()
 // recurse only
 if x.Profile != nil {
     x.Profile.SetDefaults()
+}
+```
+
+#### Repeated and map fields
+
+`message = {recurse: true}` is the only annotation a repeated or map field
+accepts, and only when its elements (map values) are messages. It calls
+`SetDefaults()` on every non-nil element, under the same rules for the target
+as above. A repeated field has no single value to default and no element to
+create, so a scalar default or `initialize` fails generation.
+
+```proto
+message BatchCreateBooksRequest {
+  repeated CreateBookRequest requests = 1 [(protoc.contrib.defaults.value).message = {recurse: true}];
+  map<string, Profile> profiles = 2 [(protoc.contrib.defaults.value).message = {recurse: true}];
+}
+```
+
+```go
+for _, v := range x.Requests {
+    if v != nil {
+        v.SetDefaults()
+    }
 }
 ```
 

@@ -74,6 +74,16 @@ func (x *Test) SetDefaults() {
 	if len(x.Bytes) == 0 {
 		x.Bytes = []byte("??")
 	}
+	for _, v := range x.RepeatedTestField {
+		if v != nil {
+			v.SetDefaults()
+		}
+	}
+	for _, v := range x.MapOneField {
+		if v != nil {
+			v.SetDefaults()
+		}
+	}
 }
 
 // SetDefaults populates zero-valued fields on x with the defaults declared in the .proto source.
