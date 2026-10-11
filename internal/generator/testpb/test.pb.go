@@ -211,6 +211,9 @@ type Test struct {
 	Descriptor_               *descriptorpb.DescriptorProto `protobuf:"bytes,17,opt,name=descriptor,proto3" json:"descriptor,omitempty"`
 	TimeValueFieldWithDefault *timestamppb.Timestamp        `protobuf:"bytes,18,opt,name=time_value_field_with_default,json=timeValueFieldWithDefault,proto3" json:"time_value_field_with_default,omitempty"`
 	Bytes                     []byte                        `protobuf:"bytes,19,opt,name=bytes,proto3" json:"bytes,omitempty"`
+	RepeatedTestField         []*Test                       `protobuf:"bytes,20,rep,name=repeated_test_field,json=repeatedTestField,proto3" json:"repeated_test_field,omitempty"`
+	MapOneField               map[string]*OneOfOne          `protobuf:"bytes,21,rep,name=map_one_field,json=mapOneField,proto3" json:"map_one_field,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
+	RepeatedNoDefaultsField   []*NoDefaults                 `protobuf:"bytes,22,rep,name=repeated_no_defaults_field,json=repeatedNoDefaultsField,proto3" json:"repeated_no_defaults_field,omitempty"`
 	unknownFields             protoimpl.UnknownFields
 	sizeCache                 protoimpl.SizeCache
 }
@@ -393,6 +396,27 @@ func (x *Test) GetBytes() []byte {
 	return nil
 }
 
+func (x *Test) GetRepeatedTestField() []*Test {
+	if x != nil {
+		return x.RepeatedTestField
+	}
+	return nil
+}
+
+func (x *Test) GetMapOneField() map[string]*OneOfOne {
+	if x != nil {
+		return x.MapOneField
+	}
+	return nil
+}
+
+func (x *Test) GetRepeatedNoDefaultsField() []*NoDefaults {
+	if x != nil {
+		return x.RepeatedNoDefaultsField
+	}
+	return nil
+}
+
 type isTest_Oneof interface {
 	isTest_Oneof()
 }
@@ -561,8 +585,7 @@ var File_internal_generator_testpb_test_proto protoreflect.FileDescriptor
 
 const file_internal_generator_testpb_test_proto_rawDesc = "" +
 	"\n" +
-	"$internal/generator/testpb/test.proto\x12\x05tests\x1a%protoc/contrib/defaults/options.proto\x1a\x1egoogle/protobuf/wrappers.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1egoogle/protobuf/duration.proto\x1a google/protobuf/descriptor.proto\x1a%internal/generator/testpb/types.proto\"\x9b\n" +
-	"\n" +
+	"$internal/generator/testpb/test.proto\x12\x05tests\x1a%protoc/contrib/defaults/options.proto\x1a\x1egoogle/protobuf/wrappers.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1egoogle/protobuf/duration.proto\x1a google/protobuf/descriptor.proto\x1a%internal/generator/testpb/types.proto\"\xdc\f\n" +
 	"\x04Test\x125\n" +
 	"\fstring_field\x18\x01 \x01(\tB\x12\xca\xed\x1a\x0er\fstring_fieldR\vstringField\x12)\n" +
 	"\fnumber_field\x18\x02 \x01(\x03B\x06\xca\xed\x1a\x02 *R\vnumberField\x12%\n" +
@@ -589,7 +612,13 @@ const file_internal_generator_testpb_test_proto_rawDesc = "" +
 	"descriptor\x18\x11 \x01(\v2 .google.protobuf.DescriptorProtoB\v\xca\xed\x1a\a\x8a\x01\x04\b\x01\x10\x01R\n" +
 	"descriptor\x12y\n" +
 	"\x1dtime_value_field_with_default\x18\x12 \x01(\v2\x1a.google.protobuf.TimestampB\x1b\xca\xed\x1a\x17\xb2\x01\x141952-03-11T00:00:00ZR\x19timeValueFieldWithDefault\x12\x1e\n" +
-	"\x05bytes\x18\x13 \x01(\fB\b\xca\xed\x1a\x04z\x02??R\x05bytes\"\"\n" +
+	"\x05bytes\x18\x13 \x01(\fB\b\xca\xed\x1a\x04z\x02??R\x05bytes\x12F\n" +
+	"\x13repeated_test_field\x18\x14 \x03(\v2\v.tests.TestB\t\xca\xed\x1a\x05\x8a\x01\x02\x10\x01R\x11repeatedTestField\x12K\n" +
+	"\rmap_one_field\x18\x15 \x03(\v2\x1c.tests.Test.MapOneFieldEntryB\t\xca\xed\x1a\x05\x8a\x01\x02\x10\x01R\vmapOneField\x12Y\n" +
+	"\x1arepeated_no_defaults_field\x18\x16 \x03(\v2\x11.tests.NoDefaultsB\t\xca\xed\x1a\x05\x8a\x01\x02\x10\x01R\x17repeatedNoDefaultsField\x1aO\n" +
+	"\x10MapOneFieldEntry\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\x12%\n" +
+	"\x05value\x18\x02 \x01(\v2\x0f.tests.OneOfOneR\x05value:\x028\x01\"\"\n" +
 	"\x04Type\x12\b\n" +
 	"\x04NONE\x10\x00\x12\a\n" +
 	"\x03ONE\x10\x01\x12\a\n" +
@@ -639,7 +668,7 @@ func file_internal_generator_testpb_test_proto_rawDescGZIP() []byte {
 }
 
 var file_internal_generator_testpb_test_proto_enumTypes = make([]protoimpl.EnumInfo, 3)
-var file_internal_generator_testpb_test_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+var file_internal_generator_testpb_test_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_internal_generator_testpb_test_proto_goTypes = []any{
 	(Test_Type)(0),                       // 0: tests.Test.Type
 	(TestOptional_Type)(0),               // 1: tests.TestOptional.Type
@@ -647,38 +676,44 @@ var file_internal_generator_testpb_test_proto_goTypes = []any{
 	(*Test)(nil),                         // 3: tests.Test
 	(*TestOptional)(nil),                 // 4: tests.TestOptional
 	(*TestUnexported)(nil),               // 5: tests.TestUnexported
-	(*wrapperspb.Int64Value)(nil),        // 6: google.protobuf.Int64Value
-	(*wrapperspb.StringValue)(nil),       // 7: google.protobuf.StringValue
-	(*wrapperspb.BoolValue)(nil),         // 8: google.protobuf.BoolValue
-	(*timestamppb.Timestamp)(nil),        // 9: google.protobuf.Timestamp
-	(*durationpb.Duration)(nil),          // 10: google.protobuf.Duration
-	(*OneOfOne)(nil),                     // 11: tests.OneOfOne
-	(*OneOfTwo)(nil),                     // 12: tests.OneOfTwo
-	(*OneOfThree)(nil),                   // 13: tests.OneOfThree
-	(*descriptorpb.DescriptorProto)(nil), // 14: google.protobuf.DescriptorProto
+	nil,                                  // 6: tests.Test.MapOneFieldEntry
+	(*wrapperspb.Int64Value)(nil),        // 7: google.protobuf.Int64Value
+	(*wrapperspb.StringValue)(nil),       // 8: google.protobuf.StringValue
+	(*wrapperspb.BoolValue)(nil),         // 9: google.protobuf.BoolValue
+	(*timestamppb.Timestamp)(nil),        // 10: google.protobuf.Timestamp
+	(*durationpb.Duration)(nil),          // 11: google.protobuf.Duration
+	(*OneOfOne)(nil),                     // 12: tests.OneOfOne
+	(*OneOfTwo)(nil),                     // 13: tests.OneOfTwo
+	(*OneOfThree)(nil),                   // 14: tests.OneOfThree
+	(*descriptorpb.DescriptorProto)(nil), // 15: google.protobuf.DescriptorProto
+	(*NoDefaults)(nil),                   // 16: tests.NoDefaults
 }
 var file_internal_generator_testpb_test_proto_depIdxs = []int32{
 	0,  // 0: tests.Test.enum_field:type_name -> tests.Test.Type
 	3,  // 1: tests.Test.message_field:type_name -> tests.Test
 	0,  // 2: tests.Test.repeated_message_field:type_name -> tests.Test.Type
-	6,  // 3: tests.Test.number_value_field:type_name -> google.protobuf.Int64Value
-	7,  // 4: tests.Test.string_value_field:type_name -> google.protobuf.StringValue
-	8,  // 5: tests.Test.bool_value_field:type_name -> google.protobuf.BoolValue
-	9,  // 6: tests.Test.time_value_field:type_name -> google.protobuf.Timestamp
-	10, // 7: tests.Test.duration_value_field:type_name -> google.protobuf.Duration
-	11, // 8: tests.Test.one:type_name -> tests.OneOfOne
-	12, // 9: tests.Test.two:type_name -> tests.OneOfTwo
-	13, // 10: tests.Test.three:type_name -> tests.OneOfThree
+	7,  // 3: tests.Test.number_value_field:type_name -> google.protobuf.Int64Value
+	8,  // 4: tests.Test.string_value_field:type_name -> google.protobuf.StringValue
+	9,  // 5: tests.Test.bool_value_field:type_name -> google.protobuf.BoolValue
+	10, // 6: tests.Test.time_value_field:type_name -> google.protobuf.Timestamp
+	11, // 7: tests.Test.duration_value_field:type_name -> google.protobuf.Duration
+	12, // 8: tests.Test.one:type_name -> tests.OneOfOne
+	13, // 9: tests.Test.two:type_name -> tests.OneOfTwo
+	14, // 10: tests.Test.three:type_name -> tests.OneOfThree
 	0,  // 11: tests.Test.four:type_name -> tests.Test.Type
-	14, // 12: tests.Test.descriptor:type_name -> google.protobuf.DescriptorProto
-	9,  // 13: tests.Test.time_value_field_with_default:type_name -> google.protobuf.Timestamp
-	1,  // 14: tests.TestOptional.enum_field:type_name -> tests.TestOptional.Type
-	2,  // 15: tests.TestUnexported.enum_field:type_name -> tests.TestUnexported.Type
-	16, // [16:16] is the sub-list for method output_type
-	16, // [16:16] is the sub-list for method input_type
-	16, // [16:16] is the sub-list for extension type_name
-	16, // [16:16] is the sub-list for extension extendee
-	0,  // [0:16] is the sub-list for field type_name
+	15, // 12: tests.Test.descriptor:type_name -> google.protobuf.DescriptorProto
+	10, // 13: tests.Test.time_value_field_with_default:type_name -> google.protobuf.Timestamp
+	3,  // 14: tests.Test.repeated_test_field:type_name -> tests.Test
+	6,  // 15: tests.Test.map_one_field:type_name -> tests.Test.MapOneFieldEntry
+	16, // 16: tests.Test.repeated_no_defaults_field:type_name -> tests.NoDefaults
+	1,  // 17: tests.TestOptional.enum_field:type_name -> tests.TestOptional.Type
+	2,  // 18: tests.TestUnexported.enum_field:type_name -> tests.TestUnexported.Type
+	12, // 19: tests.Test.MapOneFieldEntry.value:type_name -> tests.OneOfOne
+	20, // [20:20] is the sub-list for method output_type
+	20, // [20:20] is the sub-list for method input_type
+	20, // [20:20] is the sub-list for extension type_name
+	20, // [20:20] is the sub-list for extension extendee
+	0,  // [0:20] is the sub-list for field type_name
 }
 
 func init() { file_internal_generator_testpb_test_proto_init() }
@@ -701,7 +736,7 @@ func file_internal_generator_testpb_test_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_internal_generator_testpb_test_proto_rawDesc), len(file_internal_generator_testpb_test_proto_rawDesc)),
 			NumEnums:      3,
-			NumMessages:   3,
+			NumMessages:   4,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

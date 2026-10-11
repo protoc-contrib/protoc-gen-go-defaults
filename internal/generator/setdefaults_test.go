@@ -81,6 +81,22 @@ var _ = Describe("SetDefaults()", func() {
 			Expect(msg.GetTwo().GetStringField()).To(Equal("string_field"))
 		})
 
+		It("recurses into every non-nil element of a repeated field", func() {
+			msg := &testpb.Test{RepeatedTestField: []*testpb.Test{{}, nil, {StringField: "set"}}}
+			msg.SetDefaults()
+			Expect(msg.RepeatedTestField[0].StringField).To(Equal("string_field"))
+			Expect(msg.RepeatedTestField[1]).To(BeNil())
+			Expect(msg.RepeatedTestField[2].StringField).To(Equal("set"))
+			Expect(msg.RepeatedTestField[2].NumberField).To(Equal(int64(42)))
+		})
+
+		It("recurses into every non-nil value of a map field", func() {
+			msg := &testpb.Test{MapOneField: map[string]*testpb.OneOfOne{"set": {}, "nil": nil}}
+			msg.SetDefaults()
+			Expect(msg.MapOneField["set"].GetStringField()).To(Equal("hand-written"))
+			Expect(msg.MapOneField["nil"]).To(BeNil())
+		})
+
 		It("initializes a foreign message without recursing into it", func() {
 			msg := &testpb.Test{}
 			msg.SetDefaults()

@@ -78,7 +78,7 @@ func checkField(field *protogen.Field) error {
 		return nil
 	}
 	if field.Desc.IsList() || field.Desc.IsMap() {
-		return fmt.Errorf("defaults are not supported on repeated or map fields")
+		return checkCollection(field, fd)
 	}
 
 	kind := field.Desc.Kind()
@@ -158,6 +158,23 @@ func checkField(field *protogen.Field) error {
 		if wkt == wktTimestamp {
 			return fmt.Errorf("use (defaults.value).timestamp on google.protobuf.Timestamp fields")
 		}
+	}
+	return nil
+}
+
+// checkCollection validates the annotation on a repeated or map field. Such a
+// field has no single value to default and no element to initialize, so the
+// only thing it accepts is a recurse into its message elements (map values).
+func checkCollection(field *protogen.Field, fd *defaults.FieldDefaults) error {
+	v, ok := fd.Type.(*defaults.FieldDefaults_Message)
+	if !ok {
+		return fmt.Errorf("repeated and map fields only accept (defaults.value).message = {recurse: true}")
+	}
+	if collectionMessage(field) == nil {
+		return fmt.Errorf("recurse on a repeated or map field requires message elements")
+	}
+	if v.Message.GetInitialize() {
+		return fmt.Errorf("initialize is not supported on repeated or map fields")
 	}
 	return nil
 }
