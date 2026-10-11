@@ -33,8 +33,8 @@ archived `lyft/protoc-gen-star`), the build and release pipeline now uses Nix
 - Recurse into nested messages, including every element of a repeated or map
   field, with direct `SetDefaults()` calls resolved at generation time: a
   missing method is a compile error, not a silent no-op.
-- `defaults.Defaulter` lets callers without the concrete Go type (gRPC
-  interceptors, middleware) apply defaults through a type assertion.
+- Callers without the concrete Go type (gRPC interceptors, middleware) apply
+  defaults through an `interface{ SetDefaults() }` type assertion.
 - Respects proto3 optional presence: explicitly set fields are never
   overwritten.
 
@@ -243,15 +243,13 @@ for _, v := range x.Requests {
 ## Applying defaults without the concrete type
 
 Every generated `SetDefaults()`, and every hand-written one on a `skip` or
-`unexported` message, satisfies `defaults.Defaulter`. Code that only holds a
-`proto.Message`, such as a gRPC interceptor, applies defaults with a type
-assertion:
+`unexported` message, satisfies `interface{ SetDefaults() }`. Code that only
+holds a `proto.Message`, such as a gRPC interceptor, applies defaults with a
+type assertion, without importing anything:
 
 ```go
-import "github.com/protoc-contrib/protoc-types/contrib/defaults"
-
 func UnaryDefaults(ctx context.Context, req any, _ *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (any, error) {
-    if d, ok := req.(defaults.Defaulter); ok {
+    if d, ok := req.(interface{ SetDefaults() }); ok {
         d.SetDefaults()
     }
     return handler(ctx, req)

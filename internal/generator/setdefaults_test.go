@@ -10,7 +10,6 @@ import (
 	"google.golang.org/protobuf/types/known/wrapperspb"
 
 	"github.com/protoc-contrib/protoc-gen-go-defaults/internal/generator/testpb"
-	"github.com/protoc-contrib/protoc-types/contrib/defaults"
 )
 
 // expectedTest is the message the fixtures in pb/test.proto should produce
@@ -45,14 +44,8 @@ var _ = Describe("SetDefaults()", func() {
 	})
 
 	It("skips generation for messages with no declared defaults", func() {
-		_, generated := interface{}(&testpb.NoDefaults{}).(defaults.Defaulter)
+		_, generated := interface{}(&testpb.NoDefaults{}).(interface{ SetDefaults() })
 		Expect(generated).To(BeFalse())
-	})
-
-	It("satisfies defaults.Defaulter for generated and hand-written methods", func() {
-		var _ defaults.Defaulter = &testpb.Test{}
-		var _ defaults.Defaulter = &testpb.TestUnexported{}
-		var _ defaults.Defaulter = &testpb.OneOfOne{}
 	})
 
 	Describe("recursion", func() {
