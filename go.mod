@@ -6,7 +6,7 @@ require (
 	github.com/onsi/ginkgo/v2 v2.28.1
 	github.com/onsi/gomega v1.39.1
 	github.com/prometheus/common v0.67.5
-	github.com/protoc-contrib/protoc-types v0.0.0-20261011040859-65b51af06001
+	github.com/protoc-contrib/protoc-types v0.0.0-20261011043319-503f30cc10e8
 	google.golang.org/protobuf v1.36.11
 )
 
