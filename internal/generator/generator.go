@@ -5,7 +5,7 @@ package generator
 import (
 	"fmt"
 
-	"github.com/protoc-contrib/protoc-gen-go-defaults/protoc_contrib/defaults"
+	"github.com/protoc-contrib/protoc-types/contrib/defaults"
 	"google.golang.org/protobuf/compiler/protogen"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/reflect/protoreflect"

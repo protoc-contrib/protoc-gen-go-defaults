@@ -29,7 +29,7 @@
           inherit version;
           src = pkgs.lib.cleanSource ./.;
           subPackages = [ "cmd/protoc-gen-go-defaults" ];
-          vendorHash = "sha256-FwwgYH7rOz1ALtlwwo+csoGY1d6ZUDmR7wBJ3AL4STU=";
+          vendorHash = "sha256-qFn6o447LFkZpZPekz/oK8EZmpnIErqFV3UQz7cYEMs=";
           ldflags = [ "-s" "-w" "-X main.version=${version}" ];
           meta = with pkgs.lib; {
             description = "A protoc plugin that generates SetDefaults() methods from proto extensions";

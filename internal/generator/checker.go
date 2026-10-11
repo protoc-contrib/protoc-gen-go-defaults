@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/prometheus/common/model"
-	"github.com/protoc-contrib/protoc-gen-go-defaults/protoc_contrib/defaults"
+	"github.com/protoc-contrib/protoc-types/contrib/defaults"
 	"google.golang.org/protobuf/compiler/protogen"
 	"google.golang.org/protobuf/reflect/protoreflect"
 )
