@@ -3,3 +3,6 @@
 .bin
 /result
 coverage.out
+
+# `go build ./cmd/protoc-gen-go-defaults` output
+/protoc-gen-go-defaults
