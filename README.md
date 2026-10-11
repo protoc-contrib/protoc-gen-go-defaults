@@ -8,8 +8,8 @@
 
 A [protoc](https://protobuf.dev) plugin that generates `SetDefaults()` methods
 for Protocol Buffer messages from field and message options. It works on Go
-code produced by `protoc-gen-go`, adds compile-time defaults, and ships with a
-reflection-based `defaults.Apply` helper for dynamic callers.
+code produced by `protoc-gen-go` and emits plain Go: no reflection at runtime,
+and no dependency beyond the packages the messages already import.
 
 This project started as a fork of
 [linka-cloud/protoc-gen-defaults](https://github.com/linka-cloud/protoc-gen-defaults)
@@ -23,15 +23,17 @@ archived `lyft/protoc-gen-star`), the build and release pipeline now uses Nix
 
 ## Features
 
-- Annotate `.proto` fields with `(protoc_contrib.defaults.value)` to populate scalars,
+- Annotate `.proto` fields with `(protoc.contrib.defaults.value)` to populate scalars,
   enums, bytes, wrappers, and `google.protobuf.{Duration,Timestamp}` on zero
   values.
-- Pick the active arm of a `oneof` declaratively with `(protoc_contrib.defaults.oneof)`.
-- Skip generation entirely (`(protoc_contrib.defaults.skip)`) or expose an unexported
-  `_Default()` method (`(protoc_contrib.defaults.unexported)`) when you want to compose
+- Pick the active arm of a `oneof` declaratively with `(protoc.contrib.defaults.oneof)`.
+- Skip generation entirely (`(protoc.contrib.defaults.skip)`) or expose an unexported
+  `_SetDefaults()` method (`(protoc.contrib.defaults.unexported)`) when you want to compose
   with custom logic.
-- Runtime `defaults.Apply(proto.Message)` mirrors the generated code via
-  proto reflection for callers that do not have the concrete Go type.
+- Recurse into nested messages with direct `SetDefaults()` calls, resolved at
+  generation time: a missing method is a compile error, not a silent no-op.
+- `defaults.Defaulter` lets callers without the concrete Go type (gRPC
+  interceptors, middleware) apply defaults through a type assertion.
 - Respects proto3 optional presence: explicitly set fields are never
   overwritten.
 
@@ -78,31 +80,38 @@ protoc \
 
 ## Extensions
 
-Import `protoc_contrib/defaults/options.proto` in your `.proto` files to use
-the options. The module is published to the Buf Schema Registry as
-`buf.build/protoc-contrib/protoc-gen-go-defaults`.
+The options live in [protoc-types](https://github.com/protoc-contrib/protoc-types),
+shared with [protoc-gen-rust-defaults](https://github.com/protoc-contrib/protoc-gen-rust-defaults),
+and published to the Buf Schema Registry as
+`buf.build/protoc-contrib/protoc-types`. Add it to your `buf.yaml` and import
+`protoc/contrib/defaults/options.proto` in your `.proto` files:
+
+```yaml
+deps:
+  - buf.build/protoc-contrib/protoc-types
+```
 
 | Extension                              | Scope          | Purpose                                                              |
 | -------------------------------------- | -------------- | -------------------------------------------------------------------- |
-| `(protoc_contrib.defaults.value)`      | FieldOptions   | Default value applied when the field is zero.                        |
-| `(protoc_contrib.defaults.oneof)`      | OneofOptions   | Name of the arm to populate when the oneof is unset.                 |
-| `(protoc_contrib.defaults.skip)`       | MessageOptions | Skip `SetDefaults()` generation for this message entirely.           |
-| `(protoc_contrib.defaults.unexported)` | MessageOptions | Emit an unexported `_SetDefaults()` method instead of `SetDefaults()`. |
+| `(protoc.contrib.defaults.value)`      | FieldOptions   | Default value applied when the field is zero.                        |
+| `(protoc.contrib.defaults.oneof)`      | OneofOptions   | Name of the arm to populate when the oneof is unset.                 |
+| `(protoc.contrib.defaults.skip)`       | MessageOptions | Skip `SetDefaults()` generation for this message entirely.           |
+| `(protoc.contrib.defaults.unexported)` | MessageOptions | Emit an unexported `_SetDefaults()` method instead of `SetDefaults()`. |
 
 ### Scalars and enums
 
 ```proto
-import "protoc_contrib/defaults/options.proto";
+import "protoc/contrib/defaults/options.proto";
 
 message Account {
-  string tier = 1 [(protoc_contrib.defaults.value).string = "free"];
-  int64 max_requests = 2 [(protoc_contrib.defaults.value).int64 = 100];
-  bool active = 3 [(protoc_contrib.defaults.value).bool = true];
-  bytes salt = 4 [(protoc_contrib.defaults.value).bytes = "??"];
+  string tier = 1 [(protoc.contrib.defaults.value).string = "free"];
+  int64 max_requests = 2 [(protoc.contrib.defaults.value).int64 = 100];
+  bool active = 3 [(protoc.contrib.defaults.value).bool = true];
+  bytes salt = 4 [(protoc.contrib.defaults.value).bytes = "??"];
 
   enum Role { UNKNOWN = 0; USER = 1; ADMIN = 2; }
-  Role role = 5 [(protoc_contrib.defaults.value).enum = 1];
-  Role fallback_role = 6 [(protoc_contrib.defaults.value).enum_name = "USER"];
+  Role role = 5 [(protoc.contrib.defaults.value).enum = 1];
+  Role fallback_role = 6 [(protoc.contrib.defaults.value).enum_name = "USER"];
 }
 ```
 
@@ -130,10 +139,10 @@ import "google/protobuf/timestamp.proto";
 import "google/protobuf/wrappers.proto";
 
 message Job {
-  google.protobuf.StringValue name = 1 [(protoc_contrib.defaults.value).string = "anon"];
-  google.protobuf.Duration retry_after = 2 [(protoc_contrib.defaults.value).duration = "30s"];
-  google.protobuf.Timestamp deadline = 3 [(protoc_contrib.defaults.value).timestamp = "now"];
-  google.protobuf.Timestamp epoch = 4 [(protoc_contrib.defaults.value).timestamp = "1970-01-01T00:00:00Z"];
+  google.protobuf.StringValue name = 1 [(protoc.contrib.defaults.value).string = "anon"];
+  google.protobuf.Duration retry_after = 2 [(protoc.contrib.defaults.value).duration = "30s"];
+  google.protobuf.Timestamp deadline = 3 [(protoc.contrib.defaults.value).timestamp = "now"];
+  google.protobuf.Timestamp epoch = 4 [(protoc.contrib.defaults.value).timestamp = "1970-01-01T00:00:00Z"];
 }
 ```
 
@@ -146,27 +155,27 @@ string.
 ```proto
 message Notification {
   oneof channel {
-    option (protoc_contrib.defaults.oneof) = "email";
-    Email email = 1 [(protoc_contrib.defaults.value).message = {initialize: true, recurse: true}];
+    option (protoc.contrib.defaults.oneof) = "email";
+    Email email = 1 [(protoc.contrib.defaults.value).message = {initialize: true, recurse: true}];
     Sms   sms   = 2;
   }
 }
 ```
 
-`(protoc_contrib.defaults.oneof)` selects the arm to populate when no member is set, and
-`(protoc_contrib.defaults.value).message` controls whether the arm is initialized and
+`(protoc.contrib.defaults.oneof)` selects the arm to populate when no member is set, and
+`(protoc.contrib.defaults.value).message` controls whether the arm is initialized and
 whether its own `SetDefaults()` is invoked.
 
 ### Message-level controls
 
 ```proto
 message Legacy {
-  option (protoc_contrib.defaults.skip) = true;       // no SetDefaults() generated at all
+  option (protoc.contrib.defaults.skip) = true;       // no SetDefaults() generated at all
 }
 
 message Composable {
-  option (protoc_contrib.defaults.unexported) = true; // _SetDefaults() generated
-  string tier = 1 [(protoc_contrib.defaults.value).string = "free"];
+  option (protoc.contrib.defaults.unexported) = true; // _SetDefaults() generated
+  string tier = 1 [(protoc.contrib.defaults.value).string = "free"];
 }
 ```
 
@@ -179,24 +188,55 @@ func (x *Composable) SetDefaults() {
 }
 ```
 
-## Reflection-based Apply
+### Recursion
 
-For callers that do not hold a concrete Go type (dynamic proto handlers,
-generic middleware), use `defaults.Apply`:
+`message = {recurse: true}` calls the nested message's `SetDefaults()`
+directly. Whether that call is emitted depends on the target:
+
+- **A message with annotations of its own** has a generated method, so the
+  call is emitted. This also applies to a message in another package, which
+  must be generated with this plugin too.
+- **A `skip` or `unexported` message** is expected to have a hand-written
+  `SetDefaults()`, so the call is emitted. If the method is missing, that's a
+  compile error, not a silent no-op.
+- **A message without annotations, or a foreign type** such as
+  `google.protobuf.DescriptorProto`, has nothing to call. Recursion into it
+  does nothing. `initialize` still creates it.
 
 ```go
-import (
-    "github.com/protoc-contrib/protoc-gen-go-defaults/defaults"
-    "google.golang.org/protobuf/proto"
-)
+// initialize + recurse
+if x.Email == nil {
+    x.Email = &Email{}
+}
+x.Email.SetDefaults()
 
-func Populate(m proto.Message) {
-    defaults.Apply(m)
+// recurse only
+if x.Profile != nil {
+    x.Profile.SetDefaults()
 }
 ```
 
-`Apply` walks the message via `protoreflect` and applies the same defaults
-the generated code would, including oneof selection and nested messages.
+## Applying defaults without the concrete type
+
+Every generated `SetDefaults()`, and every hand-written one on a `skip` or
+`unexported` message, satisfies `defaults.Defaulter`. Code that only holds a
+`proto.Message`, such as a gRPC interceptor, applies defaults with a type
+assertion:
+
+```go
+import "github.com/protoc-contrib/protoc-types/contrib/defaults"
+
+func UnaryDefaults(ctx context.Context, req any, _ *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (any, error) {
+    if d, ok := req.(defaults.Defaulter); ok {
+        d.SetDefaults()
+    }
+    return handler(ctx, req)
+}
+```
+
+Messages without defaults don't implement it, so the assertion fails and
+nothing happens. There is no reflection-based fallback: `dynamicpb` messages
+and other types without a generated method are left untouched.
 
 ## CI Integration
 
@@ -213,6 +253,9 @@ go test ./...
 ```
 
 Or, without Nix, ensure `go`, `protoc`, and `buf` are on your `PATH`.
+
+The test fixtures in `internal/generator/testpb` import the options from
+`buf.build/protoc-contrib/protoc-types`; regenerate them with `buf generate`.
 
 ## License
 

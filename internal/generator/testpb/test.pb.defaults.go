@@ -23,8 +23,8 @@ func (x *Test) SetDefaults() {
 	if x.EnumField == 0 {
 		x.EnumField = 2
 	}
-	if v, ok := interface{}(x.MessageField).(interface{ SetDefaults() }); ok && x.MessageField != nil {
-		v.SetDefaults()
+	if x.MessageField != nil {
+		x.MessageField.SetDefaults()
 	}
 	if x.NumberValueField == nil {
 		x.NumberValueField = &wrapperspb.Int64Value{Value: 43}
@@ -49,23 +49,17 @@ func (x *Test) SetDefaults() {
 		if x.One == nil {
 			x.One = &OneOfOne{}
 		}
-		if v, ok := interface{}(x.One).(interface{ SetDefaults() }); ok && x.One != nil {
-			v.SetDefaults()
-		}
+		x.One.SetDefaults()
 	case *Test_Two:
 		if x.Two == nil {
 			x.Two = &OneOfTwo{}
 		}
-		if v, ok := interface{}(x.Two).(interface{ SetDefaults() }); ok && x.Two != nil {
-			v.SetDefaults()
-		}
+		x.Two.SetDefaults()
 	case *Test_Three:
 		if x.Three == nil {
 			x.Three = &OneOfThree{}
 		}
-		if v, ok := interface{}(x.Three).(interface{ SetDefaults() }); ok && x.Three != nil {
-			v.SetDefaults()
-		}
+		x.Three.SetDefaults()
 	case *Test_Four:
 		if x.Four == 0 {
 			x.Four = 1
@@ -73,9 +67,6 @@ func (x *Test) SetDefaults() {
 	}
 	if x.Descriptor_ == nil {
 		x.Descriptor_ = &descriptorpb.DescriptorProto{}
-	}
-	if v, ok := interface{}(x.Descriptor_).(interface{ SetDefaults() }); ok && x.Descriptor_ != nil {
-		v.SetDefaults()
 	}
 	if x.TimeValueFieldWithDefault == nil {
 		x.TimeValueFieldWithDefault = &timestamppb.Timestamp{Seconds: -562032000, Nanos: 0}

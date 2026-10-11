@@ -3,9 +3,9 @@ package generator_test
 import (
 	"strings"
 
-	"github.com/protoc-contrib/protoc-gen-go-defaults/protoc_contrib/defaults"
 	"github.com/protoc-contrib/protoc-gen-go-defaults/internal/generator"
 	"github.com/protoc-contrib/protoc-gen-go-defaults/internal/generator/testpb"
+	"github.com/protoc-contrib/protoc-types/contrib/defaults"
 	"google.golang.org/protobuf/compiler/protogen"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/reflect/protodesc"
@@ -95,6 +95,36 @@ var _ = Describe("generator.Generate", func() {
 
 		Expect(out).To(ContainSubstring("x.Oneof = &Test_Two{}"))
 		Expect(out).To(ContainSubstring("switch x := x.Oneof.(type)"))
+	})
+
+	It("recurses with direct calls only into messages that have SetDefaults", func() {
+		resp, err := runGenerator(testpb.File_internal_generator_testpb_test_proto)
+		Expect(err).NotTo(HaveOccurred())
+		out := emittedContent(resp)
+
+		Expect(out).NotTo(ContainSubstring("interface{}"))
+		// Annotated target, recurse only: guarded by a nil check.
+		Expect(out).To(ContainSubstring("if x.MessageField != nil {\n\t\tx.MessageField.SetDefaults()"))
+		// (defaults.skip) target, initialized first: called unconditionally.
+		Expect(out).To(ContainSubstring("x.One.SetDefaults()"))
+		// Foreign target without defaults: initialized, never recursed into.
+		Expect(out).To(ContainSubstring("x.Descriptor_ = &descriptorpb.DescriptorProto{}"))
+		Expect(out).NotTo(ContainSubstring("x.Descriptor_.SetDefaults()"))
+	})
+
+	It("does not recurse into a message without defaults", func() {
+		file := cloneFixture(testpb.File_internal_generator_testpb_types_proto)
+		setFieldDefault(file, "Types", "message", &defaults.FieldDefaults{
+			Type: &defaults.FieldDefaults_Message{Message: &defaults.MessageDefaults{Initialize: proto.Bool(true), Recurse: proto.Bool(true)}},
+		})
+		findMessage(file, "Message").Field[0].Options = nil
+		resp, err := runGeneratorFromProto(file, deps(testpb.File_internal_generator_testpb_types_proto)...)
+		Expect(err).NotTo(HaveOccurred())
+		out := emittedContent(resp)
+
+		Expect(out).To(ContainSubstring("x.Message = &Message{}"))
+		Expect(out).NotTo(ContainSubstring("x.Message.SetDefaults()"))
+		Expect(out).NotTo(ContainSubstring("func (x *Message) SetDefaults()"))
 	})
 
 	Describe("error paths", func() {

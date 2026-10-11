@@ -72,23 +72,17 @@ func (x *Types) SetDefaults() {
 		if x.One == nil {
 			x.One = &OneOfOne{}
 		}
-		if v, ok := interface{}(x.One).(interface{ SetDefaults() }); ok && x.One != nil {
-			v.SetDefaults()
-		}
+		x.One.SetDefaults()
 	case *Types_Two:
 		if x.Two == nil {
 			x.Two = &OneOfTwo{}
 		}
-		if v, ok := interface{}(x.Two).(interface{ SetDefaults() }); ok && x.Two != nil {
-			v.SetDefaults()
-		}
+		x.Two.SetDefaults()
 	case *Types_Three:
 		if x.Three == nil {
 			x.Three = &OneOfThree{}
 		}
-		if v, ok := interface{}(x.Three).(interface{ SetDefaults() }); ok && x.Three != nil {
-			v.SetDefaults()
-		}
+		x.Three.SetDefaults()
 	case *Types_Four:
 		if x.Four == 0 {
 			x.Four = 1

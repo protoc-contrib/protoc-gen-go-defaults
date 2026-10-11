@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/protoc-contrib/protoc-gen-go-defaults/protoc_contrib/defaults"
+	"github.com/protoc-contrib/protoc-types/contrib/defaults"
 	"google.golang.org/protobuf/compiler/protogen"
 	"google.golang.org/protobuf/reflect/protoreflect"
 )
@@ -248,18 +248,42 @@ func emitTimestamp(g *protogen.GeneratedFile, field *protogen.Field, raw string)
 	g.P("}")
 }
 
+// emitMessageField emits {initialize, recurse} for a message-typed field.
+// The recursion is a direct SetDefaults() call, emitted only when the target
+// has one to call (see recursesInto); a missing method is a compile error
+// rather than a silently skipped recursion.
 func emitMessageField(g *protogen.GeneratedFile, field *protogen.Field, md *defaults.MessageDefaults, name string) {
-	if md.GetInitialize() {
+	initialize := md.GetInitialize()
+	if initialize {
 		g.P("if x.", name, " == nil {")
 		g.P("x.", name, " = &", field.Message.GoIdent, "{}")
 		g.P("}")
 	}
-	if !md.GetRecurse() {
+	if !md.GetRecurse() || !recursesInto(field.Message) {
 		return
 	}
-	g.P("if v, ok := interface{}(x.", name, ").(interface{ SetDefaults() }); ok && x.", name, " != nil {")
-	g.P("v.SetDefaults()")
+	if initialize {
+		g.P("x.", name, ".SetDefaults()")
+		return
+	}
+	g.P("if x.", name, " != nil {")
+	g.P("x.", name, ".SetDefaults()")
 	g.P("}")
+}
+
+// recursesInto reports whether a recurse into a field of type msg has a
+// SetDefaults() method to call.
+//
+// It does when msg has defaults of its own, so this plugin generates one, and
+// when it is skip or unexported, which say a hand-written one takes the
+// generated one's place. Anything else — a message without defaults, a
+// well-known or foreign type — has nothing to call, and recursing into it is
+// a no-op.
+func recursesInto(msg *protogen.Message) bool {
+	if msg == nil {
+		return false
+	}
+	return messageHasDefaults(msg) || messageSkipped(msg) || messageUnexported(msg)
 }
 
 func scalarGoType(field *protogen.Field) string {

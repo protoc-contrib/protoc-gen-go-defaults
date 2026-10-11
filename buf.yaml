@@ -1,14 +1,8 @@
 version: v2
 
+# The only protos here are the test fixtures in internal/generator/testpb. The
+# options they import live in protoc-types.
 modules:
   - path: .
-    name: buf.build/protoc-contrib/protoc-gen-go-defaults
-    # Remove this `excludes` block when regenerating fixtures in internal/generator/testpb.
-    excludes:
-      - internal/generator/testpb
-    lint:
-      use:
-        - BASIC
-    breaking:
-      use:
-        - FILE
+deps:
+  - buf.build/protoc-contrib/protoc-types

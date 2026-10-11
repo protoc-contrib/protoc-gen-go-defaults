@@ -161,17 +161,6 @@ jobs:
           tag_name: ${{ needs.release.outputs.tag_name }}
           files: release/*
 
-      - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@v22
-
-
-      - name: Push to Buf Schema Registry
-        run: |
-          nix develop --command \
-            buf push --label main --label ${{ needs.release.outputs.tag_name }}
-        env:
-          BUF_TOKEN: ${{ secrets.BUF_TOKEN }}
-
   # Pins the binaries just published in
   # .github/config/nix-release-bin-manifest.json, so the flake installs them
   # instead of building from source. The pull request is opened with the App

@@ -21,7 +21,7 @@
 package testpb
 
 import (
-	_ "github.com/protoc-contrib/protoc-gen-go-defaults/protoc_contrib/defaults"
+	_ "github.com/protoc-contrib/protoc-types/contrib/defaults"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	durationpb "google.golang.org/protobuf/types/known/durationpb"
@@ -661,7 +661,7 @@ var File_internal_generator_testpb_types_proto protoreflect.FileDescriptor
 
 const file_internal_generator_testpb_types_proto_rawDesc = "" +
 	"\n" +
-	"%internal/generator/testpb/types.proto\x12\x05tests\x1a%protoc_contrib/defaults/options.proto\x1a\x1egoogle/protobuf/wrappers.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1egoogle/protobuf/duration.proto\"\xc8\r\n" +
+	"%internal/generator/testpb/types.proto\x12\x05tests\x1a%protoc/contrib/defaults/options.proto\x1a\x1egoogle/protobuf/wrappers.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1egoogle/protobuf/duration.proto\"\xc8\r\n" +
 	"\x05Types\x12\x1f\n" +
 	"\x05float\x18\x01 \x01(\x02B\t\xca\xed\x1a\x05\r=\n" +
 	"\xd7>R\x05float\x12%\n" +

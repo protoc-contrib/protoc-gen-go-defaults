@@ -17,3 +17,12 @@ package testpb
 func (x *TestUnexported) SetDefaults() {
 	x._SetDefaults()
 }
+
+// SetDefaults is the hand-written method of the (defaults.skip) message
+// OneOfOne, which Test and Types recurse into. It fills what the annotation
+// would have with a different value, to show it was the one called.
+func (x *OneOfOne) SetDefaults() {
+	if x.StringField == "" {
+		x.StringField = "hand-written"
+	}
+}
