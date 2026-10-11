@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.0.0](https://github.com/protoc-contrib/protoc-gen-go-defaults/compare/v1.5.2...v2.0.0) (2026-10-11)
+
+
+### ⚠ BREAKING CHANGES
+
+* defaults.Apply and defaults.ApplyAll are removed; use a defaults.Defaulter type assertion. The options are now package protoc.contrib.defaults, imported as "protoc/contrib/defaults/options.proto" from buf.build/protoc-contrib/protoc-types, and the Go package is github.com/protoc-contrib/protoc-types/contrib/defaults.
+
+### Features
+
+* drop reflection and read the options from protoc-types ([#38](https://github.com/protoc-contrib/protoc-gen-go-defaults/issues/38)) ([077b4ab](https://github.com/protoc-contrib/protoc-gen-go-defaults/commit/077b4abca965a2231920917b5f09987bf95da047))
+
 ## [1.5.2](https://github.com/protoc-contrib/protoc-gen-go-defaults/compare/v1.5.1...v1.5.2) (2026-05-04)
 
 
