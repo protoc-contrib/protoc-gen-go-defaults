@@ -6,3 +6,15 @@ coverage.out
 
 # `go build ./cmd/protoc-gen-go-defaults` output
 /protoc-gen-go-defaults
+
+# env file
+.env
+
+# direnv
+.direnv/
+.env.local
+.envrc.local
+
+# Local nix build result symlinks (point into /nix/store).
+.nix
+.nix-*-link
