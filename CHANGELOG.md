@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.0](https://github.com/protoc-contrib/protoc-gen-go-defaults/compare/v1.7.0...v1.8.0) (2026-11-07)
+
+
+### Features
+
+* **ci:** push the Nix build to Cachix, and merge with the App token ([#56](https://github.com/protoc-contrib/protoc-gen-go-defaults/issues/56)) ([157892e](https://github.com/protoc-contrib/protoc-gen-go-defaults/commit/157892e65a7c84d5a1a2d69353d05cd01e1d7704))
+
 ## [1.7.0](https://github.com/protoc-contrib/protoc-gen-go-defaults/compare/v1.6.0...v1.7.0) (2026-10-11)
 
 
